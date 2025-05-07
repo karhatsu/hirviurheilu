@@ -295,6 +295,7 @@ const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, 
 
   const ageGroupLabel = t(race.sport.shooting ? 'ageGroupShooting' : 'ageGroup')
   const clubLabel = resolveClubTitle(t, race.clubLevel)
+  const clubPromptLabel = t(editing ? 'addNewClub' : 'selectClubOrAddNew', { clubLabel: clubLabel.toLowerCase() })
   return (
     <form className="form" onSubmit={onSubmit} ref={formRef}>
       <FormErrors errors={errors} />
@@ -329,7 +330,7 @@ const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, 
               id="clubId"
               items={race.clubs}
               onChange={onChange('clubId')}
-              promptLabel={t('selectClubOrAddNew', { clubLabel: clubLabel.toLowerCase() })}
+              promptLabel={clubPromptLabel}
               promptValue=""
               value={data.clubId || ''}
             />

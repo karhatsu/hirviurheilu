@@ -2,6 +2,7 @@ window.officialTranslations = {
   add: 'Lisää',
   addCompetitorsFromCsvFile: 'Lisää kilpailijoita CSV-tiedostosta',
   addManyOfficials: 'Lisää monta toimitsijaa',
+  addNewClub: 'Lisää uusi {{clubLabel}}',
   addOfficial: 'Lisää toimitsija',
   ageGroup: 'Ikäryhmä',
   ageGroupShooting: 'Aliryhmä',

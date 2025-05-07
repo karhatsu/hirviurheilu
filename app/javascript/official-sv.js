@@ -1,6 +1,7 @@
 window.officialTranslations = {
   add: 'Lägg till',
   addCompetitorsFromCsvFile: 'Lägg till tävlande från CSV-fil',
+  addNewClub: 'Lägg till ny {{clubLabel}}',
   addManyOfficials: 'Lägg till många funktionärer',
   addOfficial: 'Lägg till funktionär',
   ageGroup: 'Åldersgrupp',

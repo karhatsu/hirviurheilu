@@ -42,7 +42,7 @@ Feature: Manage competitors
     When I fill in "Peter" for "Etunimi"
     And I fill in "Ford" for "Sukunimi"
     And I select "Series B" from "Sarja"
-    And I select "Valitse seura tai lisää uusi" from "Seura"
+    And I select "Lisää uusi seura" from "Seura"
     And I fill in "New club" for "club_name"
     And I press "Tallenna"
     Then I should see "Ford Peter"
