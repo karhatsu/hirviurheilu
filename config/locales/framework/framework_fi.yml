@@ -109,9 +109,9 @@ fi:
     format: "%{attribute} %{message}"
     messages:
       accepted: täytyy olla hyväksytty
-      blank: ei voi olla tyhjä
+      blank: on pakollinen
       confirmation: ei vastaa varmennusta
-      empty: ei voi olla tyhjä
+      empty: on pakollinen
       equal_to: täytyy olla yhtä suuri kuin %{count}
       even: täytyy olla parillinen
       exclusion: on varattu
