@@ -415,7 +415,22 @@ describe Competitor do
 
     describe 'nordic results' do
       describe 'trap_shots' do
-        it_should_behave_like 'shotgun shots', :nordic_trap_shots
+        context 'until 2025' do
+          it_should_behave_like 'shotgun shots', :nordic_trap_shots
+        end
+
+        context 'since 2025' do
+          let(:race) { build :race, start_date: '2025-01-01' }
+          let(:series) { build :series, race: race }
+          let(:competitor) { build :competitor, series: series }
+
+          it 'should accept 0, 2, and 4 as values' do
+            competitor.nordic_trap_shots = [0, 2, 4]
+            expect(competitor).to be_valid
+            competitor.nordic_trap_shots = %w(0, 1)
+            expect(competitor).to have(1).errors_on(:nordic_trap_shots)
+          end
+        end
 
         it 'can be saved together with blank score input' do
           competitor = build :competitor, nordic_trap_shots: %w(1, 0, 1, 1), nordic_trap_score_input: ''
@@ -424,8 +439,26 @@ describe Competitor do
       end
 
       describe 'trap_score_input' do
-        it_should_behave_like 'non-negative integer', :nordic_trap_score_input, true, max_value: 25
+        it_should_behave_like 'non-negative integer', :nordic_trap_score_input, true
         it_should_behave_like 'only single score method', :nordic_trap_score_input, :nordic_trap_shots
+
+        context 'until 2025' do
+          it { should allow_value(25).for(:nordic_trap_score_input) }
+          it { should_not allow_value(26).for(:nordic_trap_score_input) }
+        end
+
+        context 'since 2025' do
+          let(:race) { build :race, start_date: '2025-01-01' }
+          let(:series) { build :series, race: race }
+          let(:competitor) { build :competitor, series: series }
+
+          it 'should allow 100 as max value' do
+            competitor.nordic_trap_score_input = 100
+            expect(competitor).to be_valid
+            competitor.nordic_trap_score_input = 101
+            expect(competitor).to have(1).errors_on(:nordic_trap_score_input)
+          end
+        end
       end
 
       describe 'trap_extra_shots' do

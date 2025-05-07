@@ -228,7 +228,7 @@ textarea {
   }
 }
 
-.binary-shot {
+.clickable-shot {
   display: flex;
   flex-direction: row;
   margin: 2px 4px 2px 0;
@@ -247,7 +247,12 @@ textarea {
       color: #ff0000;
     }
 
-    &--1 {
+    &--2 {
+      background-color: #ffff00;
+      color: #ffff00;
+    }
+
+    &--1, &--4 {
       background-color: #00ff00;
       color: #00ff00;
     }

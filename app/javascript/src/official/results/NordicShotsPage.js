@@ -9,7 +9,7 @@ import Message from "../../common/Message"
 import useOfficialRaceCompetitors from "./useOfficialRaceCompetitors"
 import NordicShotsForm from "./NordicShotsForm"
 import useTitle from "../../util/useTitle"
-import { capitalize } from "./resultUtil"
+import { capitalize, nordicConfig } from "./resultUtil"
 import { findSeriesById } from "../../util/seriesUtil"
 
 const NordicShotsPage = ({ subSport }) => {
@@ -42,16 +42,7 @@ const NordicShotsPage = ({ subSport }) => {
     })
   }, [allCompetitors, seriesId, heatId])
 
-  const config = useMemo(() => ({
-    fieldNames: {
-      scoreInput: capitalize(`nordic_${subSport}ScoreInput`),
-      shots: capitalize(`nordic_${subSport}Shots`),
-      extraShots: capitalize(`nordic_${subSport}ExtraShots`),
-    },
-    shotCount: ['trap', 'shotgun'].includes(subSport) ? 25 : 10,
-    shotsPerExtraRound: ['trap', 'shotgun'].includes(subSport) ? 1 : 2,
-    bestShotValue: ['trap', 'shotgun'].includes(subSport) ? 1 : 10,
-  }), [subSport])
+  const config = useMemo(() => race && nordicConfig(subSport, race), [subSport, race])
 
   if (!race || !competitors) return <IncompletePage title={t(titleKey)} error={error} fetching={fetching}/>
 

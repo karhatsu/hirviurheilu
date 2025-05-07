@@ -311,6 +311,12 @@ fi:
             nordic_rifle_standing_shots:
               too_many: Liian monta laukausta
               invalid_value: sisältää virheellisen numeron
+            nordic_shotgun_shots:
+              too_many: Liian monta laukausta
+              invalid_value: sisältää virheellisen numeron
+            nordic_trap_shots:
+              too_many: Liian monta laukausta
+              invalid_value: sisältää virheellisen numeron
             european_rifle1_shots:
               too_many: Liian monta laukausta
               invalid_value: sisältää virheellisen numeron

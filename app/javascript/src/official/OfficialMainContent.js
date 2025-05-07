@@ -41,8 +41,8 @@ const OfficialMainContent = () => {
           <Route path="megalink_imports" element={<MegalinkImportPage />} />
           <Route path="nordic_shotgun" element={<NordicShotsPage subSport="shotgun" />} />
           <Route path="nordic_trap" element={<NordicShotsPage subSport="trap" />} />
-          <Route path="nordic_rifle_moving" element={<NordicShotsPage subSport="rifle_moving" />} />
-          <Route path="nordic_rifle_standing" element={<NordicShotsPage subSport="rifle_standing" />} />
+          <Route path="nordic_rifle_moving" element={<NordicShotsPage subSport="rifleMoving" />} />
+          <Route path="nordic_rifle_standing" element={<NordicShotsPage subSport="rifleStanding" />} />
           <Route path="race_rights" element={<OfficialsPage />} />
           <Route path="series/:seriesId" element={null}>
             <Route path="competitors" element={null}>

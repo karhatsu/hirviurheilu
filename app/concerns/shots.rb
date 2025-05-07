@@ -74,7 +74,8 @@ module Shots
 
   def nordic_score
     return nil unless nordic_trap_score || nordic_shotgun_score || nordic_rifle_moving_score || nordic_rifle_standing_score
-    4 * (nordic_trap_score.to_i + nordic_shotgun_score.to_i) + nordic_rifle_moving_score.to_i + nordic_rifle_standing_score.to_i
+    trap_score = race&.start_date&.year.to_i >= 2025 ? nordic_trap_score.to_i : 4 * nordic_trap_score.to_i
+    trap_score + 4 * nordic_shotgun_score.to_i + nordic_rifle_moving_score.to_i + nordic_rifle_standing_score.to_i
   end
 
   def european_trap_score

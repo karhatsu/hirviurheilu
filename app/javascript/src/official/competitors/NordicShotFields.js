@@ -2,56 +2,47 @@ import { useMemo } from "react"
 import FormField from "../../common/form/FormField"
 import ScoreInputField from "../results/ScoreInputField"
 import ShotFields from "../results/ShotFields"
-import { shotCount as countShots } from "../results/resultUtil"
+import { nordicConfig, shotCount as countShots } from "../results/resultUtil"
 
-const SubSportFields = props => {
-  const {
-    data,
-    scoreInputField,
-    shotsField,
-    extraShotsField,
-    bestShotValue,
-    shotCount,
-    shotsPerExtraRound,
-    onChange,
-    onChangeShot,
-  } = props
+const SubSportFields = ({ data, onChange, onChangeShot, race, subSport }) => {
+  const { fieldNames, shotCount, shotsPerExtraRound, bestShotValue, bestExtraShotValue } = nordicConfig(subSport, race)
+  const { scoreInput, shots, extraShots } = fieldNames
 
   const extraRoundShotCount = useMemo(() => {
-    if (data[scoreInputField] || countShots(data[shotsField]) === shotCount) {
-      const currentCount = (data[extraShotsField] || []).length
+    if (data[scoreInput] || countShots(data[shots]) === shotCount) {
+      const currentCount = (data[extraShots] || []).length
       return currentCount + shotsPerExtraRound - currentCount % shotsPerExtraRound
     }
     return 0
-  }, [data, scoreInputField, shotsField, extraShotsField, shotCount, shotsPerExtraRound])
+  }, [data, scoreInput, shots, extraShots, shotCount, shotsPerExtraRound])
 
   return (
     <>
-      <FormField id={scoreInputField} size="sm">
+      <FormField id={scoreInput} size="sm">
         <ScoreInputField
           data={data}
-          field={scoreInputField}
+          field={scoreInput}
           maxScoreInput={shotCount * bestShotValue}
           onChange={onChange}
         />
       </FormField>
-      <FormField id={shotsField}>
+      <FormField id={shots}>
         <ShotFields
           data={data}
-          shotsField={shotsField}
+          shotsField={shots}
           onChangeShot={onChangeShot}
           shotCounts={[shotCount]}
           bestShotValue={bestShotValue}
         />
       </FormField>
       {extraRoundShotCount > 0 && (
-        <FormField id={extraShotsField}>
+        <FormField id={extraShots}>
           <ShotFields
             data={data}
-            shotsField={extraShotsField}
+            shotsField={extraShots}
             onChangeShot={onChangeShot}
             shotCounts={[extraRoundShotCount]}
-            bestShotValue={bestShotValue}
+            bestShotValue={bestExtraShotValue}
           />
         </FormField>
       )}
@@ -59,55 +50,17 @@ const SubSportFields = props => {
   )
 }
 
-const NordicShotFields = ({ data, onChange, onChangeShot }) => {
-  return (
-    <>
-      <SubSportFields
-        data={data}
-        scoreInputField="nordicTrapScoreInput"
-        shotsField="nordicTrapShots"
-        extraShotsField="nordicTrapExtraShots"
-        bestShotValue={1}
-        shotCount={25}
-        shotsPerExtraRound={1}
-        onChange={onChange}
-        onChangeShot={onChangeShot}
-      />
-      <SubSportFields
-        data={data}
-        scoreInputField="nordicShotgunScoreInput"
-        shotsField="nordicShotgunShots"
-        extraShotsField="nordicShotgunExtraShots"
-        bestShotValue={1}
-        shotCount={25}
-        shotsPerExtraRound={1}
-        onChange={onChange}
-        onChangeShot={onChangeShot}
-      />
-      <SubSportFields
-        data={data}
-        scoreInputField="nordicRifleMovingScoreInput"
-        shotsField="nordicRifleMovingShots"
-        extraShotsField="nordicRifleMovingExtraShots"
-        bestShotValue={10}
-        shotCount={10}
-        shotsPerExtraRound={2}
-        onChange={onChange}
-        onChangeShot={onChangeShot}
-      />
-      <SubSportFields
-        data={data}
-        scoreInputField="nordicRifleStandingScoreInput"
-        shotsField="nordicRifleStandingShots"
-        extraShotsField="nordicRifleStandingExtraShots"
-        bestShotValue={10}
-        shotCount={10}
-        shotsPerExtraRound={2}
-        onChange={onChange}
-        onChangeShot={onChangeShot}
-      />
-    </>
-  )
+const NordicShotFields = ({ data, onChange, onChangeShot, race }) => {
+  return ['trap', 'shotgun', 'rifleMoving', 'rifleStanding'].map(subSport => (
+    <SubSportFields
+      key={subSport}
+      data={data}
+      onChange={onChange}
+      onChangeShot={onChangeShot}
+      race={race}
+      subSport={subSport}
+    />
+  ))
 }
 
 export default NordicShotFields

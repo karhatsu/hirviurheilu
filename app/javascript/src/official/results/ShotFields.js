@@ -2,9 +2,9 @@ import Button from "../../common/Button"
 import useTranslation from "../../util/useTranslation"
 import { useCallback } from "react"
 
-const BinaryShotField = ({ fieldValue, index, value, onClick }) => {
-  const classes = ['binary-shot__option', `binary-shot__option--${fieldValue}`]
-  if (fieldValue === value) classes.push('binary-shot__option--selected')
+const ClickableShotOption = ({ fieldValue, index, value, onClick }) => {
+  const classes = ['clickable-shot__option', `clickable-shot__option--${fieldValue}`]
+  if (fieldValue === value) classes.push('clickable-shot__option--selected')
   const newValue = value === fieldValue ? '' : fieldValue
   const handleClick = () => onClick({ target: { value: newValue } })
   return <div className={classes.join(' ')} onClick={handleClick}>{index + 1}</div>
@@ -42,9 +42,9 @@ const ShotFields = props => {
           return (
             <div className={classes.join(' ')} key={j}>
               {bestShotValue === 1 && (
-                <div className="binary-shot">
+                <div className="clickable-shot">
                   {[0, 1].map(fieldValue => (
-                    <BinaryShotField
+                    <ClickableShotOption
                       key={fieldValue}
                       fieldValue={fieldValue}
                       index={j}
@@ -54,7 +54,20 @@ const ShotFields = props => {
                   ))}
                 </div>
               )}
-              {bestShotValue !== 1 && (
+              {bestShotValue === 4 && (
+                <div className="clickable-shot">
+                  {[0, 2, 4].map(fieldValue => (
+                    <ClickableShotOption
+                      key={fieldValue}
+                      fieldValue={fieldValue}
+                      index={j}
+                      value={value}
+                      onClick={onChangeShot(shotsField, counter)}
+                    />
+                  ))}
+                </div>
+              )}
+              {bestShotValue !== 1 && bestShotValue !== 4 && (
                 <input
                   id={`${idPrefix}-${counter}`}
                   type="number"
@@ -69,7 +82,7 @@ const ShotFields = props => {
           )
         })
       })}
-      {bestShotValue === 1 && !shotsField.match(/extraShots/i) && (
+      {(bestShotValue === 1 || bestShotValue === 4) && !shotsField.match(/extraShots/i) && (
         <Button type="select-all-shots" onClick={selectAll}>{t('selectAll')}</Button>
       )}
     </div>

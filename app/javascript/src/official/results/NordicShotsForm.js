@@ -10,7 +10,7 @@ import ScoreInputField from "./ScoreInputField"
 
 const NordicShotsForm = ({ competitor: initialCompetitor, subSport, config, series, withTrackPlace }) => {
   const { t } = useTranslation()
-  const { fieldNames, shotCount, shotsPerExtraRound, bestShotValue } = config
+  const { fieldNames, shotCount, shotsPerExtraRound, bestShotValue, bestExtraShotValue } = config
   const { raceId } = useParams()
 
   const fields = useMemo(() => {
@@ -104,7 +104,7 @@ const NordicShotsForm = ({ competitor: initialCompetitor, subSport, config, seri
                 shotsField={fieldNames.extraShots}
                 onChangeShot={onChangeShot}
                 shotCounts={[extraRoundShotCount]}
-                bestShotValue={bestShotValue}
+                bestShotValue={bestExtraShotValue}
               />
             </div>
           </>
