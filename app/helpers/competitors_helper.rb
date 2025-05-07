@@ -11,12 +11,6 @@ module CompetitorsHelper
         competitor.club = Club.create!(:race => competitor.series.race, :name => new_name)
       end
     end
-    # Cucumber hack
-    if Rails.env.test?
-      if competitor.club.nil? && competitor.club_id.nil? && params[:club]
-        competitor.club_id = params[:club]
-      end
-    end
     unless competitor.club_id
       # have to do this here instead of the competitor model since cannot have
       # the presence validation for club due to the nested forms usage
