@@ -13,7 +13,7 @@ const initData = (fields, competitor) => {
     } else if (checkbox) {
       acc[key] = currentValue || false
     } else {
-      acc[key] = currentValue || ''
+      acc[key] = currentValue ?? ''
     }
     return acc
   }, {})

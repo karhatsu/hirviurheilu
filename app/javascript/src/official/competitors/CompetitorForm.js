@@ -359,7 +359,7 @@ const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, 
       )}
       {(race.sport.shooting || series.hasStartList) && (
         <FormField id="number" size="sm">
-          <input id="number" type="number" min={0} value={data.number || ''} onChange={onChange('number')} />
+          <input id="number" type="number" min={0} value={data.number ?? ''} onChange={onChange('number')} />
         </FormField>
       )}
       {!race.sport.shooting && series.hasStartList && (
