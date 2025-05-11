@@ -227,7 +227,7 @@ const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, 
     [race, onSave],
   )
 
-  const { data, errors, onChange, onChangeShot, onSubmit, saving } = useCompetitorSaving(
+  const { changeValue, data, errors, onChange, onChangeShot, onSubmit, saving } = useCompetitorSaving(
     race.id,
     initialCompetitor,
     fieldsRef.current,
@@ -238,9 +238,10 @@ const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, 
   const handleSeriesChange = useCallback(
     (event) => {
       onChange('seriesId')(event)
+      changeValue('ageGroupId', '')
       onSeriesChange(parseInt(event.target.value))
     },
-    [onChange, onSeriesChange],
+    [onChange, onSeriesChange, changeValue],
   )
 
   const series = useMemo(() => findSeriesById(availableSeries, data.seriesId), [availableSeries, data.seriesId])
