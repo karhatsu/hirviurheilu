@@ -24,8 +24,8 @@ class Series < ApplicationRecord
   START_LIST_RANDOM = 1
 
   belongs_to :race, :counter_cache => true
-  has_many :age_groups, -> { order(:name) }, :dependent => :destroy
   has_many :competitors, -> { order(:number, :id) }, :dependent => :destroy
+  has_many :age_groups, -> { order(:name) }, :dependent => :destroy
   has_many :start_list, -> { where('start_time is not null').order(:start_time, :number) }, :class_name => "Competitor", :foreign_key => 'series_id'
 
   accepts_nested_attributes_for :age_groups, :allow_destroy => true

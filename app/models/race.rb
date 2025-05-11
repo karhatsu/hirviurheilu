@@ -28,7 +28,7 @@ class Race < ApplicationRecord
   has_many :age_groups, :through => :series
   has_many :competitors, -> { order(:last_name, :first_name) }, :through => :series
   has_many :clubs, :dependent => :destroy
-  has_many :correct_estimates, -> { order :min_number }
+  has_many :correct_estimates, -> { order :min_number }, dependent: :destroy
   has_many :relays, -> { order(:name) }, :dependent => :destroy
   has_many :team_competitions, -> { order :name }, :dependent => :destroy
   has_many :race_rights

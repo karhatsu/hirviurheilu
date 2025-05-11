@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_11_132900) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_11_134850) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -361,8 +361,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_11_132900) do
     t.index ["email"], name: "index_users_on_email"
   end
 
+  add_foreign_key "age_groups", "series"
+  add_foreign_key "clubs", "races"
   add_foreign_key "competitors", "age_groups"
+  add_foreign_key "competitors", "clubs"
+  add_foreign_key "competitors", "series"
+  add_foreign_key "correct_estimates", "races"
+  add_foreign_key "cup_officials", "cups"
+  add_foreign_key "cup_officials", "users"
+  add_foreign_key "cup_series", "cups"
   add_foreign_key "cup_team_competitions", "cups"
+  add_foreign_key "cups_races", "cups"
+  add_foreign_key "cups_races", "races"
   add_foreign_key "heats", "races"
   add_foreign_key "races", "events"
+  add_foreign_key "relay_competitors", "relay_teams"
+  add_foreign_key "relay_correct_estimates", "relays"
+  add_foreign_key "relay_teams", "relays"
+  add_foreign_key "relays", "races"
+  add_foreign_key "series", "races"
+  add_foreign_key "team_competitions", "races"
 end
