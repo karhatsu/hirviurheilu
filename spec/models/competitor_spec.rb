@@ -20,6 +20,19 @@ describe Competitor do
     it_should_behave_like 'non-negative integer', :shooting_rules_penalty, true
     it_should_behave_like 'non-negative integer', :shooting_rules_penalty_qr, true
 
+    describe 'age group' do
+      it 'when chosen it must belong to the same series' do
+        series = create :series
+        age_group_ok = create :age_group, series: series
+        age_group_wrong = create :age_group
+        competitor = build :competitor, age_group_id: age_group_wrong.id, series: series
+        expect(competitor).not_to be_valid
+        expect(competitor).to have(1).errors_on(:age_group_id)
+        competitor.age_group_id = age_group_ok.id
+        expect(competitor).to be_valid
+      end
+    end
+
     describe "number" do
       it_should_behave_like 'non-negative integer', :number, true
       it { is_expected.to allow_value(nil).for(:number) }
@@ -753,18 +766,6 @@ describe Competitor do
           competitor1.save!
           expect(series1.reload.competitors_count).to eq(0)
           expect(series2.reload.competitors_count).to eq(2)
-        end
-
-        it 'reset age group when new series has no age groups' do
-          race = create :race
-          series1 = create :series, race: race
-          series2 = create :series, race: race
-          age_group = create :age_group, series: series2
-          competitor = create :competitor, series: series2, age_group: age_group
-          expect(competitor.age_group_id).to eq(age_group.id)
-          competitor.series_id = series1.id
-          competitor.save!
-          expect(competitor.age_group_id).to be_nil
         end
       end
 

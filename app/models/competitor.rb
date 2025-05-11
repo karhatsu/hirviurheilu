@@ -65,6 +65,7 @@ class Competitor < ApplicationRecord
   validates :european_compak_score_input2, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_blank: true }
   validates :european_shotgun_extra_score, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_blank: true }
   validates :european_extra_score, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_blank: true }
+  validate :age_group_series
   validate :start_time_max
   validate :times_in_correct_order
   validate :only_one_shot_input_method_used
@@ -94,7 +95,7 @@ class Competitor < ApplicationRecord
   validate :concurrent_changes, :on => :update
   validate :track_place_fitting
 
-  before_save :set_has_result, :reset_age_group, :set_shooting_overtime_min, :convert_string_shots,
+  before_save :set_has_result, :set_shooting_overtime_min, :convert_string_shots,
               :convert_string_extra_shots, :convert_nordic_results, :convert_european_results
 
   after_create :set_correct_estimates
@@ -423,6 +424,11 @@ class Competitor < ApplicationRecord
 
   private
 
+  def age_group_series
+    return unless age_group_id
+    errors.add :age_group_id, :wrong_series if age_group.series_id != series_id
+  end
+
   def start_time_max
     errors.add :start_time, :too_big if start_time && start_time > MAX_START_TIME
   end
@@ -649,10 +655,6 @@ class Competitor < ApplicationRecord
     self.has_result = true if arrival_time || estimate1 || shooting_score_input ||
         qualification_round_shooting_score_input || final_round_shooting_score_input || shots ||
         nordic_score || european_score
-  end
-
-  def reset_age_group
-    self.age_group_id = nil if series.age_groups.empty?
   end
 
   def set_shooting_overtime_min

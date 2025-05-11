@@ -21,7 +21,7 @@
       }
       if(age_groups.length > 0) {
         $.each(age_groups, function(i, age_group) {
-          $age_group_menu.append('<option value="' + age_group[0] + '">' + age_group[1] + '</option>');
+          $age_group_menu.append('<option value="' + (age_group[0] || '') + '">' + age_group[1] + '</option>');
         });
         $age_group_menu.show();
       }

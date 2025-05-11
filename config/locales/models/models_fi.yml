@@ -282,6 +282,8 @@ fi:
             base:
               shooting_result_either_sum_or_by_shots: Ammuntatulokset voi syöttää vain summana tai yksittäisinä laukauksina
               another_competitor_with_same_name_in_series: Tässä sarjassa on jo saman niminen kilpailija
+            age_group_id:
+              wrong_series: ei kuulu samaan sarjaan kuin kilpailijan oma sarja
             shooting_start_time:
               cannot_have_without_start_time: saa olla syötetty vasta, kun kilpailijan lähtöaika on syötetty
               must_be_after_start_time: pitää olla lähtöajan jälkeen
