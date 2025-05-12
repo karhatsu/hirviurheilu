@@ -193,11 +193,11 @@ When('I select the current year from {string}') do |field|
   select(Date.today.year, :from => field)
 end
 
-Then /^the page should not contain the remove race button$/ do
+Then /^the page should not contain the delete race button$/ do
   page.should have_no_button('Poista kilpailu')
 end
 
-Then /^the race should be completely removed from the database$/ do
+Then /^the race should be completely deleted from the database$/ do
 #  Race.exists?(@race.id).should be_false
   Series.exists?(@series.id).should be_falsey
   AgeGroup.exists?(@age_group.id).should be_falsey
