@@ -29,7 +29,11 @@ class Admin::RacesController < Admin::AdminController
         flash[:success] = 'Kilpailu poistettu'
         redirect_to admin_races_path
       rescue => e
-        flash[:error] = e.record.errors.full_messages.join('. ')
+        if e.respond_to? :record
+          flash[:error] = e.record.errors.full_messages.join('. ')
+        else
+          flash[:error] = e.to_s
+        end
         render :show
       end
     else
