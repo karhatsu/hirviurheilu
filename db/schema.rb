@@ -10,16 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_12_124029) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_12_132035) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
-
-  create_table "activation_keys", id: :serial, force: :cascade do |t|
-    t.string "comment", limit: 255, null: false
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-  end
 
   create_table "age_groups", id: :serial, force: :cascade do |t|
     t.integer "series_id", null: false
