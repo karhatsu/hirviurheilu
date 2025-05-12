@@ -5,7 +5,7 @@ class User < ApplicationRecord
   end
 
   has_and_belongs_to_many :roles, :join_table => :rights
-  has_many :race_rights
+  has_many :race_rights, dependent: :destroy
   has_many :races, -> { order 'start_date DESC' }, through: :race_rights
   has_and_belongs_to_many :cups, :join_table => :cup_officials
 
