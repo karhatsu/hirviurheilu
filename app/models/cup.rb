@@ -1,13 +1,15 @@
 class Cup < ApplicationRecord
   has_and_belongs_to_many :races, -> { order :start_date, :name }
-  has_many :cup_series, -> { order :name }
-  has_many :cup_team_competitions, -> { order :name }
+  has_many :cup_series, -> { order :name }, dependent: :destroy
+  has_many :cup_team_competitions, -> { order :name }, dependent: :destroy
 
   validates :name, :presence => true
   validates :top_competitions, :numericality => { :greater_than_or_equal_to => 1, :only_integer => true }
 
   accepts_nested_attributes_for :cup_series, :allow_destroy => true
   accepts_nested_attributes_for :cup_team_competitions, :allow_destroy => true
+
+  before_destroy :destroy_cup_officials
 
   def start_date
     races.first.start_date if has_races?
@@ -49,5 +51,9 @@ class Cup < ApplicationRecord
   private
   def has_races?
     races.length > 0
+  end
+
+  def destroy_cup_officials
+    ActiveRecord::Base.connection.execute "DELETE FROM cup_officials WHERE cup_id = #{id}"
   end
 end
