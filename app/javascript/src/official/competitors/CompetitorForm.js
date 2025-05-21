@@ -15,6 +15,7 @@ import ThreeSportResultFields from './ThreeSportResultFields'
 import ShootingRaceShotFields from './ShootingRaceShotFields'
 import NordicShotFields from './NordicShotFields'
 import EuropeanShotFields from './EuropeanShotFields'
+import { competitorsOnlyToAgeGroups } from '../results/resultUtil'
 
 const teamNameHelpDialogId = 'team_name_help_dialog'
 
@@ -166,8 +167,6 @@ const resolveFields = (sport, editing) => {
   }
   return threeSportEditFields
 }
-
-const competitorsOnlyToAgeGroups = (series) => series.name.match(/^S\d\d?$/)
 
 const isTodayOrAfter = (startDate) => isToday(new Date(startDate)) || isAfter(new Date(), new Date(startDate))
 

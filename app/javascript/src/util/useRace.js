@@ -39,6 +39,6 @@ export const RaceProvider = ({ children }) => {
 
   useDataReloading('RaceChannel', 'race_id', raceId, fetchRaceRef)
 
-  const value = { fetching: !error && !race, race, error, reload }
+  const value = { fetching: !error && !race, race, error, reload, setRace }
   return <RaceContext value={value}>{children}</RaceContext>
 }

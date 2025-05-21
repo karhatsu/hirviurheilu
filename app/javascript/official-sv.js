@@ -1,6 +1,8 @@
 window.officialTranslations = {
   add: 'Lägg till',
   addCompetitorsFromCsvFile: 'Lägg till tävlande från CSV-fil',
+  added: 'Tillagt',
+  addNew: 'Lägg till',
   addNewClub: 'Lägg till ny {{clubLabel}}',
   addManyOfficials: 'Lägg till många funktionärer',
   addOfficial: 'Lägg till funktionär',
@@ -149,6 +151,7 @@ window.officialTranslations = {
   noCompetitorsInRace: 'Du har sparat inga tävlande för tävlingen.',
   noCompetitorsInSeries: 'Du har sparat inga tävlande för den här klassen.',
   noHeats: 'Det finns inga heat',
+  noStartListForAnySeries: 'Ingen klass har startlist ännu',
   noStartListForSeries:
     'Den här klassen har inte ännu startlista. Du kan spara resultat efter startlistan har skapats.',
   number: 'Nummer',

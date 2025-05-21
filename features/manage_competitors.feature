@@ -121,7 +121,6 @@ Feature: Manage competitors
     And I am on the official race page of "Test race"
     When I choose "Lähtöajat" from sub menu
     And I update the first competitor values to "M60"/"M70", "Tim", "Smith", "New club", "00:10:30", 567 in start list page
-    And I press "Tallenna"
     Then I should see "Tallennettu"
     When I go to the official competitors page of series "M60"
     Then I should see "Smith Tim"

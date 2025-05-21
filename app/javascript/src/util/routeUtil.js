@@ -105,7 +105,7 @@ export const buildOfficialRaceCompetitorsPath = (raceId, seriesId) =>
 export const buildOfficialCompetitorEditPath = (raceId, seriesId, competitorId) =>
   withLocale(`/official/races/${raceId}/series/${seriesId}/competitors/${competitorId}/edit`)
 
-export const buildOfficialRaceStartListPath = (seriesId) => withLocale(`/official/races/${seriesId}/start_list`)
+export const buildOfficialRaceStartListPath = (raceId) => withLocale(`/official/races/${raceId}/start_list`)
 
 export const buildOfficialRaceQualificationRoundHeatListPath = (seriesId) =>
   withLocale(`/official/series/${seriesId}/qualification_round_heat_list`)

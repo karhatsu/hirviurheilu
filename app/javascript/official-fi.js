@@ -1,7 +1,9 @@
 window.officialTranslations = {
   add: 'Lisää',
   addCompetitorsFromCsvFile: 'Lisää kilpailijoita CSV-tiedostosta',
+  added: 'Lisätty',
   addManyOfficials: 'Lisää monta toimitsijaa',
+  addNew: 'Lisää uusi',
   addNewClub: 'Lisää uusi {{clubLabel}}',
   addOfficial: 'Lisää toimitsija',
   ageGroup: 'Ikäryhmä',
@@ -147,6 +149,7 @@ window.officialTranslations = {
   noCompetitorsInRace: 'Et ole syöttänyt kilpailuun vielä yhtään kilpailijaa.',
   noCompetitorsInSeries: 'Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa.',
   noHeats: 'Yhtään erää ei ole vielä määritetty',
+  noStartListForAnySeries: 'Yhdellekään sarjalle ei ole luotu vielä lähtölistaa',
   noStartListForSeries:
     'Tähän sarjaan ei ole luotu vielä lähtölistaa. Tulokset voi syöttää vasta sitten kun lähtölista on luotu.',
   number: 'Numero',

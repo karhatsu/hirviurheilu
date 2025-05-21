@@ -15,14 +15,3 @@ function remove_fields(link, hide_class, removal_question) {
       .hide()
   }
 }
-
-function updateInlineMessage(locator, type, text) {
-  $(locator)
-    .removeClass()
-    .addClass('message message--inline message--' + type)
-    .text(text)
-}
-
-function resetInlineMessage(locator) {
-  $(locator).removeClass().text('')
-}

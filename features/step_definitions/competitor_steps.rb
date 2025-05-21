@@ -125,14 +125,17 @@ end
 
 When(/^I update the first competitor values to "(.*?)"\/"(.*?)", "(.*?)", "(.*?)", "(.*?)", "(.*?)", (\d+) in start list page$/) do |series_name,
     age_group_name, first_name, last_name, club_name, start_time, number|
-  within(:xpath, "//div[@class='competitor_row'][2]") do
-    select series_name, from: "competitor_#{@competitor.id}_competitor_series_id"
-    select age_group_name, from: 'competitor[age_group_id]'
-    fill_in "competitor_#{@competitor.id}_competitor_first_name", with: first_name
-    fill_in "competitor_#{@competitor.id}_competitor_last_name", with: last_name
-    fill_in "competitor_#{@competitor.id}_competitor_start_time", with: start_time
-    fill_in "competitor_#{@competitor.id}_competitor_number", with: number
-    fill_in "club_name_#{@competitor.id}", with: club_name
+  within(:xpath, "//div[contains(@class, 'competitor_row')][2]") do
+    select series_name, from: "competitor_#{@competitor.id}_seriesId"
+    select age_group_name, from: "competitor_#{@competitor.id}_ageGroupId"
+    fill_in "competitor_#{@competitor.id}_firstName", with: first_name
+    fill_in "competitor_#{@competitor.id}_lastName", with: last_name
+    fill_in "competitor_#{@competitor.id}_startTime", with: start_time
+    fill_in "competitor_#{@competitor.id}_number", with: number
+    fill_in "competitor_#{@competitor.id}_clubName", with: club_name
+    button = find(:xpath, "//div[contains(@class, 'button') and @id='competitor_#{@competitor.id}_save']")
+    expect(button.text).to eql "Tallenna"
+    button.click
   end
 end
 

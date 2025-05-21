@@ -41,19 +41,19 @@ Feature: Add competitor
     And the "Toimitsijan sivut" main menu item should be selected
     And the "Lähtöajat" sub menu item should be selected
     And I should be on the official start list page of the race "Test race"
-    When I fill in "00:00:00" for "competitor_new_competitor_start_time"
-    And I fill in "Matti" for "competitor_new_competitor_first_name"
-    And I fill in "Myöhänen" for "competitor_new_competitor_last_name"
-    And I fill in "Testiseura" for "club_name_new"
-    And I select "M60" from "competitor_new_competitor_series_id"
-    And I select "M70" from "competitor[age_group_id]"
-    And I press "Lisää uusi"
+    When I fill in "00:00:00" for "competitor_new_startTime"
+    And I fill in "Matti" for "competitor_new_firstName"
+    And I fill in "Myöhänen" for "competitor_new_lastName"
+    And I fill in "Testiseura" for "competitor_new_clubName"
+    And I select "M60" from "competitor_new_seriesId"
+    And I select "M70" from "competitor_new_ageGroupId"
+    And I click button "Lisää uusi" with id "competitor_new_save"
     Then I should see "Lisätty"
-    And the "competitor_new_competitor_number" text field value should be "2"
-    And the "competitor_new_competitor_start_time" text field value should be "00:01:00"
-    And the "competitor_new_competitor_first_name" text field value should be ""
-    And the "competitor_new_competitor_last_name" text field value should be ""
-    And the "club_name_new" text field value should be "Testiseura"
+    And the "competitor_new_number" text field value should be "2"
+    And the "competitor_new_startTime" text field value should be "00:01:00"
+    And the "competitor_new_firstName" text field value should be ""
+    And the "competitor_new_lastName" text field value should be ""
+    And the "competitor_new_clubName" text field value should be ""
 
   @javascript
   Scenario: Add shooting competitor

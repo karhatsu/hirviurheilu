@@ -17,7 +17,7 @@ const useOfficialRaceCompetitors = () => {
     })
   }, [raceId])
 
-  return { error, fetching, competitors }
+  return { error, fetching, competitors, setCompetitors }
 }
 
 export default useOfficialRaceCompetitors

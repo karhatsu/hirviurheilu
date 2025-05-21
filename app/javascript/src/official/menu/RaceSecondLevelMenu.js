@@ -99,6 +99,7 @@ const reactPages = [
   'shooting',
   'shootingByHeats',
   'shootingBySeries',
+  'startList',
   'times',
 ]
 

@@ -53,11 +53,4 @@ class Official::OfficialController < ApplicationController
   def set_relays
     @is_relays = true
   end
-
-  def collect_age_groups(series)
-    @age_groups = {}
-    series.each do |s|
-      @age_groups[s.id] = s.age_groups_with_main_series
-    end
-  end
 end

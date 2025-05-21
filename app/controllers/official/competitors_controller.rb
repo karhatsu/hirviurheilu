@@ -45,16 +45,11 @@ class Official::CompetitorsController < Official::OfficialController
     @competitor.number = @series.race.next_start_number if @series.sport.heat_list? && @competitor.number.blank?
     club_ok = handle_club(@competitor)
     if club_ok && @competitor.save
-      start_list_condition = 'series.has_start_list = true'
-      @all_series = @race.series.where(start_list_condition)
-      collect_age_groups(@all_series)
       respond_to do |format|
-        format.js { render 'official/start_lists/create_success' }
         format.json
       end
     else
       respond_to do |format|
-        format.js { render 'official/start_lists/create_error' }
         format.json { render status: 400, json: { errors: @competitor.errors.full_messages } }
       end
     end
@@ -73,12 +68,10 @@ class Official::CompetitorsController < Official::OfficialController
     @sub_sport = params[:sub_sport]
     if club_ok && shots_ok && handle_time_parameters && @competitor.update(update_params)
       respond_to do |format|
-        format.js { render 'official/start_lists/update_success', :layout => false }
         format.json
       end
     else
       respond_to do |format|
-        format.js { render 'official/competitors/update_error', :layout => false }
         format.json { render status: 400, json: { errors: @competitor.errors.full_messages } }
       end
     end

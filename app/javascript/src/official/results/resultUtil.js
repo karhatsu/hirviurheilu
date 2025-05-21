@@ -84,3 +84,5 @@ export const nordicConfig = (subSport, race) => {
       throw new Error(`Unknown nordic sub sport: ${subSport}`)
   }
 }
+
+export const competitorsOnlyToAgeGroups = (series) => series.name.match(/^S\d\d?$/)

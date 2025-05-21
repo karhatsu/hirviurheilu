@@ -17,6 +17,7 @@ import EuropeanShotsPage from './results/EuropeanShotsPage'
 import ShootingByHeatsPage from './results/ShootingByHeatsPage'
 import NewCompetitorPage from './competitors/NewCompetitorPage'
 import EditCompetitorPage from './competitors/EditCompetitorPage'
+import StartListPage from './start-list/StartListPage'
 
 const OfficialMainContent = () => {
   return (
@@ -56,6 +57,7 @@ const OfficialMainContent = () => {
             <Route path="shots" element={<ShotsPage />} />
           </Route>
           <Route path="shooting_by_heats" element={<ShootingByHeatsPage />} />
+          <Route path="start_list" element={<StartListPage />} />
         </Route>
       </Routes>
     </div>

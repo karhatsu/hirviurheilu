@@ -1,2 +1,0 @@
-<% error_msg = @competitor.errors.full_messages.join(". ") + "." %>
-updateInlineMessage("#status_<%= @competitor.id %>", 'error', '<%= t :error %>: <%= error_msg %>')

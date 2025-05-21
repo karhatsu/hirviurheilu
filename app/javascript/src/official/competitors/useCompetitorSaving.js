@@ -114,6 +114,8 @@ const useCompetitorSaving = (raceId, initialCompetitor, fields, buildBody, onSav
             setCompetitor(response)
           } else {
             setCompetitor({
+              firstName: '',
+              lastName: '',
               seriesId: response.seriesId,
               ageGroupId: response.ageGroupId,
               number: response.nextNumber,
