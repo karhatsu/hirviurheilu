@@ -8,9 +8,11 @@
       #{heat[@time].strftime('%H:%M')}
     - if heat.track.to_i > 0
       (#{t('attributes.track')} #{heat.track})
-  - heat.competitors.each do |competitor|
+  - heat.competitors.each_with_index do |competitor, i|
     - track_place = competitor.qualification_round_track_place ? "#{competitor.qualification_round_track_place}. " : ''
     - number = competitor.number ? " (##{competitor.number})" : ''
+    - if @race.sport_key == Sport::NORDIC && @sub_sport == :trap && i > 0 && i % 3 == 0
+      .page-break
     %h3.empty-results-competitor-header #{track_place}#{full_name competitor}#{number}, #{competitor.club.name}, #{competitor.series.name}
     - if @sub_sport == :rifle_standing
       .empty-results-table

@@ -32,8 +32,9 @@ class Official::NordicHeatListsController < Official::OfficialController
     respond_to do |format|
       format.pdf do
         header = "#{t :result_sheet_pdf_title} - #{@race.name} - #{t "sport_name.nordic_sub.#{@sub_sport}"}"
+        orientation = @sub_sport == :trap ? 'Landscape' : 'Portrait'
         render pdf: "#{@race.name}-ampumapoytakirja", layout: true, template: 'official/nordic_heat_lists/index',
-               margin: pdf_margin, header: pdf_header(header),
+               orientation: orientation, margin: pdf_margin, header: pdf_header(header),
                footer: pdf_footer, disable_smart_shrinking: true
       end
     end

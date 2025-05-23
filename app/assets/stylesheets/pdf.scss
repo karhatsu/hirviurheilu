@@ -96,12 +96,32 @@ $emptyCellMysteryMargin: 2px; // even if cell margin is set to 0, there is 2px s
 }
 
 .empty-results-table {
+  display: -webkit-box;
   display: -webkit-flex;
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
   width: 100%;
+
+  &__ternary-cell {
+    display: -webkit-box;
+    display: flex;
+    flex-direction: column;
+    width: $emptyCellWidth;
+    margin-right: 4px;
+
+    .empty-results-table__cell {
+      margin: 0;
+
+      &:first-of-type {
+        border-width: 0;
+        color: #000;
+        font-size: 14px;
+        text-align: center;
+        height: $emptyCellWidth / 2;
+      }
+    }
+  }
 
   &__cell {
     display: inline-block;

@@ -10,6 +10,19 @@
     - shot_count.times do |i|
       .empty-results-table__cell= i + 1
     .empty-results-table__cell.empty-results-table__cell--total Yht
+- elsif @race.sport_key == Sport::NORDIC && @sub_sport == :trap
+  .empty-results-table
+    - shot_count.times do |i|
+      .empty-results-table__ternary-cell
+        .empty-results-table__cell= i + 1
+        .empty-results-table__cell 4
+        .empty-results-table__cell 2
+        .empty-results-table__cell 0
+    .empty-results-table__ternary-cell
+      .empty-results-table__cell.empty-results-table__cell--total Yht
+      .empty-results-table__cell.empty-results-table__cell--total 4
+      .empty-results-table__cell.empty-results-table__cell--total 2
+      .empty-results-table__cell.empty-results-table__cell--total 0
 - else
   .empty-results-table
   - shot_count.times do |i|
