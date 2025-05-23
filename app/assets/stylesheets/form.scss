@@ -183,6 +183,10 @@ textarea {
     margin-right: 16px;
     overflow: hidden;
 
+    &--with-dropdown {
+      overflow: visible;
+    }
+
     &--shot {
       margin-right: 6px;
     }

@@ -25,6 +25,7 @@
 
  *= require card
  *= require form
+ *= require club-select
  *= require results
  *= require levels
 

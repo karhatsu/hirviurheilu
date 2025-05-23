@@ -5,14 +5,15 @@ import { findSeriesById } from '../../util/seriesUtil'
 import { competitorsOnlyToAgeGroups } from '../results/resultUtil'
 import Button from '../../common/Button'
 import useTranslation from '../../util/useTranslation'
-import { resolveClubTitle } from '../../util/clubUtil'
 import Message from '../../common/Message'
+import ClubSelect from '../clubs/ClubSelect'
 
 const fields = [
   { key: 'number', number: true },
   { key: 'startTime' },
   { key: 'firstName' },
   { key: 'lastName' },
+  { key: 'clubId', number: true },
   { key: 'seriesId', number: true },
   { key: 'ageGroupId', number: true },
 ]
@@ -28,7 +29,11 @@ const CompetitorRow = ({ race, availableSeries, competitor: initialCompetitor, o
 
   const handleSave = useCallback(
     (competitor) => {
-      if (!isEditing) setClubName('')
+      if (isEditing) {
+        initialClubName.current = clubName
+      } else {
+        setClubName('')
+      }
       onSave(competitor, clubName)
     },
     [isEditing, onSave, clubName],
@@ -54,11 +59,19 @@ const CompetitorRow = ({ race, availableSeries, competitor: initialCompetitor, o
 
   const inputId = useCallback((field) => `competitor_${initialCompetitor.id || 'new'}_${field}`, [initialCompetitor])
 
+  const onSelectClub = useCallback(
+    (id, name) => {
+      changeValue('clubId', id)
+      setClubName(name)
+    },
+    [changeValue],
+  )
+
   const canSubmit =
     (changed || clubName !== initialClubName.current) &&
     clubName &&
     !saving &&
-    !fields.find((f) => f.key !== 'ageGroupId' && !data[f.key])
+    !fields.find((f) => !['ageGroupId', 'clubId'].includes(f.key) && !data[f.key])
 
   return (
     <div className="form__horizontal-fields competitor_row">
@@ -96,12 +109,13 @@ const CompetitorRow = ({ race, availableSeries, competitor: initialCompetitor, o
           placeholder={t('lastName')}
         />
       </div>
-      <div className="form__field form__field--md">
-        <input
-          id={inputId('clubName')}
-          value={clubName}
-          onChange={(e) => setClubName(e.target.value)}
-          placeholder={resolveClubTitle(t, race.clubLevel)}
+      <div className="form__field form__field--md form__field--with-dropdown">
+        <ClubSelect
+          competitorId={initialCompetitor.id}
+          clubs={race.clubs}
+          clubName={clubName}
+          clubLevel={race.clubLevel}
+          onSelect={onSelectClub}
         />
       </div>
       <div className="form__field">

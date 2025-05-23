@@ -1,0 +1,26 @@
+.club-select {
+  position: relative;
+
+  &__dropdown {
+    position: absolute;
+    top: 34px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 2px);
+    z-index: 10;
+
+    &__club {
+      background-color: #fff;
+      cursor: pointer;
+      padding: 8px;
+
+      &:hover {
+        background-color: olive;
+        color: #fff;
+      }
+    }
+  }
+}
