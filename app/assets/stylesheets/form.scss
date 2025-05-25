@@ -25,13 +25,6 @@ $inputHeight: 16px;
 .form__field {
   margin-top: $inputHeight;
 
-  &__select-and-input {
-    display: flex;
-    align-items: center;
-    column-gap: 8px;
-    flex-wrap: wrap;
-  }
-
   label {
     display: block;
     font-weight: 600;

@@ -16,6 +16,7 @@ import ShootingRaceShotFields from './ShootingRaceShotFields'
 import NordicShotFields from './NordicShotFields'
 import EuropeanShotFields from './EuropeanShotFields'
 import { competitorsOnlyToAgeGroups } from '../results/resultUtil'
+import ClubSelect from '../clubs/ClubSelect'
 
 const teamNameHelpDialogId = 'team_name_help_dialog'
 
@@ -183,7 +184,8 @@ const NoResultReasonOption = ({ data, onChange, option }) => {
 
 const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, onSeriesChange, onSave }) => {
   const { t } = useTranslation()
-  const [clubName, setClubName] = useState('')
+  const initialClubName = useRef(race.clubs.find((c) => c.id === initialCompetitor.clubId)?.name || '')
+  const [clubName, setClubName] = useState(initialClubName.current)
   const actionAfterSaveRef = useRef()
   const editing = !!initialCompetitor.id
   const fieldsRef = useRef(resolveFields(race.sport, editing))
@@ -245,6 +247,14 @@ const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, 
 
   const series = useMemo(() => findSeriesById(availableSeries, data.seriesId), [availableSeries, data.seriesId])
 
+  const onSelectClub = useCallback(
+    (id, name) => {
+      changeValue('clubId', id)
+      setClubName(name)
+    },
+    [changeValue],
+  )
+
   const submit = useCallback(
     (action) => (event) => {
       actionAfterSaveRef.current = action
@@ -295,7 +305,6 @@ const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, 
 
   const ageGroupLabel = t(race.sport.shooting ? 'ageGroupShooting' : 'ageGroup')
   const clubLabel = resolveClubTitle(t, race.clubLevel)
-  const clubPromptLabel = t(editing ? 'addNewClub' : 'selectClubOrAddNew', { clubLabel: clubLabel.toLowerCase() })
   return (
     <form className="form" onSubmit={onSubmit} ref={formRef}>
       <FormErrors errors={errors} />
@@ -324,26 +333,13 @@ const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, 
         <input id="unofficial" type="checkbox" checked={data.unofficial} onChange={onChange('unofficial')} />
       </FormField>
       <FormField id="clubId" label={clubLabel} size="lg">
-        <div className="form__field__select-and-input">
-          {race.clubs.length > 0 && (
-            <Select
-              id="clubId"
-              items={race.clubs}
-              onChange={onChange('clubId')}
-              promptLabel={clubPromptLabel}
-              promptValue=""
-              value={data.clubId || ''}
-            />
-          )}
-          {!data.clubId && (
-            <input
-              id="club_name"
-              value={clubName}
-              onChange={(e) => setClubName(e.target.value)}
-              placeholder={t('newClub', { clubLabel: clubLabel.toLowerCase() })}
-            />
-          )}
-        </div>
+        <ClubSelect
+          competitorId={initialCompetitor.id}
+          clubs={race.clubs}
+          clubName={clubName}
+          clubLevel={race.clubLevel}
+          onSelect={onSelectClub}
+        />
       </FormField>
       {race.hasTeamCompetitionsWithTeamNames && (
         <FormField id="teamName" labelId="team" helpDialogId={teamNameHelpDialogId}>

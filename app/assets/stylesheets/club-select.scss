@@ -3,24 +3,49 @@
 
   &__dropdown {
     position: absolute;
-    top: 34px;
+    top: 42px;
     border: 1px solid #000;
     border-radius: 4px;
     font-size: 14px;
     display: flex;
     flex-direction: column;
-    width: calc(100% - 2px);
     z-index: 10;
 
     &__club {
       background-color: #fff;
       cursor: pointer;
-      padding: 8px;
+      padding: 10px;
 
       &:hover {
         background-color: olive;
         color: #fff;
       }
     }
+  }
+}
+
+.form__horizontal-fields {
+  .form__field {
+    .club-select__dropdown {
+      top: 34px;
+    }
+  }
+}
+
+.form__field--sm {
+  .club-select__dropdown {
+    width: 64px + 2 * 8px + 2px;
+  }
+}
+
+.form__field--md {
+  .club-select__dropdown {
+    width: 128px + 2 * 8px + 2px;
+  }
+}
+
+.form__field--lg {
+  .club-select__dropdown {
+    width: 256px + 2 * 8px + 2px;
   }
 }

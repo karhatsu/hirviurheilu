@@ -42,8 +42,7 @@ Feature: Manage competitors
     When I fill in "Peter" for "Etunimi"
     And I fill in "Ford" for "Sukunimi"
     And I select "Series B" from "Sarja"
-    And I select "Lisää uusi seura" from "Seura"
-    And I fill in "New club" for "club_name"
+    And I fill in "New club" to the club input
     And I press "Tallenna"
     Then I should see "Ford Peter"
     And I should see "New club"

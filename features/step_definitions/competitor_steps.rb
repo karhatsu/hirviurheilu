@@ -139,6 +139,12 @@ When(/^I update the first competitor values to "(.*?)"\/"(.*?)", "(.*?)", "(.*?)
   end
 end
 
+When('I fill in {string} to the club input') do |club_name|
+  within('.club-select') do
+    find('input').set(club_name)
+  end
+end
+
 Then("I should see competitor {int} {string} with start time {string} in card {int}") do |number, name, start_time, card|
   parent = "//a[@class='card']"
   find(:xpath, "(#{parent})[#{card}]//div[@class='card__number']").should have_text(number)

@@ -21,7 +21,7 @@ Feature: Add competitor
     And I select "M70" from "Ikäryhmä"
     And I fill in "Matti" for "Etunimi"
     And I fill in "Myöhänen" for "Sukunimi"
-    And I fill in "Testiseura" for "club_name"
+    And I fill in "Testiseura" for "competitor_new_clubName"
     And I press "Tallenna"
     Then I should see "Myöhänen Matti (M60)"
 
@@ -65,7 +65,7 @@ Feature: Add competitor
     When I follow the first "Lisää 1. kilpailija" link
     And I fill in "Matti" for "Etunimi"
     And I fill in "Myöhänen" for "Sukunimi"
-    And I fill in "Testiseura" for "club_name"
+    And I fill in "Testiseura" for "competitor_new_clubName"
     And I fill in "5" for "Numero"
     And I press "Tallenna"
     Then I should see "Myöhänen Matti (M)"

@@ -22,7 +22,7 @@ Feature: Age group selection
     When I select "M65" from "Ikäryhmä"
     And I fill in "Matti" for "Etunimi"
     And I fill in "Majala" for "Sukunimi"
-    And I fill in "Testiseura" for "club_name"
+    And I fill in "Testiseura" for "competitor_new_clubName"
     And I press "Tallenna"
     Then I should see "Viimeksi lisätyt kilpailijat"
     And I should see "Majala Matti (M60)"
