@@ -85,7 +85,7 @@ const StartListPage = () => {
     return (
       <>
         <CompetitorRow race={race} availableSeries={availableSeries} competitor={newCompetitor} onSave={onCreate} />
-        <hr />
+        {competitors.length > 0 && <hr />}
         {competitors.map((competitor) => (
           <CompetitorRow
             key={competitor.id}
