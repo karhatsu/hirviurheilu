@@ -50,6 +50,7 @@ class Series < ApplicationRecord
 
   before_create :set_has_start_list
   after_touch :publish_update
+  before_destroy :destroy_team_competition_series
   after_destroy :touch_race
 
   attr_accessor :last_cup_race
@@ -308,6 +309,10 @@ class Series < ApplicationRecord
 
   def publish_update
     SeriesChannel.broadcast_to self, {}
+  end
+
+  def destroy_team_competition_series
+    ActiveRecord::Base.connection.execute "DELETE FROM team_competition_series WHERE series_id = #{id}"
   end
 
   def touch_race
