@@ -16,7 +16,7 @@ const ClickableShotOption = ({ fieldValue, index, value, onClick }) => {
 
 const ShotFields = (props) => {
   const { t } = useTranslation()
-  const { idPrefix, data, shotsField, base, onChangeShot, shotCounts, bestShotValue } = props
+  const { idPrefix, data, shotsField, base, onChangeShot, shotCounts, bestShotValue, allTensButton } = props
 
   const selectAll = useCallback(() => {
     shotCounts.forEach((n, i) => {
@@ -81,6 +81,11 @@ const ShotFields = (props) => {
       {(bestShotValue === 1 || bestShotValue === 4) && !shotsField.match(/extraShots/i) && (
         <Button type="select-all-shots" onClick={selectAll}>
           {t('selectAll')}
+        </Button>
+      )}
+      {allTensButton && !shotsField.match(/extraShots/i) && (
+        <Button type="select-all-shots" onClick={selectAll}>
+          {t('allTens')}
         </Button>
       )}
     </div>

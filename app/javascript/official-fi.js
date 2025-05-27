@@ -8,7 +8,7 @@ window.officialTranslations = {
   addOfficial: 'Lisää toimitsija',
   ageGroup: 'Ikäryhmä',
   ageGroupShooting: 'Aliryhmä',
-  allTens: 'Kaikki kymppejä',
+  allTens: 'Kaikki 10',
   arrivalTime: 'Saapumisaika',
   backToOfficialEventPage: 'Takaisin tapahtuman etusivulle',
   backToOfficialIndexPage: 'Takaisin toimitsijan etusivulle',

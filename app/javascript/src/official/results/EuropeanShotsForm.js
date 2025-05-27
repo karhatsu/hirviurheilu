@@ -54,14 +54,6 @@ const EuropeanShotsForm = ({ competitor: initialCompetitor, series, subSport, co
     return scores.reduce((acc, score) => acc + (score || 0), 0)
   }, [dataHasCorrectFields, data, fieldNames, shotCount, bestShotValue])
 
-  const allTens = useCallback(() => {
-    fieldNames.forEach((field) => {
-      new Array(shotCount).fill(0).forEach((_, i) => {
-        onChangeShot(field.shots, i)({ target: { value: bestShotValue } })
-      })
-    })
-  }, [fieldNames, shotCount, onChangeShot, bestShotValue])
-
   if (!dataHasCorrectFields) return ''
 
   const renderSubTitle = (fieldsIndex) => {
@@ -103,6 +95,7 @@ const EuropeanShotsForm = ({ competitor: initialCompetitor, series, subSport, co
                   onChangeShot={onChangeShot}
                   shotCounts={[shotCount]}
                   bestShotValue={bestShotValue}
+                  allTensButton={subSport === 'rifle'}
                 />
               </div>
             </div>
@@ -112,7 +105,6 @@ const EuropeanShotsForm = ({ competitor: initialCompetitor, series, subSport, co
           <Button submit={true} type="primary" disabled={!changed}>
             {t('save')}
           </Button>
-          {subSport === 'rifle' && <Button onClick={allTens}>{t('allTens')}</Button>}
         </div>
       </form>
     </ResultRow>
