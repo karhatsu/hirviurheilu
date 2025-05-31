@@ -287,7 +287,7 @@ describe Race do
     end
   end
 
-  describe "yesterday/past/todayfuture" do
+  describe "#before_yesterday/yesterday/past/today/future" do
     before do
       @yesterday1 = create :race, start_date: Date.today - 1, end_date: nil, name: 'Yesterday 1'
       @yesterday2 = create :race, start_date: Date.today - 2, end_date: Date.today - 1, name: 'Yesterday 2'
@@ -303,12 +303,16 @@ describe Race do
       @future3 = create :race, start_date: Date.today + 2, end_date: Date.today + 3, name: 'Future A'
     end
 
+    it "#before_yesterday should return past races except yesterday" do
+      expect(Race.before_yesterday.map(&:name)).to eq([@past2, @past3, @past1].map(&:name))
+    end
+
     it "#yesterday should return races that finished yesterday" do
       expect(Race.yesterday.map(&:name)).to eq([@yesterday1, @yesterday2].map(&:name))
     end
 
-    it "#past should return past races except yesterday" do
-      expect(Race.past.map(&:name)).to eq([@past2, @past3, @past1].map(&:name))
+    it "#past should return all past races" do
+      expect(Race.past.map(&:name)).to eq([@yesterday1, @yesterday2, @past2, @past3, @past1].map(&:name))
     end
 
     it "#today should return races starting or ending today and ongoing multi-day races" do

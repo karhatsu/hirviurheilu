@@ -27,7 +27,7 @@ export default function HomePage() {
     return <IncompletePage error={error} fetching={!error} />
   }
 
-  const { announcements, today, yesterday, future, past } = data
+  const { announcements, today, yesterday, future, beforeYesterday } = data
   const hasRecentAnnouncements = announcements.find((a) => isAfter(parseISO(a.published), subWeeks(new Date(), 2)))
   const pastTitleKey = yesterday.length ? 'races_previously' : 'races_latest'
   return (
@@ -58,7 +58,7 @@ export default function HomePage() {
           return <Races key={key} races={races} titleKey={`races_${key}`} icon="today" limit={true} />
         })}
       </div>
-      <Races races={past} titleKey={pastTitleKey} icon="check_circle" sectionId="past-races">
+      <Races races={beforeYesterday} titleKey={pastTitleKey} icon="check_circle" sectionId="past-races">
         <Button to={buildRacesPath()}>{t('allRaces')}</Button>
       </Races>
       {!hasRecentAnnouncements && <Announcements announcements={announcements} />}

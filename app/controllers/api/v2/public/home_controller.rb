@@ -4,7 +4,7 @@ class Api::V2::Public::HomeController < Api::V2::ApiBaseController
   def index
     @today = competitions_today
     @yesterday = competitions_yesterday
-    @past = past_competitions
+    @before_yesterday = before_yesterday_competitions
     @future = future_competitions
   end
 
@@ -26,8 +26,8 @@ class Api::V2::Public::HomeController < Api::V2::ApiBaseController
     yesterday
   end
 
-  def past_competitions
-    past_races = Race.past.limit(11).includes(:district)
+  def before_yesterday_competitions
+    past_races = Race.before_yesterday.limit(11).includes(:district)
     past_races = past_races.where(sport_key: params[:sport_key]) unless params[:sport_key].blank?
     past_races = past_races.where(district_id: params[:district_id]) unless params[:district_id].blank?
     past_races = past_races.where(level: params[:level]) unless params[:level].blank?

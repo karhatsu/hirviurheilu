@@ -2,7 +2,7 @@
 - content_for(:page_title, yield(:title))
 = flash_error
 = flash_success
-- if @today.length == 0 && @future.length == 0 && @past.length == 0
+- if @today.length == 0 && @future.length == 0 && @yesterday.length == 0 && @before_yesterday.length == 0
   .message.message--info= t('.no_races_yet.long')
   = link_to t('.add_new_race'), new_official_race_path, class: 'button button--add'
   = link_to t('.add_multiple_races'), new_official_multiple_race_path, class: 'button button--add'
@@ -43,17 +43,17 @@
   = link_to t('.add_new_cup'), new_official_cup_path, class: 'button button--add'
   .row= render partial: 'cup_list', locals: { cups: @cups }
   = render partial: 'show_all', locals: { id: 'cup', competitions: @cups, limit: 9 }
-  - unless @past.empty?
+  - unless @before_yesterday.empty?
     %h2
       %i.material-icons-outlined.md-18 check_circle
       = t 'home.show.competitions.past'
-    - unfinished_races = @past.select {|r| r.unfinished?}
+    - unfinished_races = @before_yesterday.select {|r| r.unfinished?}
     - if unfinished_races.size > 0
       .message.message--warning
         = t '.unfinished_races_count', count: unfinished_races.size
         = t '.unfinished_races_instructions'
-    .row= render partial: 'race_list', locals: { races: @past, id: 'finished', warn_unfinished: true }
-    = render partial: 'show_all', locals: { id: 'finished', competitions: @past, limit: 12 }
+    .row= render partial: 'race_list', locals: { races: @before_yesterday, id: 'finished', warn_unfinished: true }
+    = render partial: 'show_all', locals: { id: 'finished', competitions: @before_yesterday, limit: 12 }
 :javascript
   function showCompetitions(link, id) {
     $('.' + id).show()

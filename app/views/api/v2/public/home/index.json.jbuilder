@@ -11,7 +11,7 @@ json.future @future do |key, races|
     json.partial! 'api/v2/public/races/race', race: race
   end
 end
-json.past @past do |race|
+json.before_yesterday @before_yesterday do |race|
   json.partial! 'api/v2/public/races/race', race: race
 end
 json.announcements Announcement.active.front_page do |announcement|
