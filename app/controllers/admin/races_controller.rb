@@ -5,7 +5,7 @@ class Admin::RacesController < Admin::AdminController
 
   def index
     @past_races = Race.past
-    @future_races = Race.where('start_date>=?', Date.today).order('start_date desc')
+    @future_races = Race.where('start_date>=?', Date.today).order('start_date')
   end
 
   def show
