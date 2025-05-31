@@ -304,6 +304,7 @@ const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, 
   }
 
   const ageGroupLabel = t(race.sport.shooting ? 'ageGroupShooting' : 'ageGroup')
+  const promptAgeGroup = !competitorsOnlyToAgeGroups(series) || (editing && !data.ageGroupId)
   const clubLabel = resolveClubTitle(t, race.clubLevel)
   return (
     <form className="form" onSubmit={onSubmit} ref={formRef}>
@@ -317,8 +318,8 @@ const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, 
             id="ageGroupId"
             items={series.ageGroups}
             onChange={onChange('ageGroupId')}
-            promptLabel={competitorsOnlyToAgeGroups(series) ? undefined : series.name}
-            promptValue={competitorsOnlyToAgeGroups(series) ? undefined : ''}
+            promptLabel={promptAgeGroup ? series.name : undefined}
+            promptValue={promptAgeGroup ? '' : undefined}
             value={data.ageGroupId}
           />
         </FormField>

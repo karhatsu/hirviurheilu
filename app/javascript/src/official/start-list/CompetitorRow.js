@@ -67,6 +67,8 @@ const CompetitorRow = ({ race, availableSeries, competitor: initialCompetitor, o
     [changeValue],
   )
 
+  const promptAgeGroup = !competitorsOnlyToAgeGroups(series) || (isEditing && !data.ageGroupId)
+
   const canSubmit =
     (changed || clubName !== initialClubName.current) &&
     clubName &&
@@ -127,8 +129,8 @@ const CompetitorRow = ({ race, availableSeries, competitor: initialCompetitor, o
             id={inputId('ageGroupId')}
             items={series.ageGroups}
             onChange={onChange('ageGroupId')}
-            promptLabel={competitorsOnlyToAgeGroups(series) ? undefined : series.name}
-            promptValue={competitorsOnlyToAgeGroups(series) ? undefined : ''}
+            promptLabel={promptAgeGroup ? series.name : undefined}
+            promptValue={promptAgeGroup ? '' : undefined}
             value={data.ageGroupId}
           />
         </div>
