@@ -33,7 +33,7 @@ const shotsEqual = (array1, array2, shotCount) => {
 
 const stringToNumber = (fieldValue) => (fieldValue === '' ? '' : parseInt(fieldValue))
 
-const useCompetitorSaving = (raceId, initialCompetitor, fields, buildBody, onSave) => {
+const useCompetitorSaving = (raceId, initialCompetitor, fields, buildBody, onSave, limited) => {
   const [competitor, setCompetitor] = useState(initialCompetitor)
   const [saving, setSaving] = useState(false)
   const [errors, setErrors] = useState()
@@ -89,10 +89,10 @@ const useCompetitorSaving = (raceId, initialCompetitor, fields, buildBody, onSav
 
   const resolveApiPath = useCallback(() => {
     if (competitor.id) {
-      return `/official/races/${raceId}/series/${competitor.seriesId}/competitors/${competitor.id}.json`
+      return `/official/${limited ? 'limited/' : ''}races/${raceId}/series/${competitor.seriesId}/competitors/${competitor.id}.json`
     }
-    return `/official/races/${raceId}/competitors.json`
-  }, [raceId, competitor])
+    return `/official/${limited ? 'limited/' : ''}races/${raceId}/competitors.json`
+  }, [raceId, competitor, limited])
 
   const onSubmit = useCallback(
     (event) => {
@@ -116,10 +116,10 @@ const useCompetitorSaving = (raceId, initialCompetitor, fields, buildBody, onSav
             setCompetitor({
               firstName: '',
               lastName: '',
-              seriesId: response.seriesId,
-              ageGroupId: response.ageGroupId,
-              number: response.nextNumber,
-              startTime: response.nextStartTime,
+              seriesId: response?.seriesId || '',
+              ageGroupId: response?.ageGroupId || '',
+              number: response?.nextNumber,
+              startTime: response?.nextStartTime,
             })
           }
         }

@@ -6,15 +6,15 @@ class Official::Limited::CompetitorsController < Official::Limited::LimitedOffic
   before_action :assign_competitor, :only => [:edit, :update, :destroy]
 
   def index
-    redirect_to new_official_limited_race_competitor_path(@race)
+    respond_to do |format|
+      format.html { redirect_to new_official_limited_race_competitor_path(@race) }
+      format.json { assign_current_competitors }
+    end
   end
 
   def new
-    return if @race.series.empty?
-    series = @race.series.where(:id => params[:series_id]).first if params[:series_id]
-    series = @race.series.first unless series
-    @competitor = series.competitors.build
-    @competitor.age_group_id = params[:age_group_id]
+    use_react true
+    render layout: true, html: ''
   end
 
   def create
@@ -27,11 +27,11 @@ class Official::Limited::CompetitorsController < Official::Limited::LimitedOffic
       @competitor.club = @race_right.club if @race_right.club
     end
     if club_ok && @competitor.save
-      flash[:success] = 'Kilpailija lisätty'
-      redirect_to new_official_limited_race_competitor_path(@race, :series_id => @competitor.series_id,
-        :age_group_id => @competitor.age_group_id)
+      respond_to do |format|
+        format.json
+      end
     else
-      render :new
+      render status: 400, json: { errors: @competitor.errors.full_messages }
     end
   end
 
@@ -50,7 +50,10 @@ class Official::Limited::CompetitorsController < Official::Limited::LimitedOffic
   def destroy
     @competitor.destroy
     flash[:success] = 'Kilpailija poistettu'
-    redirect_to new_official_limited_race_competitor_path(@race)
+    respond_to do |format|
+      format.html { redirect_to new_official_limited_race_competitor_path(@race) }
+      format.json { render status: 201, body: nil }
+    end
   end
 
   private
@@ -59,10 +62,9 @@ class Official::Limited::CompetitorsController < Official::Limited::LimitedOffic
   end
 
   def assign_current_competitors
+    @competitors = @race.competitors.includes(:series, :age_group)
     if @race_right.club
-      @competitors = @race.competitors.where(:club_id => @race_right.club.id)
-    else
-      @competitors = @race.competitors
+      @competitors = @competitors.where(club_id: @race_right.club.id)
     end
   end
 

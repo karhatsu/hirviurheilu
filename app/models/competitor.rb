@@ -19,7 +19,7 @@ class Competitor < ApplicationRecord
     european_rifle3_shots european_rifle3_shots2 european_rifle4_shots european_rifle4_shots2 european_rifle_extra_shots]
 
   belongs_to :club, required: true
-  belongs_to :series, counter_cache: true, touch: true
+  belongs_to :series, counter_cache: true, touch: true, required: true
   belongs_to :age_group
   belongs_to :qualification_round_heat
   belongs_to :final_round_heat

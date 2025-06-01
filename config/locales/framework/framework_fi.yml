@@ -126,7 +126,7 @@ fi:
       not_an_integer: täytyy olla kokonaisluku
       odd: täytyy olla pariton
       present: täytyy olla sisällötön
-      required: täytyy olla
+      required: on pakollinen
       taken: on jo käytössä
       too_long:
         one: on liian pitkä (saa olla enintään %{count} merkki)

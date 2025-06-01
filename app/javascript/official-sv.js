@@ -1,5 +1,6 @@
 window.officialTranslations = {
   add: 'Lägg till',
+  addCompetitor: 'Lägg till tävlande',
   addCompetitorsFromCsvFile: 'Lägg till tävlande från CSV-fil',
   added: 'Tillagt',
   addNew: 'Lägg till',
@@ -121,6 +122,7 @@ window.officialTranslations = {
   officialRaceMenuHome: 'Sammanfattning',
   officialRaceMenuEdit: 'Basinformation',
   officialRaceMenuCompetitors: 'Tävlande',
+  officialRaceMenuAddManyCompetitors: 'Tillägg många tävlande',
   officialRaceMenuStartList: 'Starttider',
   officialRaceMenuHeatListGeneration: 'Lottning av heat',
   officialRaceMenuQualificationRoundHeatList: 'Grundtävling',

@@ -1,3 +1,13 @@
+const parseRaceRight = (raceRight) => {
+  if (!raceRight) return undefined
+  const rr = JSON.parse(raceRight)
+  return {
+    clubId: rr.club_id,
+    newClubs: rr.new_clubs,
+    onlyAddCompetitors: rr.only_add_competitors,
+  }
+}
+
 const useAppData = () => {
   const appElement = document.getElementsByClassName('react-app')[0]
   if (!appElement) return {}
@@ -10,6 +20,7 @@ const useAppData = () => {
   const userEmail = appElement.getAttribute('data-user-email')
   const userFirstName = appElement.getAttribute('data-user-first-name')
   const userLastName = appElement.getAttribute('data-user-last-name')
+  const userRaceRight = appElement.getAttribute('data-user-race-right') // only limited official
   return {
     admin,
     environment,
@@ -20,6 +31,7 @@ const useAppData = () => {
     userEmail,
     userFirstName,
     userLastName,
+    userRaceRight: parseRaceRight(userRaceRight),
   }
 }
 
