@@ -1,5 +1,6 @@
 window.officialTranslations = {
   add: 'Lisää',
+  addCompetitor: 'Lisää kilpailija',
   addCompetitorsFromCsvFile: 'Lisää kilpailijoita CSV-tiedostosta',
   added: 'Lisätty',
   addManyOfficials: 'Lisää monta toimitsijaa',
@@ -119,6 +120,7 @@ window.officialTranslations = {
   officialRaceMenuHome: 'Yhteenveto',
   officialRaceMenuEdit: 'Perustiedot',
   officialRaceMenuCompetitors: 'Kilpailijat',
+  officialRaceMenuAddManyCompetitors: 'Lisää monta kilpailijaa',
   officialRaceMenuStartList: 'Lähtöajat',
   officialRaceMenuHeatListGeneration: 'Erien arvonta',
   officialRaceMenuQualificationRoundHeatList: 'Alkukilpailu',

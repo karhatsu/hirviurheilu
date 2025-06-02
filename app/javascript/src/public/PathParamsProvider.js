@@ -10,6 +10,8 @@ export const PathParamsContextProvider = ({ children }) => {
   const raceMatchSv = useMatch('/sv/races/:raceId/*')
   const officialRaceMatch = useMatch('/official/races/:raceId/*')
   const officialRaceMatchSv = useMatch('/sv/official/races/:raceId/*')
+  const limitedOfficialRaceMatch = useMatch('/official/limited/races/:raceId/*')
+  const limitedOfficialRaceMatchSv = useMatch('/sv/official/limited/races/:raceId/*')
   const seriesMatch = useMatch('/races/:raceId/series/:seriesId/*')
   const seriesMatchSv = useMatch('/sv/races/:raceId/series/:seriesId/*')
   const teamCompetitionMatch = useMatch('/races/:raceId/team_competitions/:teamCompetitionId/*')
@@ -34,7 +36,14 @@ export const PathParamsContextProvider = ({ children }) => {
   const eventIdSv = eventMatchSv && eventMatchSv.params.eventId !== 'new' ? eventMatchSv.params.eventId : undefined
   const value = useMemo(
     () => ({
-      raceId: (raceMatch || raceMatchSv || officialRaceMatch || officialRaceMatchSv)?.params.raceId,
+      raceId: (
+        raceMatch ||
+        raceMatchSv ||
+        officialRaceMatch ||
+        officialRaceMatchSv ||
+        limitedOfficialRaceMatch ||
+        limitedOfficialRaceMatchSv
+      )?.params.raceId,
       seriesId: (seriesMatch || seriesMatchSv || officialSeriesMatch || officialSeriesMatchSv)?.params.seriesId,
       teamCompetitionId: (
         teamCompetitionMatch ||

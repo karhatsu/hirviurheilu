@@ -2,7 +2,8 @@
   %div.react-app{id: @react_app ? @react_app : '', 'data-env': Rails.env, 'data-title-prefix': title_prefix,
     'data-user-id': current_user&.id, 'data-user-email': current_user&.email,
     'data-user-first-name': current_user&.first_name, 'data-user-last-name': current_user&.last_name,
-    'data-admin': current_user&.admin?, 'data-locale': I18n.locale, 'data-no-nav': no_nav?.to_s}
+    'data-admin': current_user&.admin?, 'data-locale': I18n.locale, 'data-no-nav': no_nav?.to_s,
+    'data-user-race-right': @race_right&.to_json}
     - unless no_nav?
       .header
         = image_tag '/logo-128.png', class: 'header__logo'

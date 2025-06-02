@@ -3,6 +3,7 @@ Feature: Official only adding competitors
   As a race main official
   I want to allow certain officials only adding new competitors but doing nothing else
 
+  @javascript
   Scenario: Race official with limited rights sees only limited competitors page
     Given I am a limited official for the race "Limited race"
     And the race has series "Limited series"
@@ -32,6 +33,7 @@ Feature: Official only adding competitors
     When I go to the official relays page of "Limited race"
     Then I should be on the limited official competitors page for "Limited race"
 
+  @javascript
   Scenario: Race official with limited rights can add a competitor
     Given I am a limited official for the race "Limited race"
     And the race has series "Men"
@@ -42,22 +44,24 @@ Feature: Official only adding competitors
     Then I should not see "Lisätyt kilpailijat"
     When I press "Tallenna"
     Then I should see "Etunimi on pakollinen" in an error message
-    When I fill in "Keijo" for "Etunimi"
+    When I select "Men" from "Sarja"
+    And I fill in "Keijo" for "Etunimi"
     And I fill in "Kisaaja" for "Sukunimi"
+    And I select "Limited club" from "Seura"
     And I press "Tallenna"
-    Then I should be on the limited official competitors page for "Limited race"
-    And I should see "Kilpailija lisätty" in a success message
-    And I should see "Lisätyt kilpailijat (1)"
+    Then I should see "Lisätyt kilpailijat (1)"
     And I should see "Kisaaja Keijo" within "#all_competitors"
     And I should see "Men" within "#all_competitors"
     When I fill in "Helena" for "Etunimi"
     And I fill in "Hiihtäjä" for "Sukunimi"
     And I select "Women" from "Sarja"
+    And I select "Limited club" from "Seura"
     And I press "Tallenna"
     Then I should see "Hiihtäjä Helena" within "#all_competitors"
     And I should see "Women" within "#all_competitors"
     And I should see "Lisätyt kilpailijat (2)"
 
+  @javascript
   Scenario: When limitation is on club level, club is defined automatically
     Given there is a race "Limited race"
     And the race has series "M"
@@ -72,29 +76,31 @@ Feature: Official only adding competitors
     Then I should see "My club"
     But I should not see "Some other club"
     But I should not see "Teppo"
-    When I fill in "Keijo" for "Etunimi"
+    When I select "M" from "Sarja"
+    And I fill in "Keijo" for "Etunimi"
     And I fill in "Kisaaja" for "Sukunimi"
     And I press "Tallenna"
     Then I should be on the limited official competitors page for "Limited race"
-    And I should see "Kilpailija lisätty" in a success message
     And I should see "Lisätyt kilpailijat (1)"
     And I should see "Kisaaja Keijo" within "#all_competitors"
 
+  @javascript
   Scenario: Race official has limited rights but rights to add new clubs
     Given there is a race "Limited race"
     And the race has series "M"
     And I have limited rights to add competitors for any new club in the race
     And I have logged in
     When I go to the limited official competitors page for "Limited race"
+    And I select "M" from "Sarja"
     And I fill in "Keijo" for "Etunimi"
     And I fill in "Kisaaja" for "Sukunimi"
     And I fill in "Testiseura" for "Seura"
     And I press "Tallenna"
     Then I should be on the limited official competitors page for "Limited race"
-    And I should see "Kilpailija lisätty" in a success message
     And I should see "Lisätyt kilpailijat (1)"
     And I should see "Kisaaja Keijo" within "#all_competitors"
 
+  @javascript
   Scenario: Race official with limited rights can modify competitor
     Given there is a race "Limited race"
     And the race has series "M"
@@ -118,11 +124,11 @@ Feature: Official only adding competitors
     And I select "M60" from "Sarja"
     And I press "Tallenna"
     Then I should be on the limited official competitors page for "Limited race"
-    And I should see "Kilpailija päivitetty" in a success message
     And I should see "Lisätyt kilpailijat (1)"
     And I should see "Kisaaja Keijo" within "#all_competitors"
     And I should see "M60" within "#all_competitors"
 
+  @javascript
   Scenario: No series added for the race
     Given I am a limited official for the race "Limited race"
     And the race has a club "Limited club"
@@ -131,6 +137,7 @@ Feature: Official only adding competitors
     Then I should see "Tähän kilpailuun ei ole vielä lisätty yhtään sarjaa. Voit lisätä kilpailijoita vasta sen jälkeen, kun päätoimitsija on lisännyt kilpailuun sarjat." in an info message
     But I should not see "Etunimi"
 
+  @javascript
   Scenario: No clubs added for the race
     Given I am a limited official for the race "Limited race"
     And the race has series "Limited series"

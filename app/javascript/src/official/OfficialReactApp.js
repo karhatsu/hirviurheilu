@@ -13,6 +13,7 @@ import { Route, Routes } from 'react-router'
 import { EventProvider } from '../util/useEvent'
 import EventSecondLevelMenu from './menu/EventSecondLevelMenu'
 import OfficialDesktopSubMenu from './OfficialDesktopSubMenu'
+import LimitedRaceSecondLevelMenu from './menu/LimitedRaceSecondLevelMenu'
 
 const OfficialReactApp = () => {
   const [mainMenuOpen, setMainMenuOpen] = useState(false)
@@ -42,6 +43,7 @@ const OfficialReactApp = () => {
           <Routes>
             <Route path="events/:eventId/*" element={<EventSecondLevelMenu visible={subMenuOpen} />} />
             <Route path="races/:raceId/*" element={<RaceSecondLevelMenu visible={subMenuOpen} />} />
+            <Route path="limited/races/:raceId/*" element={<LimitedRaceSecondLevelMenu visible={subMenuOpen} />} />
           </Routes>
           <OfficialDesktopSubMenu />
           <OfficialMainContent />

@@ -18,6 +18,8 @@ import ShootingByHeatsPage from './results/ShootingByHeatsPage'
 import NewCompetitorPage from './competitors/NewCompetitorPage'
 import EditCompetitorPage from './competitors/EditCompetitorPage'
 import StartListPage from './start-list/StartListPage'
+import LimitedNewCompetitorPage from './limited/LimitedNewCompetitorPage'
+import LimitedEditCompetitorPage from './limited/LimitedEditCompetitorPage'
 
 const OfficialMainContent = () => {
   return (
@@ -58,6 +60,10 @@ const OfficialMainContent = () => {
           </Route>
           <Route path="shooting_by_heats" element={<ShootingByHeatsPage />} />
           <Route path="start_list" element={<StartListPage />} />
+        </Route>
+        <Route path="limited/races/:raceId" element={null}>
+          <Route path="competitors/new" element={<LimitedNewCompetitorPage />} />
+          <Route path="competitors/:competitorId/edit" element={<LimitedEditCompetitorPage />} />
         </Route>
       </Routes>
     </div>

@@ -151,6 +151,15 @@ export const buildOfficialRaceClubsPath = (raceId) => withLocale(`/official/race
 
 export const buildOfficialRaceOfficialsPath = (raceId) => withLocale(`/official/races/${raceId}/race_rights`)
 
+export const buildLimitedOfficialCompetitorsPath = (raceId) =>
+  withLocale(`/official/limited/races/${raceId}/competitors/new`)
+
+export const buildLimitedOfficialEditCompetitorPath = (raceId, competitorId) =>
+  withLocale(`/official/limited/races/${raceId}/competitors/${competitorId}/edit`)
+
+export const buildLimitedOfficialAddManyCompetitorsPath = (raceId) =>
+  withLocale(`/official/limited/races/${raceId}/csv_imports/new`)
+
 export const matchPath = (currentPath, path, exact) => {
   if (exact) {
     return currentPath === path || currentPath === `/sv${path}`

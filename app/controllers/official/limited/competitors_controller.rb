@@ -1,20 +1,28 @@
 class Official::Limited::CompetitorsController < Official::Limited::LimitedOfficialController
   include CompetitorsHelper
 
-  before_action :assign_race_by_race_id, :check_assigned_race_without_full_rights,
-    :assign_race_right, :assign_current_competitors, :set_limited_official, :set_limited_official_add_competitor
-  before_action :assign_competitor, :only => [:edit, :update, :destroy]
+  before_action :assign_race_by_race_id, :check_assigned_race_without_full_rights, :assign_race_right
+  before_action :assign_competitor, only: [:update, :destroy]
 
   def index
-    redirect_to new_official_limited_race_competitor_path(@race)
+    respond_to do |format|
+      format.html { redirect_to new_official_limited_race_competitor_path(@race) }
+      format.json { assign_current_competitors }
+    end
+  end
+
+  def show
+    respond_to do |format|
+      format.json do
+        assign_competitor
+        return render status: 404, json: { errors: ['Kilpailijaa ei löytynyt'] } unless @competitor
+      end
+    end
   end
 
   def new
-    return if @race.series.empty?
-    series = @race.series.where(:id => params[:series_id]).first if params[:series_id]
-    series = @race.series.first unless series
-    @competitor = series.competitors.build
-    @competitor.age_group_id = params[:age_group_id]
+    use_react true
+    render layout: true, html: ''
   end
 
   def create
@@ -27,42 +35,43 @@ class Official::Limited::CompetitorsController < Official::Limited::LimitedOffic
       @competitor.club = @race_right.club if @race_right.club
     end
     if club_ok && @competitor.save
-      flash[:success] = 'Kilpailija lisätty'
-      redirect_to new_official_limited_race_competitor_path(@race, :series_id => @competitor.series_id,
-        :age_group_id => @competitor.age_group_id)
+      respond_to do |format|
+        format.json
+      end
     else
-      render :new
+      render status: 400, json: { errors: @competitor.errors.full_messages }
     end
   end
 
   def edit
+    use_react true
+    render layout: true, html: ''
   end
 
   def update
     if @competitor.update(competitor_params)
-      flash[:success] = 'Kilpailija päivitetty'
-      redirect_to new_official_limited_race_competitor_path(@race)
+      respond_to do |format|
+        format.json
+      end
     else
-      render :edit
+      render status: 400, json: { errors: @competitor.errors.full_messages }
     end
   end
 
   def destroy
     @competitor.destroy
     flash[:success] = 'Kilpailija poistettu'
-    redirect_to new_official_limited_race_competitor_path(@race)
+    respond_to do |format|
+      format.html { redirect_to new_official_limited_race_competitor_path(@race) }
+      format.json { render status: 201, body: nil }
+    end
   end
 
   private
-  def set_limited_official_add_competitor
-    @limited_add_competitor = true
-  end
-
   def assign_current_competitors
+    @competitors = @race.competitors.includes(:series, :age_group)
     if @race_right.club
-      @competitors = @race.competitors.where(:club_id => @race_right.club.id)
-    else
-      @competitors = @race.competitors
+      @competitors = @competitors.where(club_id: @race_right.club.id)
     end
   end
 

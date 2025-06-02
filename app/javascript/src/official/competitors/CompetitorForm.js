@@ -18,9 +18,9 @@ import EuropeanShotFields from './EuropeanShotFields'
 import { competitorsOnlyToAgeGroups } from '../results/resultUtil'
 import ClubSelect from '../clubs/ClubSelect'
 
-const teamNameHelpDialogId = 'team_name_help_dialog'
+export const teamNameHelpDialogId = 'team_name_help_dialog'
 
-const renderTeamNameHelpDialog = () => (
+export const renderTeamNameHelpDialog = () => (
   <Dialog id={teamNameHelpDialogId} title="Joukkueen nimi">
     Jos kilpailija osallistuu joukkuekilpailuun, jossa joukkueita ei muodosteta seuran nimen perusteella, syötä tähän
     kenttään kilpailijan joukkueen nimi. Muussa tapauksessa jätä kenttä tyhjäksi.
