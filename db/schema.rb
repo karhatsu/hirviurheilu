@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_12_132035) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_02_154903) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -368,6 +368,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_12_132035) do
   add_foreign_key "cups_races", "cups"
   add_foreign_key "cups_races", "races"
   add_foreign_key "heats", "races"
+  add_foreign_key "race_rights", "clubs"
   add_foreign_key "race_rights", "races"
   add_foreign_key "race_rights", "users"
   add_foreign_key "races", "events"

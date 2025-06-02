@@ -82,7 +82,7 @@ const OfficialForm = ({ official, onSave, onCancel, buttonLabel }) => {
                   )}
                   {clubs.length > 0 && (
                     <select id="clubId" value={data.clubId || ''} onChange={setValue('clubId')}>
-                      <option>{t('officialPageNoLimitation')}</option>
+                      <option value="">{t('officialPageNoLimitation')}</option>
                       {clubs.map((club) => (
                         <option key={club.id} value={club.id}>
                           {club.name}
