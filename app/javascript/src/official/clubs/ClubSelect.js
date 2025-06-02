@@ -1,11 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { resolveClubTitle } from '../../util/clubUtil'
+import { findClubById, resolveClubTitle } from '../../util/clubUtil'
 import useTranslation from '../../util/useTranslation'
-
-// TODO: resetointi x
-// TODO: avaus > (?)
-
-const findClub = (clubs, clubId) => clubs.find((c) => c.id === clubId)
 
 const ClubSelect = ({ competitorId, clubs, clubName, clubLevel, onSelect }) => {
   const id = useRef(Math.random().toString(36))
@@ -22,7 +17,7 @@ const ClubSelect = ({ competitorId, clubs, clubName, clubLevel, onSelect }) => {
 
   const onSelectClub = useCallback(
     (clubId) => () => {
-      const club = findClub(clubs, clubId)
+      const club = findClubById(clubs, clubId)
       onSelect(clubId, club.name)
       setClubsVisible(false)
     },

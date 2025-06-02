@@ -7,7 +7,7 @@ import FormField from '../../common/form/FormField'
 import Select from '../../common/form/Select'
 import ClubSelect from '../clubs/ClubSelect'
 import { competitorsOnlyToAgeGroups } from '../results/resultUtil'
-import { resolveClubTitle } from '../../util/clubUtil'
+import { findClubById, resolveClubTitle } from '../../util/clubUtil'
 import { findSeriesById } from '../../util/seriesUtil'
 import { renderTeamNameHelpDialog, teamNameHelpDialogId } from '../competitors/CompetitorForm'
 import useAppData from '../../util/useAppData'
@@ -69,7 +69,7 @@ const LimitedNewCompetitorForm = ({ race, initialCompetitor, onSave }) => {
 
   const renderClub = () => {
     if (userRaceRight.clubId) {
-      return race.clubs.find((c) => c.id === userRaceRight.clubId).name
+      return findClubById(race.clubs, userRaceRight.clubId).name
     }
     if (!userRaceRight.newClubs) {
       return (

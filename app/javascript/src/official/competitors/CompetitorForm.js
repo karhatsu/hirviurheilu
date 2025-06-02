@@ -3,7 +3,7 @@ import isAfter from 'date-fns/isAfter'
 import isToday from 'date-fns/isToday'
 import FormField from '../../common/form/FormField'
 import useCompetitorSaving from './useCompetitorSaving'
-import { resolveClubTitle } from '../../util/clubUtil'
+import { findClubById, resolveClubTitle } from '../../util/clubUtil'
 import useTranslation from '../../util/useTranslation'
 import Button from '../../common/Button'
 import FormErrors from '../../common/form/FormErrors'
@@ -184,7 +184,7 @@ const NoResultReasonOption = ({ data, onChange, option }) => {
 
 const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, onSeriesChange, onSave }) => {
   const { t } = useTranslation()
-  const initialClubName = useRef(race.clubs.find((c) => c.id === initialCompetitor.clubId)?.name || '')
+  const initialClubName = useRef(findClubById(race.clubs, initialCompetitor.clubId)?.name || '')
   const [clubName, setClubName] = useState(initialClubName.current)
   const actionAfterSaveRef = useRef()
   const editing = !!initialCompetitor.id

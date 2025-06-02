@@ -21,3 +21,5 @@ export const resolveClubsTitle = (t, clubLevel) => {
       return t('countries')
   }
 }
+
+export const findClubById = (clubs, clubId) => clubs.find((s) => s.id === clubId)

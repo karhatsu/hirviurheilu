@@ -13,6 +13,7 @@ import {
 import { useParams } from 'react-router'
 import CompetitorForm from './CompetitorForm'
 import { findSeriesById } from '../../util/seriesUtil'
+import { findClubById } from '../../util/clubUtil'
 
 const titleKey = 'newCompetitor'
 
@@ -38,7 +39,7 @@ const NewCompetitorPage = () => {
   const onSave = useCallback(
     (competitor) => {
       setSavedCompetitors((prev) => [competitor, ...prev])
-      if (!race.clubs.find((club) => club.id === competitor.clubId)) {
+      if (!findClubById(race.clubs, competitor.clubId)) {
         reloadRace()
       }
     },

@@ -9,6 +9,7 @@ import { buildOfficialRacePath, buildRaceStartListsPdfPath } from '../../util/ro
 import useOfficialRaceCompetitors from '../results/useOfficialRaceCompetitors'
 import CompetitorRow from './CompetitorRow'
 import Message from '../../common/Message'
+import { findClubById } from '../../util/clubUtil'
 
 const titleKey = 'officialRaceMenuStartList'
 
@@ -32,7 +33,7 @@ const StartListPage = () => {
 
   const ensureClubExists = useCallback(
     (clubId, clubName) => {
-      if (race && !race.clubs.find((c) => c.id === clubId)) {
+      if (race && !findClubById(race.clubs, clubId)) {
         setRace((prev) => {
           const newRace = { ...prev, clubs: [...prev.clubs] }
           newRace.clubs.push({ id: clubId, name: clubName })

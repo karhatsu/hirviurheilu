@@ -7,6 +7,7 @@ import Button from '../../common/Button'
 import useTranslation from '../../util/useTranslation'
 import Message from '../../common/Message'
 import ClubSelect from '../clubs/ClubSelect'
+import { findClubById } from '../../util/clubUtil'
 
 const fields = [
   { key: 'number', number: true },
@@ -20,7 +21,7 @@ const fields = [
 
 const CompetitorRow = ({ race, availableSeries, competitor: initialCompetitor, onSave }) => {
   const { t } = useTranslation()
-  const initialClubName = useRef(race.clubs.find((c) => c.id === initialCompetitor.clubId)?.name || '')
+  const initialClubName = useRef(findClubById(race.clubs, initialCompetitor.clubId)?.name || '')
   const [clubName, setClubName] = useState(initialClubName.current)
 
   const isEditing = !!initialCompetitor.id
