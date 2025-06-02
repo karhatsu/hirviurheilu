@@ -63,6 +63,8 @@ export const PathParamsContextProvider = ({ children }) => {
       raceMatchSv,
       officialRaceMatch,
       officialRaceMatchSv,
+      limitedOfficialRaceMatch,
+      limitedOfficialRaceMatchSv,
       seriesMatch,
       seriesMatchSv,
       officialSeriesMatch,
