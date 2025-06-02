@@ -88,7 +88,9 @@ const useCompetitorSaving = (raceId, initialCompetitor, fields, buildBody, onSav
   )
 
   const resolveApiPath = useCallback(() => {
-    if (competitor.id) {
+    if (competitor.id && limited) {
+      return `/official/${limited ? 'limited/' : ''}races/${raceId}/competitors/${competitor.id}.json`
+    } else if (competitor.id) {
       return `/official/${limited ? 'limited/' : ''}races/${raceId}/series/${competitor.seriesId}/competitors/${competitor.id}.json`
     }
     return `/official/${limited ? 'limited/' : ''}races/${raceId}/competitors.json`

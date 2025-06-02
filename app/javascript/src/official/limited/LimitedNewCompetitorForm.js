@@ -11,6 +11,7 @@ import { resolveClubTitle } from '../../util/clubUtil'
 import { findSeriesById } from '../../util/seriesUtil'
 import { renderTeamNameHelpDialog, teamNameHelpDialogId } from '../competitors/CompetitorForm'
 import useAppData from '../../util/useAppData'
+import { buildLimitedOfficialCompetitorsPath } from '../../util/routeUtil'
 
 const fields = [
   { key: 'seriesId', number: true },
@@ -21,19 +22,11 @@ const fields = [
   { key: 'teamName' },
 ]
 
-const LimitedNewCompetitorForm = ({ race, onSave }) => {
+const LimitedNewCompetitorForm = ({ race, initialCompetitor, onSave }) => {
   const { t } = useTranslation()
   const { userRaceRight } = useAppData()
 
-  const initialCompetitor = useMemo(
-    () => ({
-      number: race.nextNumber,
-      startTime: race.nextStartTime,
-      clubId: userRaceRight.clubId || '',
-    }),
-    [race, userRaceRight],
-  )
-  const [clubName, setClubName] = useState('')
+  const [clubName, setClubName] = useState(initialCompetitor.club?.name || '')
 
   const buildBody = useCallback((_, data) => ({ clubName, competitor: { ...data } }), [clubName])
 
@@ -148,6 +141,7 @@ const LimitedNewCompetitorForm = ({ race, onSave }) => {
         <Button submit={true} type="primary" disabled={saving}>
           {t('save')}
         </Button>
+        {initialCompetitor.id && <Button to={buildLimitedOfficialCompetitorsPath(race.id)}>{t('cancel')}</Button>}
       </div>
     </form>
   )

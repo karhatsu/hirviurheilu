@@ -1,5 +1,5 @@
 import useOfficialMenu from '../menu/useOfficialMenu'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRace } from '../../util/useRace'
 import IncompletePage from '../../common/IncompletePage'
 import useTranslation from '../../util/useTranslation'
@@ -27,6 +27,15 @@ const LimitedNewCompetitorPage = () => {
       else setCompetitors(response.competitors)
     })
   }, [race])
+
+  const initialCompetitor = useMemo(
+    () => ({
+      number: race?.nextNumber,
+      startTime: race?.nextStartTime,
+      clubId: userRaceRight.clubId || '',
+    }),
+    [race, userRaceRight],
+  )
 
   const onCreate = useCallback((competitor) => {
     setCompetitors((prev) => {
@@ -76,7 +85,7 @@ const LimitedNewCompetitorPage = () => {
         </Message>
       )
     }
-    return <LimitedNewCompetitorForm race={race} onSave={onCreate} />
+    return <LimitedNewCompetitorForm race={race} initialCompetitor={initialCompetitor} onSave={onCreate} />
   }
 
   return (

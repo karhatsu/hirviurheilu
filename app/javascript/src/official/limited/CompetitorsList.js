@@ -23,7 +23,7 @@ const CompetitorsList = ({ competitors, raceId, deleteCompetitor }) => {
                 </div>
               </div>
               <div className="card__buttons">
-                <Button href={buildLimitedOfficialEditCompetitorPath(raceId, competitor.id)} type="edit">
+                <Button to={buildLimitedOfficialEditCompetitorPath(raceId, competitor.id)} type="edit">
                   Muokkaa
                 </Button>
                 <Button onClick={deleteCompetitor(competitor.id)} type="danger">
