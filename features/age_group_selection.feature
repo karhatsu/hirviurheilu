@@ -45,18 +45,19 @@ Feature: Age group selection
     And I am on the limited official competitors page for "Ikäkisa"
     Then the age group menu should be hidden
     When I select "M60" from "Sarja"
-    Then the limited official competitors page age group menu should contain items "M60,M65"
+    Then the age group menu should contain items "M60,M65"
     When I select "S15" from "Sarja"
-    Then the limited official competitors page age group menu should contain items "P15,T15"
+    Then the age group menu should contain items "P15,T15"
     When I select "P15" from "Ikäryhmä"
     And I press "Tallenna"
     Then I should see "Etunimi on pakollinen" in an error message
-    And "P15" should be selected in the limited official competitors page age group menu
+    And "P15" should be selected in the age group menu
     When I fill in "Matti" for "Etunimi"
     And I fill in "Majala" for "Sukunimi"
+    And I select "Test club" from "Seura"
     And I press "Tallenna"
     Then I should be on the limited official competitors page for "Ikäkisa"
-    And "S15" should be selected in the limited official competitors page series menu
-    And "P15" should be selected in the limited official competitors page age group menu
+    And "S15" should be selected in the series menu
+    And "P15" should be selected in the age group menu
     When I follow "Muokkaa"
-    Then "P15" should be selected in the limited official competitors page age group menu
+    Then "P15" should be selected in the age group menu

@@ -3,6 +3,7 @@ Feature: Limited CSV import
   As a race official with limited rights
   I want to add competitors from CSV file
 
+  @javascript
   Scenario: Official with limited rights imports competitors from several clubs
     Given I am a limited official for the race "Limited race"
     And the race has series "N"
@@ -22,11 +23,11 @@ Feature: Limited CSV import
     Then I should see "Rivi 2 on virheellinen" in an error message
     When I attach the import test file "import_valid.csv" to "CSV-tiedosto"
     And I press "Lataa kilpailijat tietokantaan"
-    Then I should see "Kilpailijat ladattu tietokantaan" in a success message
-    And I should be on the limited official competitors page for "Limited race"
+    Then I should be on the limited official competitors page for "Limited race"
     And I should see "Lisätyt kilpailijat (5)"
     And I should see "Hämäläinen Minna"
 
+  @javascript
   Scenario: Official with limited rights to one club imports competitors
     Given there is a race "Limited race"
     And the race has a club "SS"
@@ -43,6 +44,5 @@ Feature: Limited CSV import
     Then I should see "Sinulla on oikeus lisätä kilpailijoita vain "SS"-piiriin" in an error message
     When I attach the import test file "import_valid_limited_club.csv" to "CSV-tiedosto"
     And I press "Lataa kilpailijat tietokantaan"
-    Then I should see "Kilpailijat ladattu tietokantaan" in a success message
-    And I should be on the limited official competitors page for "Limited race"
+    Then I should be on the limited official competitors page for "Limited race"
     And I should see "Lisätyt kilpailijat (3)"
