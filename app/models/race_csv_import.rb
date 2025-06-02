@@ -51,7 +51,7 @@ class RaceCsvImport
         elsif competitor.valid?
           @competitors << competitor
         else
-          @errors += competitor.errors.full_messages
+          @errors += competitor.errors.full_messages.select {|msg| msg != 'Sarja on pakollinen' && msg != 'Klass måste finnas'}
         end
       end
     end
