@@ -22,7 +22,7 @@ const fields = [
   { key: 'teamName' },
 ]
 
-const LimitedNewCompetitorForm = ({ race, initialCompetitor, onSave }) => {
+const LimitedCompetitorForm = ({ race, initialCompetitor, onSave }) => {
   const { t } = useTranslation()
   const { userRaceRight } = useAppData()
 
@@ -147,4 +147,4 @@ const LimitedNewCompetitorForm = ({ race, initialCompetitor, onSave }) => {
   )
 }
 
-export default LimitedNewCompetitorForm
+export default LimitedCompetitorForm

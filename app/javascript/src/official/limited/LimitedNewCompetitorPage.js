@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRace } from '../../util/useRace'
 import IncompletePage from '../../common/IncompletePage'
 import useTranslation from '../../util/useTranslation'
-import LimitedNewCompetitorForm from './LimitedNewCompetitorForm'
+import LimitedCompetitorForm from './LimitedCompetitorForm'
 import Message from '../../common/Message'
 import useAppData from '../../util/useAppData'
 import { del, get } from '../../util/apiClient'
@@ -85,7 +85,7 @@ const LimitedNewCompetitorPage = () => {
         </Message>
       )
     }
-    return <LimitedNewCompetitorForm race={race} initialCompetitor={initialCompetitor} onSave={onCreate} />
+    return <LimitedCompetitorForm race={race} initialCompetitor={initialCompetitor} onSave={onCreate} />
   }
 
   return (

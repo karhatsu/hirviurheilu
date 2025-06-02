@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useRace } from '../../util/useRace'
 import IncompletePage from '../../common/IncompletePage'
 import useTranslation from '../../util/useTranslation'
-import LimitedNewCompetitorForm from './LimitedNewCompetitorForm'
+import LimitedCompetitorForm from './LimitedCompetitorForm'
 import useTitle from '../../util/useTitle'
 import { get } from '../../util/apiClient'
 import { useNavigate, useParams } from 'react-router'
@@ -38,7 +38,7 @@ const LimitedEditCompetitorPage = () => {
   return (
     <div>
       <h2>{t('editCompetitor')}</h2>
-      <LimitedNewCompetitorForm race={race} initialCompetitor={competitor} onSave={onUpdate} />
+      <LimitedCompetitorForm race={race} initialCompetitor={competitor} onSave={onUpdate} />
     </div>
   )
 }
