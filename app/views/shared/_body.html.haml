@@ -4,7 +4,7 @@
     'data-user-id': current_user&.id, 'data-user-email': current_user&.email,
     'data-user-first-name': current_user&.first_name, 'data-user-last-name': current_user&.last_name,
     'data-admin': current_user&.admin?, 'data-locale': I18n.locale, 'data-no-nav': no_nav?.to_s,
-    'data-user-race-right': @race_right&.to_json,
+    'data-user-race-right': @race_right&.to_json, 'data-cup-name': @cup&.name,
     'data-race': race&.to_json(only: [:id, :name, :location, :start_date, :end_date, :club_level, :sport_key], include: { series: { only: [:id, :name] }, sport: {} })
   }
     - unless no_nav?

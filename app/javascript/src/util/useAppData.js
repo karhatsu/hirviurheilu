@@ -38,6 +38,7 @@ const useAppData = () => {
   const userLastName = appElement.getAttribute('data-user-last-name')
   const userRaceRight = appElement.getAttribute('data-user-race-right') // only limited official
   const race = appElement.getAttribute('data-race')
+  const cupName = appElement.getAttribute('data-cup-name')
   return {
     admin,
     environment,
@@ -50,6 +51,7 @@ const useAppData = () => {
     userLastName,
     userRaceRight: parseRaceRight(userRaceRight),
     race: parseRace(race),
+    cup: cupName && { name: cupName },
   }
 }
 
