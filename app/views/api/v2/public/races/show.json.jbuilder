@@ -31,8 +31,12 @@ json.series @race.series do |series|
   end
 end
 
-json.correct_estimates @race.correct_estimates do |ce|
-  json.(ce, :min_number, :max_number, :distances)
+if @race.finished?
+  json.correct_estimates @race.correct_estimates do |ce|
+    json.(ce, :min_number, :max_number, :distances)
+  end
+else
+  json.correct_estimates []
 end
 
 json.team_competitions @race.team_competitions do |tc|
