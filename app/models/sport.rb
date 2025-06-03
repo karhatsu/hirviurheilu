@@ -1,4 +1,6 @@
 class Sport
+  include ActiveModel::Serializers::JSON
+
   SKI = "SKI"
   RUN = "RUN"
   ILMAHIRVI = "ILMAHIRVI"
@@ -178,6 +180,16 @@ class Sport
     @config = CONFIGS[key.to_sym] or raise("Unknown sport key: #{key}")
     @key = key
     @race = race
+  end
+
+  def attributes
+    # for server-side rendering in _body.html.haml
+    { 'european': nil, 'nordic': nil, 'shooting': nil }
+  end
+
+  def read_attribute_for_serialization(attr)
+    method = "#{attr}?"
+    respond_to?(method) ? send(method) : super
   end
 
   def ==(other)

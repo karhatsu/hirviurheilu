@@ -8,6 +8,22 @@ const parseRaceRight = (raceRight) => {
   }
 }
 
+const parseRace = (race) => {
+  if (!race) return
+  const { club_level, end_date, id, name, location, series, sport, sport_key, start_date } = JSON.parse(race)
+  return {
+    clubLevel: club_level,
+    endDate: end_date,
+    id,
+    name,
+    location,
+    series,
+    sport,
+    sportKey: sport_key,
+    startDate: start_date,
+  }
+}
+
 const useAppData = () => {
   const appElement = document.getElementsByClassName('react-app')[0]
   if (!appElement) return {}
@@ -21,6 +37,7 @@ const useAppData = () => {
   const userFirstName = appElement.getAttribute('data-user-first-name')
   const userLastName = appElement.getAttribute('data-user-last-name')
   const userRaceRight = appElement.getAttribute('data-user-race-right') // only limited official
+  const race = appElement.getAttribute('data-race')
   return {
     admin,
     environment,
@@ -32,6 +49,7 @@ const useAppData = () => {
     userFirstName,
     userLastName,
     userRaceRight: parseRaceRight(userRaceRight),
+    race: parseRace(race),
   }
 }
 

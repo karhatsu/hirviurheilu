@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router'
 import { useCup } from '../util/useCup'
-import { useRace } from '../util/useRace'
+import useMinimalRace from '../util/useMinimalRace'
 import DateInterval from '../util/DateInterval'
 import useTranslation from '../util/useTranslation'
 import { matchPath } from '../util/routeUtil'
@@ -11,7 +11,7 @@ export default function PageTitle() {
   const { t } = useTranslation()
   const { pathname } = useLocation()
   const { cupId, raceId } = usePathParams()
-  const { race } = useRace()
+  const race = useMinimalRace()
   const { cup } = useCup()
   const { event } = useEvent()
   if (matchPath(pathname, '/announcements')) return t('announcements')

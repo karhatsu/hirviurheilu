@@ -21,7 +21,7 @@ import {
   buildOfficialSeriesShotsPath,
   buildOfficialSeriesTimesPath,
 } from '../../util/routeUtil'
-import { useRace } from '../../util/useRace'
+import useMinimalRace from '../../util/useMinimalRace'
 import useTranslation from '../../util/useTranslation'
 import { resolveClubsTitle } from '../../util/clubUtil'
 import useOfficialMenu from './useOfficialMenu'
@@ -224,7 +224,7 @@ const buildMenuItem = (selectedPage, key, t, race, series) => {
 
 const RaceSecondLevelMenu = ({ visible }) => {
   const { t } = useTranslation()
-  const { race } = useRace()
+  const race = useMinimalRace()
   const { selectedPage } = useOfficialMenu()
   if (!race) return null
   const series = race.series[0]
