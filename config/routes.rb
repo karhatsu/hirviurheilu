@@ -79,7 +79,7 @@ Hirviurheilu::Application.routes.draw do
 
     namespace :official do
       namespace :limited do
-        resources :races do
+        resources :races, only: :show do
           resources :competitors
           resources :csv_imports
         end
@@ -191,7 +191,7 @@ Hirviurheilu::Application.routes.draw do
   namespace :api, defaults: {format: 'json'} do
     namespace :v2 do
       namespace :official do
-        resources :races, only: [:show] do
+        resources :races, only: [] do
           resource :health, only: :show
           resources :relays, only: [] do
             put '/relay_teams/:team_number/legs/:leg/arrival_time' => 'relay_arrival_times#update'

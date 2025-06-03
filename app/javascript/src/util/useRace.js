@@ -1,24 +1,32 @@
-import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { usePathParams } from '../public/PathParamsProvider'
 import { get } from './apiClient'
 import useDataReloading from './useDataReloading'
+import { useLocation } from 'react-router'
 
 const RaceContext = createContext({})
 
 export const useRace = () => useContext(RaceContext)
 
-export const RaceProvider = ({ children }) => {
+export const RaceProvider = ({ children, official }) => {
   const { raceId } = usePathParams()
+  const location = useLocation()
   const [race, setRace] = useState()
   const [error, setError] = useState()
   const fetchRaceRef = useRef(undefined)
 
+  const racePath = useMemo(() => {
+    if (location.pathname.startsWith('/official/limited')) return `/official/limited/races/${raceId}.json`
+    if (official) return `/official/races/${raceId}.json`
+    return `/api/v2/public/races/${raceId}?no_competitors=true`
+  }, [location, official, raceId])
+
   const fetchRace = useCallback(() => {
-    get(`/api/v2/official/races/${raceId}?no_competitors=true`, (err, data) => {
+    get(racePath, (err, data) => {
       if (err) return setError(err)
       setRace(data)
     })
-  }, [raceId])
+  }, [racePath])
 
   useEffect(() => {
     fetchRaceRef.current = (reload) => {

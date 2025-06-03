@@ -57,7 +57,7 @@ const OfficialReactApp = () => {
 const OfficialReactAppContainer = () => (
   <LayoutProvider>
     <PathParamsContextProvider>
-      <RaceProvider>
+      <RaceProvider official={true}>
         <EventProvider>
           <OfficialMenuProvider>
             <OfficialReactApp />

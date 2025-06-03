@@ -16,6 +16,13 @@ class Official::RacesController < Official::OfficialController
 
   def show
     @is_race = true
+    respond_to do |format|
+      format.html
+      format.json do
+        @race = Race.where(id: params[:id]).includes(series: [:race, :age_groups, competitors: [:club, series: [:race]]]).first
+        return render status: 404, body: nil unless @race
+      end
+    end
   end
 
   def new
