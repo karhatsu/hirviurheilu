@@ -158,13 +158,19 @@ const shotFieldsToBody = (shotFields, data, clubName) => {
   return body
 }
 
+const includeCaliber = (sport) => ['METSASTYSHIRVI', 'METSASTYSLUODIKKO'].includes(sport.key)
+
+const caliberItems = ['.17 HMR', '.22', '.222', '.223', '.243', '.308', '6,5'].map((cal) => ({ id: cal, name: cal }))
+
 const resolveFields = (sport, editing) => {
   if (!editing) return newUserFields
   if (sport.nordic) return nordicEditFields
   if (sport.european) return europeanEditFields
   if (sport.shooting) {
     const shotCount = sport.qualificationRoundShotCount + sport.finalRoundShotCount
-    return [...shootingRaceEditFields, { key: 'shots', shotCount }]
+    const fields = [...shootingRaceEditFields, { key: 'shots', shotCount }]
+    if (includeCaliber(sport)) fields.push({ key: 'caliber' })
+    return fields
   }
   return threeSportEditFields
 }
@@ -410,6 +416,18 @@ const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, 
             />
           </FormField>
         </>
+      )}
+      {includeCaliber(race.sport) && (
+        <FormField id="caliber" size="sm">
+          <Select
+            id="caliber"
+            items={caliberItems}
+            onChange={onChange('caliber')}
+            promptLabel=""
+            promptValue=""
+            value={data.caliber || ''}
+          />
+        </FormField>
       )}
       {renderResultFields()}
       {editing && race.sport.qualificationRound && (

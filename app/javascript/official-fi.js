@@ -15,6 +15,7 @@ window.officialTranslations = {
   backToOfficialIndexPage: 'Takaisin toimitsijan etusivulle',
   backToOfficialRacePage: 'Takaisin Yhteenveto-sivulle',
   backToOfficialSeriesPage: 'Takaisin sarjan {{seriesName}} kilpailijaluetteloon',
+  caliber: 'Kaliiperi',
   cancel: 'Peruuta',
   clubsPageInfo:
     'Tällä sivulla voit lisätä kilpailuun osallistuvien kilpailijoiden seuroja/piirejä sekä korjata niiden nimiä ja poistaa ylimääräisiä. Huom! Voit lisätä seuroja/piirejä myös samalla, kun lisäät kilpailijoita.',

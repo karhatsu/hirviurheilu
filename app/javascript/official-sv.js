@@ -15,6 +15,7 @@ window.officialTranslations = {
   backToOfficialIndexPage: 'Tillbaka till funktionärens hemsida',
   backToOfficialRacePage: 'Tillbaka till sammanfattningnssidan',
   backToOfficialSeriesPage: 'Tillbaka till klassens {{seriesName}} tävlandelist',
+  caliber: 'Kaliber',
   cancel: 'Avbryt',
   clubsPageInfo:
     'På den här sidan kan du lägga till klubbar och radera onödiga. Obs! Du kan också lägga till klubbar när du lägger till tävlande.',

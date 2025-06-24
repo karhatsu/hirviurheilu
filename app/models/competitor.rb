@@ -96,7 +96,7 @@ class Competitor < ApplicationRecord
   validate :track_place_fitting
 
   before_save :set_has_result, :set_shooting_overtime_min, :convert_string_shots,
-              :convert_string_extra_shots, :convert_nordic_results, :convert_european_results
+              :convert_string_extra_shots, :convert_nordic_results, :convert_european_results, :reset_caliber
 
   after_create :set_correct_estimates
   after_save :update_series_start_time_and_number
@@ -743,6 +743,10 @@ class Competitor < ApplicationRecord
         send "#{sport}_#{sub_sport}_score_input2=", score_input2.to_i
       end
     end
+  end
+
+  def reset_caliber
+    self.caliber = nil if caliber.blank?
   end
 
   def update_series_start_time_and_number

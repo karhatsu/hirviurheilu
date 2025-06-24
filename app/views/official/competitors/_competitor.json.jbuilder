@@ -1,5 +1,6 @@
 json.(competitor,
   :age_group_id,
+  :caliber,
   :club_id,
   :estimate1,
   :estimate2,

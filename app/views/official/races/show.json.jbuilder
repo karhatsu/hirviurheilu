@@ -22,6 +22,7 @@ json.sport do
   json.european @race.sport.european?
   json.final_round @race.sport.final_round
   json.final_round_shot_count @race.sport.final_round_shot_count
+  json.key @race.sport_key
   json.nordic @race.sport.nordic?
   json.one_heat_list @race.sport.one_heat_list?
   json.qualification_round @race.sport.qualification_round

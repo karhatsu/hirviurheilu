@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_02_154903) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_24_031220) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -84,6 +84,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_02_154903) do
     t.boolean "only_rifle", default: false, null: false
     t.integer "shooting_rules_penalty"
     t.integer "shooting_rules_penalty_qr"
+    t.string "caliber"
     t.index ["age_group_id"], name: "index_competitors_on_age_group_id"
     t.index ["final_round_heat_id"], name: "index_competitors_on_final_round_heat_id"
     t.index ["qualification_round_heat_id"], name: "index_competitors_on_qualification_round_heat_id"

@@ -107,15 +107,30 @@ class Official::CompetitorsController < Official::OfficialController
   end
 
   def add_competitor_params
-    params.require(:competitor).permit(:series_id, :age_group_id, :club_id, :first_name, :last_name, :unofficial,
-      :team_name, :number, :start_time, :only_rifle, :qualification_round_heat_id, :qualification_round_track_place,
-      :final_round_heat_id, :final_round_track_place)
+    params.require(:competitor).permit(
+      :age_group_id,
+      :caliber,
+      :club_id,
+      :final_round_heat_id,
+      :final_round_track_place,
+      :first_name,
+      :last_name,
+      :number,
+      :only_rifle,
+      :qualification_round_heat_id,
+      :qualification_round_track_place,
+      :series_id,
+      :start_time,
+      :team_name,
+      :unofficial
+    )
   end
 
   def update_competitor_params
     params.require(:competitor).permit(
       :age_group_id,
       :arrival_time,
+      :caliber,
       :club_id,
       :estimate1,
       :estimate2,
