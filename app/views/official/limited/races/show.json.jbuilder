@@ -2,6 +2,7 @@ json.key_format! camelize: :lower if request.headers['X-Camel-Case']
 json.(@race, :id, :name, :location, :start_date, :end_date, :address, :club_level)
 
 json.sport do
+  json.key @race.sport_key
   json.shooting @race.sport.shooting?
 end
 

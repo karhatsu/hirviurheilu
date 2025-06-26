@@ -82,6 +82,14 @@ class Official::Limited::CompetitorsController < Official::Limited::LimitedOffic
   end
 
   def competitor_params
-    params.require(:competitor).permit(:series_id, :age_group_id, :first_name, :last_name, :club_id, :team_name)
+    params.require(:competitor).permit(
+      :age_group_id,
+      :caliber,
+      :club_id,
+      :first_name,
+      :last_name,
+      :series_id,
+      :team_name
+    )
   end
 end

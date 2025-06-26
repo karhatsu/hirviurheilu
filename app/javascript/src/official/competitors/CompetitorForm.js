@@ -17,6 +17,7 @@ import NordicShotFields from './NordicShotFields'
 import EuropeanShotFields from './EuropeanShotFields'
 import { competitorsOnlyToAgeGroups } from '../results/resultUtil'
 import ClubSelect from '../clubs/ClubSelect'
+import { caliberItems, showCaliberField } from '../util/caliberUtil'
 
 export const teamNameHelpDialogId = 'team_name_help_dialog'
 
@@ -158,22 +159,15 @@ const shotFieldsToBody = (shotFields, data, clubName) => {
   return body
 }
 
-const includeCaliber = (sport) => ['METSASTYSHIRVI', 'METSASTYSLUODIKKO'].includes(sport.key)
-
-const caliberItems = ['.17 HMR', '.22', '.222', '.223', '.243', '.308', '5,7', '6,5'].map((cal) => ({
-  id: cal,
-  name: cal,
-}))
-
 const resolveFields = (sport, editing) => {
-  if (!editing && includeCaliber(sport)) return [...newUserFields, { key: 'caliber' }]
+  if (!editing && showCaliberField(sport)) return [...newUserFields, { key: 'caliber' }]
   if (!editing) return newUserFields
   if (sport.nordic) return nordicEditFields
   if (sport.european) return europeanEditFields
   if (sport.shooting) {
     const shotCount = sport.qualificationRoundShotCount + sport.finalRoundShotCount
     const fields = [...shootingRaceEditFields, { key: 'shots', shotCount }]
-    if (includeCaliber(sport)) fields.push({ key: 'caliber' })
+    if (showCaliberField(sport)) fields.push({ key: 'caliber' })
     return fields
   }
   return threeSportEditFields
@@ -421,7 +415,7 @@ const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, 
           </FormField>
         </>
       )}
-      {includeCaliber(race.sport) && (
+      {showCaliberField(race.sport) && (
         <FormField id="caliber" size="sm">
           <Select
             id="caliber"

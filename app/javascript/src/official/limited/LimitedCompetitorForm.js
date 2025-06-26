@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import useTranslation from '../../util/useTranslation'
 import FormErrors from '../../common/form/FormErrors'
 import useCompetitorSaving from '../competitors/useCompetitorSaving'
@@ -12,6 +12,7 @@ import { findSeriesById } from '../../util/seriesUtil'
 import { renderTeamNameHelpDialog, teamNameHelpDialogId } from '../competitors/CompetitorForm'
 import useAppData from '../../util/useAppData'
 import { buildLimitedOfficialCompetitorsPath } from '../../util/routeUtil'
+import { caliberItems, showCaliberField } from '../util/caliberUtil'
 
 const fields = [
   { key: 'seriesId', number: true },
@@ -22,9 +23,15 @@ const fields = [
   { key: 'teamName' },
 ]
 
+const resolveFields = (sport) => {
+  if (showCaliberField(sport)) return [...fields, { key: 'caliber' }]
+  return fields
+}
+
 const LimitedCompetitorForm = ({ race, initialCompetitor, onSave }) => {
   const { t } = useTranslation()
   const { userRaceRight } = useAppData()
+  const fieldsRef = useRef(resolveFields(race.sport))
 
   const [clubName, setClubName] = useState(initialCompetitor.club?.name || '')
 
@@ -41,7 +48,7 @@ const LimitedCompetitorForm = ({ race, initialCompetitor, onSave }) => {
   const { changeValue, data, errors, onChange, onSubmit, saving } = useCompetitorSaving(
     race.id,
     initialCompetitor,
-    fields,
+    fieldsRef.current,
     buildBody,
     handleSave,
     true,
@@ -135,6 +142,18 @@ const LimitedCompetitorForm = ({ race, initialCompetitor, onSave }) => {
         <FormField id="teamName" labelId="team" helpDialogId={teamNameHelpDialogId}>
           <input id="teamName" value={data.teamName || ''} onChange={onChange('teamName')} />
           {renderTeamNameHelpDialog()}
+        </FormField>
+      )}
+      {showCaliberField(race.sport) && (
+        <FormField id="caliber" size="sm">
+          <Select
+            id="caliber"
+            items={caliberItems}
+            onChange={onChange('caliber')}
+            promptLabel=""
+            promptValue=""
+            value={data.caliber || ''}
+          />
         </FormField>
       )}
       <div className="form__buttons">
