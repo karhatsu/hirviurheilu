@@ -166,6 +166,7 @@ const caliberItems = ['.17 HMR', '.22', '.222', '.223', '.243', '.308', '5,7', '
 }))
 
 const resolveFields = (sport, editing) => {
+  if (!editing && includeCaliber(sport)) return [...newUserFields, { key: 'caliber' }]
   if (!editing) return newUserFields
   if (sport.nordic) return nordicEditFields
   if (sport.european) return europeanEditFields
