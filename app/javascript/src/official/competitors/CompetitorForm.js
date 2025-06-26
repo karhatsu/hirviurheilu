@@ -160,7 +160,10 @@ const shotFieldsToBody = (shotFields, data, clubName) => {
 
 const includeCaliber = (sport) => ['METSASTYSHIRVI', 'METSASTYSLUODIKKO'].includes(sport.key)
 
-const caliberItems = ['.17 HMR', '.22', '.222', '.223', '.243', '.308', '6,5'].map((cal) => ({ id: cal, name: cal }))
+const caliberItems = ['.17 HMR', '.22', '.222', '.223', '.243', '.308', '5,7', '6,5'].map((cal) => ({
+  id: cal,
+  name: cal,
+}))
 
 const resolveFields = (sport, editing) => {
   if (!editing) return newUserFields
