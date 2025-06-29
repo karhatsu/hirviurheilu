@@ -76,6 +76,7 @@ fi:
     hide_heats: Piilota eräluettelot
     hide_final_round_heats: Piilota loppukilpailun eräluettelot
     hide_qualification_round_heats: Piilota alkukilpailun eräluettelot
+    home_page: Linkki kilpailun kotisivuille
     include_always_last_race: Laske viimeinen kilpailu aina mukaan tuloksiin
     key: Avain
     last_name: Sukunimi

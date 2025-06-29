@@ -76,6 +76,7 @@ sv:
     hide_heats: Dölj heatlista
     hide_final_round_heats: Dölj finalens heatlista
     hide_qualification_round_heats: Dölj grundtävlingens heatlista
+    home_page: Länken till tävlingens hemsida
     include_always_last_race: Innehål den sista tävlingen alltid till resulten
     key: Nyckel
     last_name: Efternamn

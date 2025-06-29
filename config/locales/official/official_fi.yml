@@ -40,7 +40,6 @@ fi:
         updated: Kilpailun tiedot päivitetty
       form:
         basic_information: Kilpailun perustiedot
-        link_to_race_home_page: Linkki kilpailun kotisivuille
         competitor_organisation: Kilpailijoiden edustustaso
         organizer_information: Järjestäjän tiedot
         seconds: sekuntia

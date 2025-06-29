@@ -40,7 +40,6 @@ sv:
         updated: Tävlingen uppdaterad
       form:
         basic_information: Grundläggande tävlingsavgifter
-        link_to_race_home_page: Länken till tävlingens hemsida
         competitor_organisation: Tävlandes representationsnivå
         organizer_information: Arrangörsinformation
         seconds: sekunder
