@@ -184,6 +184,7 @@ class Competitor < ApplicationRecord
   end
 
   def estimate_points
+    return nil unless series.sport.three_sports?
     return nil unless has_estimates? && has_correct_estimates?
     error_meters = (correct_estimate1 - estimate1).abs + (correct_estimate2 - estimate2).abs
     if series.estimates == 4
