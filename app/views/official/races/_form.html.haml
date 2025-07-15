@@ -262,7 +262,7 @@
       $(".club_level_country").show();
     } else {
       $(".club_level_country").hide();
-      if($("#race_club_level_" + #{Race::CLUB_LEVEL_COUNTRY} + ":checked")) {
+      if($("#race_club_level_" + #{Race::CLUB_LEVEL_COUNTRY} + ":checked").length) {
         $("#race_club_level_" + #{Race::CLUB_LEVEL_SEURA}).prop('checked', true);
       }
     }
