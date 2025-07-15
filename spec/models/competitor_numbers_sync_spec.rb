@@ -18,11 +18,11 @@ describe CompetitorNumbersSync do
   let!(:competitor1_1) { create :competitor, series: series1, club: club1_a, number: 1, first_name: 'Timo', last_name: 'Testinen' }
   let!(:competitor1_2) { create :competitor, series: series1, club: club1_b, number: 2, first_name: 'Tiina', last_name: 'Testilä' }
   let!(:competitor1_nil) { create :competitor, series: series1, club: club1_b, number: nil, first_name: 'Tero', last_name: 'Testi' }
-  let!(:competitor2_1) { create :competitor, series: series2, club: club2_a, number: 10, first_name: 'Timo', last_name: 'Testinen' }
+  let!(:competitor2_1) { create :competitor, series: series2, club: club2_a, number: 10, first_name: 'Timo', last_name: 'Testinen ' }
   let!(:competitor2_2) { create :competitor, series: series2, club: club2_b, number: 1, first_name: 'Tiina', last_name: 'Testilä' }
   let!(:competitor2_3) { create :competitor, series: series2, club: club2_b, number: 2, first_name: 'Maija', last_name: 'Testilä' }
   let!(:competitor3_1) { create :competitor, series: series3, club: club3_b, number: 99, first_name: 'Tero', last_name: 'Testi' }
-  let!(:competitor3_2) { create :competitor, series: series3, club: club3_b, number: 4, first_name: 'Timo', last_name: 'Testinen' }
+  let!(:competitor3_2) { create :competitor, series: series3, club: club3_b, number: 4, first_name: 'Timo ', last_name: 'Testinen' }
   let!(:competitor3_3) { create :competitor, series: series3, club: club3_a, number: 5, first_name: 'Timo', last_name: 'Turunen' }
 
   it 'synchronises the numbers in given races based on the competitor names and clubs' do

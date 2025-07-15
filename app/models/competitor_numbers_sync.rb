@@ -17,7 +17,7 @@ class CompetitorNumbersSync
     # order by id ensures that the races are always handled in the same order
     @event.races.order(:id).each do |race|
       race.competitors.includes(:club).except(:order).order(:number).each do |competitor|
-        key = "#{competitor.club.name}_#{competitor.last_name}_#{competitor.first_name}"
+        key = "#{competitor.club.name}_#{competitor.last_name.strip}_#{competitor.first_name.strip}"
         if numbers[key]
           number = numbers[key]
         else
