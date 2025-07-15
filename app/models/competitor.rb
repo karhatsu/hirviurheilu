@@ -24,6 +24,8 @@ class Competitor < ApplicationRecord
   belongs_to :qualification_round_heat
   belongs_to :final_round_heat
 
+  before_validation :trim_names
+
   validates :first_name, :presence => true
   validates :last_name, :presence => true
   validates :number,
@@ -424,6 +426,11 @@ class Competitor < ApplicationRecord
   end
 
   private
+
+  def trim_names
+    self.first_name = first_name.strip if first_name
+    self.last_name = last_name.strip if last_name
+  end
 
   def age_group_series
     return unless age_group_id

@@ -599,6 +599,14 @@ describe Competitor do
   end
 
   describe 'callbacks' do
+    describe 'names' do
+      it 'trims name fields' do
+        competitor = create :competitor, first_name: 'First ', last_name: ' Last name  '
+        expect(competitor.first_name).to eql 'First'
+        expect(competitor.last_name).to eql 'Last name'
+      end
+    end
+
     describe 'shots' do
       it 'converts string shots into integers' do
         competitor = create :competitor, shots: %w(10 9 8)
