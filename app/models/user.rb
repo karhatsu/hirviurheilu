@@ -55,12 +55,14 @@ class User < ApplicationRecord
   end
 
   def events
+    return Event.all if admin?
     race_rights.select {|rr| !rr.only_add_competitors && rr.race&.event }.map {|rr| rr.race.event}.uniq
   end
 
   def find_event(id, includes = nil)
     event = Event.where(id: id).includes(includes).first
     return nil unless event
+    return event if admin?
     return nil unless event.races.all? {|race| has_full_rights_for_race? race}
     event
   end

@@ -141,14 +141,19 @@ describe User do
 
   describe '#events' do
     let(:user) { create(:user) }
-    let(:event1) { create(:event, name: 'Own 1') }
-    let(:event2) { create(:event, name: 'Own 2') }
-    let(:event3) { create(:event, name: 'Not own') }
+    let!(:event1) { create(:event, name: 'Own 1') }
+    let!(:event2) { create(:event, name: 'Own 2') }
+    let!(:event3) { create(:event, name: 'Not own') }
     let(:race1) { create(:race, event: event1) }
     let(:race2) { create(:race, event: event1) }
     let(:race3) { create(:race, event: event2) }
     let(:race4) { create(:race) }
     let!(:race5) { create(:race, event: event3) }
+    let(:admin) { create(:user) }
+
+    before do
+      admin.add_admin_rights
+    end
 
     it 'returns the events that belong to the user' do
       user.races << race1
@@ -163,6 +168,10 @@ describe User do
       user.race_rights.last.update_attribute :only_add_competitors, true
       expect(user.events).to eql []
     end
+
+    it 'returns all events for admin' do
+      expect(admin.events.count).to eql 3
+    end
   end
 
   describe '#find_event' do
@@ -170,6 +179,11 @@ describe User do
     let(:event) { create :event }
     let!(:race1) { create :race, event: event }
     let!(:race2) { create :race, event: event }
+    let(:admin) { create(:user) }
+
+    before do
+      admin.add_admin_rights
+    end
 
     it 'returns nil for unknown event' do
       expect(user.find_event(-1)).to be_nil
@@ -205,6 +219,12 @@ describe User do
 
       it 'returns nil' do
         expect(user.find_event(event.id)).to be_nil
+      end
+    end
+
+    context 'when user is admin' do
+      it 'returns the event' do
+        expect(admin.find_event(event.id)).to eql event
       end
     end
   end
