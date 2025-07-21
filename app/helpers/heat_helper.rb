@@ -17,10 +17,14 @@ module HeatHelper
       times << european_sub_sport_time(race, :rifle, heat.day3, heat.time3) if heat.time3
       times.join(' - ')
     elsif race.days_count > 1
-      "#{race.start_date.advance(days: heat.day - 1).strftime('%d.%m')} #{heat.time.strftime('%H:%M')}"
+      "#{heat_date(race.start_date.advance(days: heat.day - 1))} #{heat.time.strftime('%H:%M')}"
     else
       heat.time.strftime('%H:%M')
     end
+  end
+
+  def heat_date(date)
+    I18n.l date, format: '%a %d.%m'
   end
 
   private
@@ -34,6 +38,6 @@ module HeatHelper
   end
 
   def date(race, day)
-    race.days_count > 1 ? race.start_date.advance(days: day - 1).strftime('%d.%m') + ' ' : ''
+    race.days_count > 1 ? heat_date(race.start_date.advance(days: day - 1)) + ' ' : ''
   end
 end

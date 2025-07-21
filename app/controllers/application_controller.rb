@@ -13,13 +13,18 @@ class ApplicationController < ActionController::Base
   private
   def set_locale
     new_locale = params[:new_locale]
-    if new_locale and valid_locale?(new_locale)
+    if new_locale && valid_locale?(new_locale)
       I18n.locale = new_locale
       redirect_to path_after_locale_change(new_locale)
     elsif valid_locale?(params[:locale])
       I18n.locale = params[:locale]
     else
-      I18n.locale = I18n.default_locale
+      header_locale = extract_locale_from_accept_language_header
+      if header_locale && valid_locale?(header_locale)
+        I18n.locale = header_locale
+      else
+        I18n.locale = I18n.default_locale
+      end
     end
   end
 
@@ -50,6 +55,10 @@ class ApplicationController < ActionController::Base
     else
       return '/' + new_locale + path
     end
+  end
+
+  def extract_locale_from_accept_language_header
+    request.env["HTTP_ACCEPT_LANGUAGE"]&.scan(/^[a-z]{2}/)&.first
   end
 
   def default_url_options(options={})

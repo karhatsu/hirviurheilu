@@ -1,8 +1,10 @@
+import { getLocale } from './useAppData'
+
 const unexpectedErrorMsg = 'Odottamaton virhe, yritä uudestaan. Jos ongelma ei poistu, ota yhteys palvelun ylläpitoon.'
 
 export function get(path, callback) {
   fetch(path, {
-    headers: { 'X-Camel-Case': 'true' },
+    headers: { 'X-Camel-Case': 'true', 'Accept-Language': getLocale() },
   })
     .then((response) => {
       handleApiResponse(response, callback)

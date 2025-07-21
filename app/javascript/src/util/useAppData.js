@@ -55,4 +55,9 @@ const useAppData = () => {
   }
 }
 
+export const getLocale = () => {
+  const appElement = document.getElementsByClassName('react-app')[0]
+  return appElement.getAttribute('data-locale')
+}
+
 export default useAppData

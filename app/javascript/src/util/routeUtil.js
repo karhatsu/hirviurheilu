@@ -1,6 +1,7 @@
+import { getLocale } from './useAppData'
+
 export const withLocale = (path) => {
-  const appElement = document.getElementsByClassName('react-app')[0]
-  const locale = appElement.getAttribute('data-locale')
+  const locale = getLocale()
   if (path === '/' && locale === 'sv') return '/sv'
   return locale === 'sv' ? `/sv${path}` : path
 }
