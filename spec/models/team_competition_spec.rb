@@ -98,6 +98,17 @@ describe TeamCompetition do
           expect(tc.results_for_competitors([competitor])).to eq([])
         end
       end
+
+      context "when the race is finished but partial teams are wanted to be shown" do
+        before do
+          allow(race).to receive(:finished?).and_return(true)
+          tc.update_attribute :show_partial_teams, true
+        end
+
+        it "should return array with results" do
+          expect(tc.results_for_competitors([competitor])[0].best_competitor_score).to eql 1100
+        end
+      end
     end
 
     context "when the clubs have enough competitors" do

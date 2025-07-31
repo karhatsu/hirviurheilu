@@ -49,8 +49,16 @@ class Official::TeamCompetitionsController < Official::OfficialController
   end
 
   def team_competition_params
-    params.require(:team_competition).permit(:name, :team_competitor_count, :multiple_teams, :use_team_name,
-                                             :national_record, series_ids: [], age_group_ids: [])
+    params.require(:team_competition).permit(
+      :name,
+      :team_competitor_count,
+      :multiple_teams,
+      :show_partial_teams,
+      :use_team_name,
+      :national_record,
+      series_ids: [],
+      age_group_ids: []
+    )
   end
 
   def set_shotgun_extra_shots

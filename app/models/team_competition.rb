@@ -65,7 +65,7 @@ class TeamCompetition < ApplicationRecord
     official_competitors = competitors.select { |c| !c.unofficial? }
     teams_hash = map_sorted_competitors_by_teams official_competitors, rifle
     sorted_teams = sort_teams teams_hash, rifle
-    remove_teams_without_enough_competitors(sorted_teams) if race.finished?
+    remove_teams_without_enough_competitors(sorted_teams) if race.finished? && !show_partial_teams
     sorted_teams
   end
 

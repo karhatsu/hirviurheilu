@@ -146,6 +146,7 @@ fi:
     shorter_trip: Lyhennetty matka
     shots: Laukaukset
     show_european_shotgun_results: Näytä haulikon tulokset
+    show_partial_teams: Näytä tuloksissa myös vajaat joukkueet
     sport_key: Laji
     start_date: Alkupvm
     start_day: Aloituspäivä
