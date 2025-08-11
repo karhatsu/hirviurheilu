@@ -8,7 +8,7 @@ class CupSeries < ApplicationRecord
   end
 
   def has_single_series_with_same_name?
-    series_names.blank? or name == series_names
+    series_names.blank? || name == series_names
   end
 
   def cup_competitors
@@ -36,7 +36,7 @@ class CupSeries < ApplicationRecord
     race_count = cup_races.count
     cup_races.each_with_index do |race, i|
       last_cup_race = cup.include_always_last_race? && i + 1 == race_count
-      race.series.where(:name => series_names_as_array).each do |s|
+      race.series.where("LOWER(name) IN (?)", series_names_as_array.map(&:downcase)).each do |s|
         s.last_cup_race = last_cup_race
         series << s
       end

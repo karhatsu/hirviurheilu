@@ -105,7 +105,7 @@ describe CupSeries do
       series = build(:series, :race => race, :name => @cup_series_name)
       all_series = double(Object)
       allow(race).to receive(:series).and_return(all_series)
-      allow(all_series).to receive(:where).with(:name => series_name_condition).and_return([series])
+      allow(all_series).to receive(:where).with("LOWER(name) IN (?)", series_name_condition.map(&:downcase)).and_return([series])
       race
     end
   end
