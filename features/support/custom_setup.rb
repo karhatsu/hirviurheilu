@@ -13,3 +13,9 @@ end
 Before do
   setup_database
 end
+
+After do |scenario|
+  if scenario.failed?
+    # save_and_open_screenshot
+  end
+end
