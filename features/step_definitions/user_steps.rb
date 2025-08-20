@@ -151,4 +151,5 @@ end
 When /^I logout$/ do
   click_link("Omat tiedot")
   click_link("Kirjaudu ulos")
+  expect(find('.menu--main')).to have_text('Aloita käyttö')
 end
