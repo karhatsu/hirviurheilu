@@ -14,6 +14,11 @@ Before do
   setup_database
 end
 
+Before('@javascript') do
+  # Ensure window is resized before each JS scenario
+  page.driver.browser.manage.window.resize_to(1400, 1400)
+end
+
 After do |scenario|
   if scenario.failed?
     # save_and_open_screenshot
