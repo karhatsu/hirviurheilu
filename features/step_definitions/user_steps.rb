@@ -132,9 +132,10 @@ end
 
 Given /^I have logged in$/ do
   visit login_path
-  fill_in("Sähköposti", :with => @user.email)
-  fill_in("Salasana", :with => @user.password)
+  fill_in("Sähköposti", with: @user.email)
+  fill_in("Salasana", with: @user.password)
   click_button("Kirjaudu")
+  expect(find('.menu--main')).to have_text('Omat tiedot')
 end
 
 Given /^I change my password to "(.*?)"$/ do |new_password|
