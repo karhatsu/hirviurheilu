@@ -23,19 +23,19 @@ module NavigationHelpers
       new_official_race_path locale
 
     when /the race edit page of "(.*)"/
-      edit_official_race_path(locale, Race.find_by_name($1))
+      edit_official_race_path(locale, query{Race.find_by_name($1)})
 
     when /the official cup page of "(.*)"/
-      official_cup_path(locale, Cup.find_by_name($1))
+      official_cup_path(locale, query{Cup.find_by_name($1)})
 
     when /the official new event page/
       official_new_official_event_path(locale)
 
     when /the official event page of "(.*)"/
-      official_event_path(locale, Event.find_by_name($1))
+      official_event_path(locale, query{Event.find_by_name($1)})
 
     when /the official race page of "(.*)"/
-      official_race_path(locale, Race.find_by_name($1))
+      official_race_path(locale, query{Race.find_by_name($1)})
 
     when /the new competitor page of the series/
       new_official_race_series_competitor_path(locale, @series.race_id, @series)
@@ -44,49 +44,51 @@ module NavigationHelpers
       official_race_series_competitors_path(locale, @series.race_id, @series)
 
     when /the official competitors page of series "(.*)"/
-      official_race_series_competitors_path(locale, Series.find_by_name($1).race_id, Series.find_by_name($1))
+      series = query { Series.find_by_name($1) }
+      official_race_series_competitors_path(locale, series.race_id, series)
 
     when /the official start list page of the race "(.*)"/
-      official_race_start_list_path(locale, Race.find_by_name($1))
+      official_race_start_list_path(locale, query{Race.find_by_name($1)})
 
     when /the official quick save page of "(.*)"/
-      official_race_quick_saves_path(locale, Race.find_by_name($1))
+      official_race_quick_saves_path(locale, query{Race.find_by_name($1)})
 
     when /the official clubs page for "(.*)"/
-      official_race_clubs_path(locale, Race.find_by_name($1))
+      official_race_clubs_path(locale, query{Race.find_by_name($1)})
 
     when /the invite officials page for "(.*)"/
-      official_race_race_rights_path(locale, Race.find_by_name($1))
+      official_race_race_rights_path(locale, query{Race.find_by_name($1)})
 
     when /the export race page of "(.*)"/
-      new_official_race_exports_path(locale, Race.find_by_name($1))
+      new_official_race_exports_path(locale, query{Race.find_by_name($1)})
 
     when /the official csv import page of the race/
       new_official_race_csv_import_path(locale, @race)
 
     when /the official relays page of "(.*)"/
-      official_race_relays_path(locale, Race.find_by_name($1))
+      official_race_relays_path(locale, query{Race.find_by_name($1)})
 
     when /the edit relay page of "(.*)"/
-      edit_official_race_relay_path(locale, Relay.find_by_name($1).race, Relay.find_by_name($1))
+      relay = query { Relay.find_by_name($1) }
+      edit_official_race_relay_path(locale, relay.race, relay)
 
     when /the finish relay page of "(.*)"/
-      new_official_relay_finish_relay_path(locale, Relay.find_by_name($1))
+      new_official_relay_finish_relay_path(locale, query{Relay.find_by_name($1)})
 
     when /the official team competitions page of "(.*)"/
-      official_race_team_competitions_path(locale, Race.find_by_name($1))
+      official_race_team_competitions_path(locale, query{Race.find_by_name($1)})
 
     when /the limited official competitors page for "(.*)"/
-      new_official_limited_race_competitor_path(locale, Race.find_by_name($1))
+      new_official_limited_race_competitor_path(locale, query{Race.find_by_name($1)})
 
     when /^the cup page$/
       cup_path(locale, @cup)
 
     when /^the cup page of "(.*)"$/
-      cup_path(locale, Cup.find_by_name($1))
+      cup_path(locale, query{Cup.find_by_name($1)})
 
     when /the race page of "(.*)"/
-      race_path(locale, Race.find_by_name($1))
+      race_path(locale, query{Race.find_by_name($1)})
 
     when /the races page/
       races_path
@@ -110,7 +112,8 @@ module NavigationHelpers
       race_series_start_list_path(locale, @series.race, @series)
 
     when /the relay results page of "(.*)"/
-      race_relay_path(locale, Relay.find_by_name($1).race, Relay.find_by_name($1))
+      relay = query { Relay.find_by_name($1) }
+      race_relay_path(locale, relay.race, relay)
 
     when /the registration page/
       register_path locale
@@ -155,6 +158,17 @@ module NavigationHelpers
           "Now, go and add a mapping in #{__FILE__}"
       end
     end
+  end
+
+  def query
+    i = 0
+    while i < 5
+      ret = yield
+      return ret if ret
+      sleep 0.1
+      i = i + 1
+    end
+    nil
   end
 end
 
