@@ -29,8 +29,8 @@ Given /^the series has a competitor "([^"]*)" "([^"]*)" with (\d+)\+(\d+)\+(\d+)
     :estimate1 => 100, :correct_estimate1 => 100,
     :estimate2 => 150, :correct_estimate2 => 150 - (300 - epoints.to_i) / 2,
     :shooting_score_input => 100 - (600 - spoints.to_i) / 6)
-  @competitor.estimate_points.should == epoints.to_i
-  @competitor.shooting_points.should == spoints.to_i
+  expect(@competitor.estimate_points).to eq(epoints.to_i)
+  expect(@competitor.shooting_points).to eq(spoints.to_i)
 end
 
 Given('the series has a competitor {string} {string} with qualification round result {int}') do |first_name, last_name, qualification_round_score|

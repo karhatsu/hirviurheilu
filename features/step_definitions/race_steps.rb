@@ -198,14 +198,14 @@ Then /^the page should not contain the delete race button$/ do
 end
 
 Then /^the race should be completely deleted from the database$/ do
-#  Race.exists?(@race.id).should be_false
-  Series.exists?(@series.id).should be_falsey
-  AgeGroup.exists?(@age_group.id).should be_falsey
-  Competitor.exists?(@competitor.id).should be_falsey
-  TeamCompetition.exists?(@team_competition.id).should be_falsey
-  Relay.exists?(@relay.id).should be_falsey
-  RelayTeam.exists?(@relay_team.id).should be_falsey
-  RelayCompetitor.exists?(@relay_competitor.id).should be_falsey
+  # expect(Race.exists?(@race.id)).to be_falsey
+  expect(Series.exists?(@series.id)).to be_falsey
+  expect(AgeGroup.exists?(@age_group.id)).to be_falsey
+  expect(Competitor.exists?(@competitor.id)).to be_falsey
+  expect(TeamCompetition.exists?(@team_competition.id)).to be_falsey
+  expect(Relay.exists?(@relay.id)).to be_falsey
+  expect(RelayTeam.exists?(@relay_team.id)).to be_falsey
+  expect(RelayCompetitor.exists?(@relay_competitor.id)).to be_falsey
 end
 
 Then("I should see {int} races ordered as {string}") do |race_count, race_names|
