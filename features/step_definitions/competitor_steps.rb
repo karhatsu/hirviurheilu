@@ -147,7 +147,7 @@ end
 
 Then("I should see competitor {int} {string} with start time {string} in card {int}") do |number, name, start_time, card|
   parent = "//a[@class='card']"
-  find(:xpath, "(#{parent})[#{card}]//div[@class='card__number']").should have_text(number)
-  find(:xpath, "(#{parent})[#{card}]//div[@class='card__name']").should have_text(name)
-  find(:xpath, "(#{parent})[#{card}]//div[@class='card__middle-row'][2]").should have_text(start_time)
+  expect(page).to have_xpath("(#{parent})[#{card}]//div[@class='card__number']", text: number)
+  expect(page).to have_xpath("(#{parent})[#{card}]//div[@class='card__name']", text: name)
+  expect(page).to have_xpath("(#{parent})[#{card}]//div[@class='card__middle-row'][2]", text: start_time)
 end

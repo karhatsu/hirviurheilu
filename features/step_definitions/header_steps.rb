@@ -1,5 +1,3 @@
 Then /^the page title should contain "(.*?)"$/ do |title|
-  within(".body__on-top-title") do
-    page.should have_content(title)
-  end
+  expect(page).to have_css(".body__on-top-title", text: title)
 end

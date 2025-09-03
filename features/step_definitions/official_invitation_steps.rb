@@ -24,6 +24,8 @@ Then /^the current officials table should not contain "(.*?)"$/ do |name|
 end
 
 def expect_name_with_rights(row, name, rights)
-  find(:xpath, "(//div[@id='current_officials']//div[@class='card'])[#{row.to_i}]//div[@class='card__name']").should have_content(name)
-  find(:xpath, "(//div[@id='current_officials']//div[@class='card'])[#{row.to_i}]//div[@class='card__middle-row'][2]").should have_content(rights)
+  within(:xpath, "(//div[@id='current_officials']//div[@class='card'])[#{row.to_i}]") do
+    expect(page).to have_css(".card__name", text: name)
+    expect(page).to have_css(".card__middle-row:nth-of-type(3)", text: rights) # second middle-row but 3rd div
+  end
 end

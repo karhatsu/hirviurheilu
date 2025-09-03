@@ -1,5 +1,4 @@
 Then /^the series menu should contain options "(.*?)"$/ do |items|
-  items.split(',').each_with_index do |item, i|
-    page.should have_xpath("//select[@id='seriesId']/option[#{i+1}][text()='#{item}']")
-  end
+  expected_options = items.split(',').map(&:strip)
+  expect(page).to have_select('seriesId', options: expected_options)
 end

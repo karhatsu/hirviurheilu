@@ -194,7 +194,7 @@ When('I select the current year from {string}') do |field|
 end
 
 Then /^the page should not contain the delete race button$/ do
-  page.should have_no_button('Poista kilpailu')
+  expect(page).to have_no_button('Poista kilpailu')
 end
 
 Then /^the race should be completely deleted from the database$/ do

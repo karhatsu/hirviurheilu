@@ -67,5 +67,5 @@ Then /^I should see a team (\d+) competitor row (\d+) with values:$/ do |team_or
 end
 
 Then /^the result row (\d+) should have time "(.*?)" with reference time "(.*?)"$/ do |row, time, comparison_time|
-  find(:xpath, "//tr[@id='comp_#{row}']//td[@title='Vertailuaika: #{comparison_time}']").should have_content(time)
+  expect(page).to have_xpath("//tr[@id='comp_#{row}']//td[@title='Vertailuaika: #{comparison_time}']", text: time)
 end
