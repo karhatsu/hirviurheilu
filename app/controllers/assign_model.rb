@@ -56,48 +56,37 @@ module AssignModel
   end
 
   def assign_competitor_by_id
-    assign_competitor params[:id]
-  end
-
-  def assign_competitor(id)
+    @id = params[:id]
     begin
-      @competitor = Competitor.find(id)
+      @competitor = @series.competitors.find @id
     rescue ActiveRecord::RecordNotFound
-      @id = id
       render 'errors/competitor_not_found', status: 404
     end
   end
 
   def assign_relay_by_id
-    assign_relay params[:id]
+    @id = params[:id]
+    begin
+      @relay = @race.relays.find @id
+    rescue ActiveRecord::RecordNotFound
+      render 'errors/relay_not_found', status: 404
+    end
   end
 
   def assign_relay_by_relay_id
-    assign_relay params[:relay_id]
-  end
-
-  def assign_relay(id)
+    @id = params[:relay_id]
     begin
-      @relay = Relay.find(id)
+      @relay = Relay.find @id
     rescue ActiveRecord::RecordNotFound
-      @id = id
       render 'errors/relay_not_found', status: 404
     end
   end
 
   def assign_team_competition_by_id
-    assign_team_competition params[:id]
-  end
-
-  def assign_team_competition_by_team_competition_id
-    assign_team_competition params[:team_competition_id]
-  end
-
-  def assign_team_competition(id)
+    @id = params[:id]
     begin
-      @tc = TeamCompetition.find(id)
+      @tc = @race.team_competitions.find @id
     rescue ActiveRecord::RecordNotFound
-      @id = id
       render 'errors/team_competition_not_found', status: 404
     end
   end

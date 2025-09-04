@@ -1,6 +1,5 @@
 class CompetitorsController < ApplicationController
-  before_action :assign_series_by_series_id, :only => :index
-  before_action :assign_competitor_by_id, :only => :show
+  before_action :assign_series_by_series_id
   before_action :set_races, :set_results
 
   def index
@@ -11,8 +10,7 @@ class CompetitorsController < ApplicationController
   end
 
   def show
-    series = @competitor.series
-    redirect_to race_series_path(series.race, series), status: 301
+    redirect_to race_series_path(@series.race_id, @series.id), status: 301
   end
 
   private
