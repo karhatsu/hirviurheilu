@@ -135,7 +135,7 @@ Given /^I have logged in$/ do
   fill_in("Sähköposti", with: @user.email)
   fill_in("Salasana", with: @user.password)
   click_button("Kirjaudu")
-  expect(find('.menu--main')).to have_text('Omat tiedot')
+  expect(page).to have_css('.menu--main', text: 'Omat tiedot')
 end
 
 Given /^I change my password to "(.*?)"$/ do |new_password|
@@ -151,5 +151,5 @@ end
 When /^I logout$/ do
   click_link("Omat tiedot")
   click_link("Kirjaudu ulos")
-  expect(find('.menu--main')).to have_text('Aloita käyttö')
+  expect(page).to have_css('.menu--main', text: 'Aloita käyttö')
 end
