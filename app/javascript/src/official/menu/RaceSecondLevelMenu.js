@@ -96,6 +96,7 @@ const reactPages = [
   'nordicRifleStanding',
   'nordicShotgun',
   'nordicTrap',
+  'quickSaves',
   'shooting',
   'shootingByHeats',
   'shootingBySeries',

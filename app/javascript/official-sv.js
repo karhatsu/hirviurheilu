@@ -148,6 +148,35 @@ window.officialTranslations = {
   qualificationRoundShootingScoreInput: 'Grundtävlingens resultat',
   qualificationRoundShots: 'Grundtävlingens skott',
   qualificationRoundTrackPlace: 'Grundtävlingens plats',
+  quickSaves: 'Spara resultat',
+  quickSavesHelpEstimates:
+    'Spara resultat som nr,bedömning1,bedömning2, t.ex. 45,95,118 (tävlande 45, bedömningar 95 och 118 meter).',
+  quickSavesHelpEstimates4:
+    'Spara resultat som nr,bedömning1,bedömning2, t.ex. 45,95,118 (tävlande 45, bedömningar 95 och 118 meter) eller om tävlande har fyra bedömningar, nr,bedömning1,bedömning2,bedömning3,bedömning4, t.ex. 45,95,118,185,134.',
+  quickSavesHelpNoResult:
+    'Om tävlande startade inte, spara resultaten som nr,dns t.ex. 45,dns (tävlande 45, DNS = did not start). Om tävlande avbröt, spara resultaten som nr,dnf t.ex. 45,dnf (tävlande 45, DNF = did not finish). Om tävlande disqualified, spara resultaten som nr,dq t.ex. 45,dq (tävlande 45, DQ = diskad).',
+  quickSavesHelpShots:
+    'Spara resultat som nr,skytteresultat, t.ex. 45,87 (tävlande 45, skytte totalt 87). Eller med skott så att +-tecken eller *-tecken betyder 10, t.ex. 45,++99877420 (sätt 0 för alla missar).',
+  quickSavesHelpShotsExtra_ilmaluodikko:
+    'Spara omskjutning som nr,skott1,skott2,.. så att +-tecken betyder 10 och *-tecken betyder fullträff, t.ex. 45,9*. Om du sparar mer skott, de sparas efter förra skott.',
+  quickSavesHelpShotsExtra_other:
+    'Spara omskjutning som nr,skott1,skott2,.. så att +-tecken betyder 10, t.ex. 45,9+. Om du sparar mer skott, de sparas efter förra skott.',
+  quickSavesHelpShotsExtra_shotgun:
+    'Spara omskjutning som nr,skott1,skott2,..., t.ex. 45,110. Om du sparar mer skott, de sparas efter förra skott.',
+  quickSavesHelpShotsFR_ilmaluodikko:
+    'Spara finalens resultat som nr,skott1,skott2,... så att +-tecken betyder 10 och *-tecken betyder fullträff, t.ex. 45,9+*87 (5 skott) eller 45,9+*870**89 (10 skott). Du kan också spara totalresultatet som nr,resultat, t.ex. 45,94 (tävlande 45, finalens resultat 94).',
+  quickSavesHelpShotsFR_other:
+    'Spara finalens resultat som nr,skott1,skott2,... så att +-tecken betyder 10, t.ex. 45,9++87 (5 skott) eller 45,9++870+989 (10 skott). Du kan också spara totalresultatet som nr,resultat, t.ex. 45,94 (tävlande 45, finalens resultat 94).',
+  quickSavesHelpShotsFR_shotgun:
+    'Spara finalens resultat som nr,skott1,skott2,..., t.ex. 45,101110011... Du kan också spara totalresultatet som nr,resultat, t.ex. 45,24 (tävlande 45, finalens resultat: 24 träffar).',
+  quickSavesHelpShotsQR_ilmaluodikko:
+    'Spara grundtävlingens resultat som nr,skott1,skott2,... så att +-tecken betyder 10 och *-tecken betyder fullträff, t.ex. 45,9++870**89. Du kan också spara totalresultatet som nr,resultat, t.ex. 45,94 (tävlande 45, grundtävligens resultat 94).',
+  quickSavesHelpShotsQR_other:
+    'Spara grundtävlingens resultat som nr,skott1,skott2,... så att +-tecken betyder 10, t.ex. 45,9++870+989. Du kan också spara totalresultatet som nr,resultat, t.ex. 45,94 (tävlande 45, grundtävligens resultat 94).',
+  quickSavesHelpShotsQR_shotgun:
+    'Spara grundtävlingens resultat som nr,skott1,skott2,..., t.ex. 45,101110011... Du kan också spara totalresultatet som nr,resultat, t.ex. 45,23 (tävlande 45, grundtävligens resultat: 23 träffar).',
+  quickSavesHelpTimes: 'Spara resultat som nr,hhmmss, t.ex. 45,020728 (tävlande 45, avkomstid 02:07:28).',
+  quickSavesNoResult: 'Inget resultat',
   newClub: 'Ny {{clubLabel}}',
   newCompetitor: 'Ny tävlande',
   noCompetitorsInHeat: 'Heatet har inga tävlande',

@@ -163,30 +163,6 @@ sv:
       no_qualification_round_shots: Platsens %{track_place} tävlande har inte resultat for grundtävlingen
     quick_saves:
       index:
-        title: Spara resultat
-        title_shots: Spara skottsresultat
-        title_estimates: Spara bedömningar
-        title_time: Spara avkomstider
-        no_competitors: Inga tävlande i tävlingen
-        dns_dnf_dq: Startade inte / avbröt / disqualified
-        instructions_time: Spara resultat som nr,hhmmss, t.ex. 45,020728 (tävlande 45, avkomstid 02:07:28).
-        instructions_estimates: Spara resultat som nr,bedömning1,bedömning2, t.ex. 45,95,118 (tävlande 45, bedömningar 95 och 118 meter)
-        instructions_estimates_4:  eller om tävlande har fyra bedömningar, nr,bedömning1,bedömning2,bedömning3,bedömning4, t.ex. 45,95,118,185,134
-        instructions_shots: Spara resultat som nr,skytteresultat, t.ex. 45,87 (tävlande 45, skytte totalt 87). Eller med skott så att +-tecken eller *-tecken betyder 10, t.ex. 45,++99877420 (sätt 0 för alla missar).
-        instructions_qualification_round_shots:
-          ilmaluodikko: Spara grundtävlingens resultat som nr,skott1,skott2,... så att +-tecken betyder 10 och *-tecken betyder fullträff, t.ex. 45,9++870**89. Du kan också spara totalresultatet som nr,resultat, t.ex. 45,94 (tävlande 45, grundtävligens resultat 94).
-          shotgun: "Spara grundtävlingens resultat som nr,skott1,skott2,..., t.ex. 45,101110011... Du kan också spara totalresultatet som nr,resultat, t.ex. 45,23 (tävlande 45, grundtävligens resultat: 23 träffar)."
-          other: Spara grundtävlingens resultat som nr,skott1,skott2,... så att +-tecken betyder 10, t.ex. 45,9++870+989. Du kan också spara totalresultatet som nr,resultat, t.ex. 45,94 (tävlande 45, grundtävligens resultat 94).
-        instructions_final_round_shots:
-          ilmaluodikko: Spara finalens resultat som nr,skott1,skott2,... så att +-tecken betyder 10 och *-tecken betyder fullträff, t.ex. 45,9+*87 (5 skott) eller 45,9+*870**89 (10 skott). Du kan också spara totalresultatet som nr,resultat, t.ex. 45,94 (tävlande 45, finalens resultat 94).
-          shotgun: "Spara finalens resultat som nr,skott1,skott2,..., t.ex. 45,101110011... Du kan också spara totalresultatet som nr,resultat, t.ex. 45,24 (tävlande 45, finalens resultat: 24 träffar)."
-          other: Spara finalens resultat som nr,skott1,skott2,... så att +-tecken betyder 10, t.ex. 45,9++87 (5 skott) eller 45,9++870+989 (10 skott). Du kan också spara totalresultatet som nr,resultat, t.ex. 45,94 (tävlande 45, finalens resultat 94).
-        instructions_extra_shots:
-          ilmaluodikko: Spara omskjutning som nr,skott1,skott2,.. så att +-tecken betyder 10 och *-tecken betyder fullträff, t.ex. 45,9*. Om du sparar mer skott, de sparas efter förra skott.
-          shotgun: Spara omskjutning som nr,skott1,skott2,..., t.ex. 45,110. Om du sparar mer skott, de sparas efter förra skott.
-          other: Spara omskjutning som nr,skott1,skott2,.. så att +-tecken betyder 10, t.ex. 45,9+. Om du sparar mer skott, de sparas efter förra skott.
-        instructions_dns_dnf_dq: Om tävlande startade inte, spara resultaten som nr,dns t.ex. 45,dns (tävlande 45, DNS = did not start). Om tävlande avbröt, spara resultaten som nr,dnf t.ex. 45,dnf (tävlande 45, DNF = did not finish). Om tävlande disqualified, spara resultaten som nr,dq t.ex. 45,dq (tävlande 45, DQ = diskad).
-        latest_savings: Senaste sparat
         result_message: Tävlande %{competitor_number} %{competitor_name}. (%{series_name}) resultat sparat (%{result}).
     result_place:
       no_competitors_in_series: Du har sparat inga tävlande för den här klassen.

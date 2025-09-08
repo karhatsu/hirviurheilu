@@ -3,6 +3,7 @@ Feature: Quick result save
   As an official
   I want to save individual results quickly with Quick save
 
+  @javascript
   Scenario: Go to quick save page
     Given I am an official
     And I have a race "Relay race"

@@ -20,6 +20,7 @@ import EditCompetitorPage from './competitors/EditCompetitorPage'
 import StartListPage from './start-list/StartListPage'
 import LimitedNewCompetitorPage from './limited/LimitedNewCompetitorPage'
 import LimitedEditCompetitorPage from './limited/LimitedEditCompetitorPage'
+import QuickSavesPage from './quick-saves/QuickSavesPage'
 
 const OfficialMainContent = () => {
   return (
@@ -60,6 +61,7 @@ const OfficialMainContent = () => {
           </Route>
           <Route path="shooting_by_heats" element={<ShootingByHeatsPage />} />
           <Route path="start_list" element={<StartListPage />} />
+          <Route path="quick_saves" element={<QuickSavesPage />} />
         </Route>
         <Route path="limited/races/:raceId" element={null}>
           <Route path="competitors/new" element={<LimitedNewCompetitorPage />} />

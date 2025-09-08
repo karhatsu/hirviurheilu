@@ -1,8 +1,10 @@
 class Official::QuickSavesController < Official::OfficialController
-  include QuickSavesHelper, TimeFormatHelper, ResultFormatHelper
+  include TimeFormatHelper, ResultFormatHelper, ApplicationHelper
   before_action :assign_race_by_race_id, :check_assigned_race, :set_quick_saves
 
   def index
+    use_react true
+    render layout: true, html: ''
   end
 
   def save_estimates
@@ -72,12 +74,20 @@ class Official::QuickSavesController < Official::OfficialController
       @competitor = quick_save.competitor
       block.call
       respond_to do |format|
-        format.js { render :success, :layout => false }
+        format.json do
+          render json: {
+            success: t('official.quick_saves.index.result_message',
+                       competitor_number: @competitor.number,
+                       competitor_name: full_name(@competitor),
+                       series_name: @competitor.series.name,
+                       result: @result)
+          }
+        end
       end
     else
       @error = quick_save.error
       respond_to do |format|
-        format.js { render :error, :layout => false }
+        format.json { render status: 400, json: { errors: [@error] } }
       end
     end
   end

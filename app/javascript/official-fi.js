@@ -146,6 +146,36 @@ window.officialTranslations = {
   qualificationRoundShootingScoreInput: 'Alkukilpailun yhteistulos',
   qualificationRoundShots: 'Alkukilpailun laukaukset',
   qualificationRoundTrackPlace: 'Alkukilpailun ratapaikka',
+  quickSaves: 'Tulosten pikasyöttö',
+  quickSavesHelpEstimates:
+    'Syötä tulos muodossa nro,arvio1,arvio2, esim. 45,95,118 (kilpailija 45, arviot 95 ja 118 metriä). Voit myös korvata pilkun #-merkillä, esim 45#95#118.',
+  quickSavesHelpEstimates4:
+    'Syötä tulos muodossa nro,arvio1,arvio2, esim. 45,95,118 (kilpailija 45, arviot 95 ja 118 metriä). Neljän arviomatkan sarjan kilpailijoille syötä tulos muodossa nro,arvio1,arvio2,arvio3,arvio4, esim. 45,95,118,185,134 (kilpailija 45, arviot 95, 118, 185 ja 134 metriä). Voit myös korvata pilkun #-merkillä, esim 45#95#118.',
+  quickSavesHelpNoResult:
+    'Jos kilpailija ei lähtenyt matkaan, syötä tieto muodossa nro,dns esim. 45,dns (kilpailija 45, DNS = did not start). Jos kilpailija keskeytti, syötä tieto muodossa nro,dnf esim. 45,dnf (kilpailija 45, DNF = did not finish). Jos kilpailija hylättiin, syötä tieto muodossa nro,dq esim. 45,dq (kilpailija 45, DQ = disqualified). Voit myös korvata pilkun #-merkillä, esim 45#dnf.',
+  quickSavesHelpShots:
+    'Syötä tulos muodossa nro,ammuntatulos, esim. 45,87 (kilpailija 45, ammunta yhteensä 87) tai vaihtoehtoisesti laukausten kanssa siten että +-merkki tai *-merkki on 10, esim. 45,++99877420 (merkitse ohilaukauksille nollat). Voit myös korvata pilkun #-merkillä, esim 45#99 tai 45#**99877420.',
+  quickSavesHelpShotsExtra_ilmaluodikko:
+    'Syötä uusintalaukauksia muodossa nro,laukaus1,laukaus2,.. siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9*. Jos syötät laukaukset uudestaan, ne tallentuvat edellisten perään.',
+  quickSavesHelpShotsExtra_other:
+    'Syötä uusintalaukauksia muodossa nro,laukaus1,laukaus2,.. siten että +-merkki on 10, esim. 45,9+. Jos syötät laukaukset uudestaan, ne tallentuvat edellisten perään.',
+  quickSavesHelpShotsExtra_shotgun:
+    'Syötä uusintalaukauksia muodossa nro,laukaus1,laukaus2,..., esim. 45,110. Jos syötät laukaukset uudestaan, ne tallentuvat edellisten perään.',
+  quickSavesHelpShotsFR_ilmaluodikko:
+    'Syötä loppukilpailun tulos muodossa nro,laukaus1,laukaus2,... siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9+*87 (5 laukausta) tai 45,9+*870**89 (10 laukausta). Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, loppukilpailun tulos 94).',
+  quickSavesHelpShotsFR_other:
+    'Syötä loppukilpailun tulos muodossa nro,laukaus1,laukaus2,... siten että +-merkki on 10, esim. 45,9++87 (5 laukausta) tai 45,9++870+989 (10 laukausta). Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, loppukilpailun tulos 94).',
+  quickSavesHelpShotsFR_shotgun:
+    'Syötä loppukilpailun tulos muodossa nro,laukaus1,laukaus2,..., esim. 45,101110011... Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,24 (kilpailija 45, loppukilpailun tulos: 24 osumaa).',
+  quickSavesHelpShotsQR_ilmaluodikko:
+    'Syötä alkukilpailun tulos muodossa nro,laukaus1,laukaus2,... siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9++870**89. Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, alkukilpailun tulos 94).',
+  quickSavesHelpShotsQR_other:
+    'Syötä alkukilpailun tulos muodossa nro,laukaus1,laukaus2,... siten että +-merkki on 10, esim. 45,9++870+989. Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, alkukilpailun tulos 94).',
+  quickSavesHelpShotsQR_shotgun:
+    'Syötä alkukilpailun tulos muodossa nro,laukaus1,laukaus2,..., esim. 45,101110011... Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,23 (kilpailija 45, alkukilpailun tulos: 23 osumaa).',
+  quickSavesHelpTimes:
+    'Syötä tulos muodossa nro,hhmmss, esim. 45,020728 (kilpailija 45, saapumisaika 02:07:28). Voit myös korvata pilkun #-merkillä, esim 45#020728.',
+  quickSavesNoResult: 'Ei tulosta',
   newClub: 'Uusi {{clubLabel}}',
   newCompetitor: 'Uusi kilpailija',
   noCompetitorsInHeat: 'Erässä ei ole yhtään kilpailijaa',
