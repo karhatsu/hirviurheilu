@@ -36,6 +36,7 @@ const QuickSavesPage = () => {
             instructionsKey={`quickSavesHelpShotsQR_${instructionsKey}`}
             field="qualification_round_shots"
             path="qualification_round_shots_quick_save"
+            showShotCount={true}
           />
           <ResultSection
             raceId={race.id}
@@ -43,6 +44,7 @@ const QuickSavesPage = () => {
             instructionsKey={`quickSavesHelpShotsFR_${instructionsKey}`}
             field="final_round_shots"
             path="final_round_shots_quick_save"
+            showShotCount={true}
           />
           <ResultSection
             raceId={race.id}
@@ -50,6 +52,7 @@ const QuickSavesPage = () => {
             instructionsKey={`quickSavesHelpShotsExtra_${instructionsKey}`}
             field="extra_shots"
             path="extra_shots_quick_save"
+            showShotCount={true}
           />
         </div>
       )
@@ -76,6 +79,7 @@ const QuickSavesPage = () => {
           instructionsKey="quickSavesHelpShots"
           field="shots"
           path="shots_quick_save"
+          showShotCount={true}
         />
         <ResultSection
           raceId={race.id}

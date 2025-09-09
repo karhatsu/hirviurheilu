@@ -5,7 +5,7 @@ import Button from '../../common/Button'
 import { post } from '../../util/apiClient'
 import FormErrors from '../../common/form/FormErrors'
 
-const ResultSection = ({ raceId, titleKey, instructionsKey, field, path }) => {
+const ResultSection = ({ raceId, titleKey, instructionsKey, field, path, showShotCount }) => {
   const { t } = useTranslation()
   const [value, setValue] = useState('')
   const [saving, setSaving] = useState(false)
@@ -33,6 +33,8 @@ const ResultSection = ({ raceId, titleKey, instructionsKey, field, path }) => {
     [raceId, path, value],
   )
 
+  const shotCount = (value.split(',')[1] || value.split('#')[1])?.length
+
   return (
     <div>
       <h3>{t(titleKey)}</h3>
@@ -49,6 +51,7 @@ const ResultSection = ({ raceId, titleKey, instructionsKey, field, path }) => {
               {t('save')}
             </Button>
           </div>
+          {showShotCount && shotCount > 3 && <div className="form__field">({shotCount})</div>}
         </div>
       </form>
     </div>
