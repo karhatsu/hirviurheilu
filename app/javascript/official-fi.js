@@ -179,8 +179,8 @@ window.officialTranslations = {
   newClub: 'Uusi {{clubLabel}}',
   newCompetitor: 'Uusi kilpailija',
   noCompetitorsInHeat: 'Erässä ei ole yhtään kilpailijaa',
-  noCompetitorsInRace: 'Et ole syöttänyt kilpailuun vielä yhtään kilpailijaa.',
-  noCompetitorsInSeries: 'Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa.',
+  noCompetitorsInRace: 'Et ole lisännyt kilpailuun vielä yhtään kilpailijaa.',
+  noCompetitorsInSeries: 'Et ole lisännyt tähän sarjaan vielä yhtään kilpailijaa.',
   noHeats: 'Yhtään erää ei ole vielä määritetty',
   noStartListForAnySeries: 'Yhdellekään sarjalle ei ole luotu vielä lähtölistaa',
   noStartListForSeries:
