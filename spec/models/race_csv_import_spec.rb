@@ -147,13 +147,15 @@ describe RaceCsvImport do
 
     context 'when the file contains duplicate competitors' do
       before do
+        @race.start_order = Race::START_ORDER_MIXED
+        @race.save!
         @ci = RaceCsvImport.new(@race, test_file_path('import_with_duplicate_competitors.csv'))
       end
 
       it_should_behave_like 'failed import', 1
 
       it "#errors should contain one error about duplicate competitors" do
-        expect(@ci.errors.first).to eq('Tiedosto sisältää saman kilpailijan kahteen kertaan: Heikki,Räsänen,SS,M40')
+        expect(@ci.errors.first).to eq('Tiedosto sisältää saman kilpailijan kahteen kertaan: Heikki,Räsänen')
       end
     end
 

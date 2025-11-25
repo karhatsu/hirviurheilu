@@ -135,8 +135,9 @@ class RaceCsvImport
   end
 
   def validate_duplicate_data
-    if @data.length != @data.uniq.length
-      first_duplicate = @data.group_by{ |e| e }.select { |k, v| v.size > 1 }.map(&:first)
+    names = @data.map {|row| row[FIRST_NAME_COLUMN] + ',' + row[LAST_NAME_COLUMN]}
+    if names.length != names.uniq.length
+      first_duplicate = names.group_by{ |e| e }.select { |k, v| v.size > 1 }.map(&:first)
       @errors << "Tiedosto sisältää saman kilpailijan kahteen kertaan: #{original_format first_duplicate}"
     end
   end
