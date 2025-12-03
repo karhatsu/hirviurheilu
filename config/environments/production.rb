@@ -37,13 +37,15 @@ Hirviurheilu::Application.configure do
   end
 
   # Use a different cache store in production
-  config.cache_store = :mem_cache_store, (ENV['MEMCACHIER_SERVERS'] || '').split(','),
-      {:username => ENV['MEMCACHIER_USERNAME'],
-       :password => ENV['MEMCACHIER_PASSWORD'],
-       failover: true,
-       socket_timeout: 1.5,
-       socket_failure_delay: 0.2
-      }
+  config.cache_store = :redis_cache_store, {
+    url: ENV["REDIS_URL"],
+    namespace: "cache",
+    expires_in: 1.hour,
+    reconnect_attempts: 3,
+    error_handler: -> (method:, returning:, exception:) {
+      Rails.logger.error "Redis cache error: #{exception.class}: #{exception.message}"
+    }
+  }
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"

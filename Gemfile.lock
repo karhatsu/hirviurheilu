@@ -139,7 +139,6 @@ GEM
       cucumber (>= 7, < 11)
       railties (>= 6.1, < 9)
     cucumber-tag-expressions (6.1.2)
-    dalli (3.2.8)
     database_cleaner (2.1.0)
       database_cleaner-active_record (>= 2, < 3)
     database_cleaner-active_record (2.2.2)
@@ -409,7 +408,6 @@ DEPENDENCIES
   binding_of_caller
   capybara
   cucumber-rails
-  dalli
   database_cleaner
   email_spec
   exception_notification
