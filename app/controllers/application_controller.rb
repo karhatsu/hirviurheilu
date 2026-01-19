@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :assign_races_for_main_menu
   before_action :underscore_params!
+  before_action :prevent_text
 
   private
   def set_locale
@@ -219,5 +220,9 @@ class ApplicationController < ActionController::Base
 
   def underscore_params!
     params.deep_transform_keys!(&:underscore) if request.headers['X-Camel-Case']
+  end
+
+  def prevent_text
+    request.format = :html if request.format.text? && request.accepts.include?(Mime[:html])
   end
 end
