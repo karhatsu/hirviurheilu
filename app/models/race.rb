@@ -163,18 +163,18 @@ class Race < ApplicationRecord
       update_cols2 = { correct_estimate1: ce.distance1, correct_estimate2: ce.distance2, correct_estimate3: nil, correct_estimate4: nil }
       update_cols4 = { correct_estimate1: ce.distance1, correct_estimate2: ce.distance2, correct_estimate3: ce.distance3, correct_estimate4: ce.distance4 }
       if ce.max_number.nil?
-        competitors.where('series.estimates=? AND number>=?', 2, ce.min_number).except(:order).update_all(update_cols2)
-        competitors.where('series.estimates=? AND number>=?', 4, ce.min_number).except(:order).update_all(update_cols4)
-        competitor_ids = competitor_ids + competitors.where('number>=?', ce.min_number).map(&:id)
+        competitors.where('series.estimates=? AND competitors.number>=?', 2, ce.min_number).except(:order).update_all(update_cols2)
+        competitors.where('series.estimates=? AND competitors.number>=?', 4, ce.min_number).except(:order).update_all(update_cols4)
+        competitor_ids = competitor_ids + competitors.where('competitors.number>=?', ce.min_number).map(&:id)
       else
-        competitors.where('series.estimates=? AND number>=? AND number<=?', 2, ce.min_number, ce.max_number).except(:order).update_all(update_cols2)
-        competitors.where('series.estimates=? AND number>=? AND number<=?', 4, ce.min_number, ce.max_number).except(:order).update_all(update_cols4)
-        competitor_ids = competitor_ids + competitors.where('number>=? AND number<=?', ce.min_number, ce.max_number).map(&:id)
+        competitors.where('series.estimates=? AND competitors.number>=? AND competitors.number<=?', 2, ce.min_number, ce.max_number).except(:order).update_all(update_cols2)
+        competitors.where('series.estimates=? AND competitors.number>=? AND competitors.number<=?', 4, ce.min_number, ce.max_number).except(:order).update_all(update_cols4)
+        competitor_ids = competitor_ids + competitors.where('competitors.number>=? AND competitors.number<=?', ce.min_number, ce.max_number).map(&:id)
       end
     end
 
     reset_cols = { correct_estimate1: nil, correct_estimate2: nil, correct_estimate3: nil, correct_estimate4: nil }
-    competitors.where('competitors.id NOT IN (?) and number IS NOT NULL', competitor_ids).except(:order).update_all(reset_cols)
+    competitors.where('competitors.id NOT IN (?) and competitors.number IS NOT NULL', competitor_ids).except(:order).update_all(reset_cols)
     series.each(&:touch)
   end
 
