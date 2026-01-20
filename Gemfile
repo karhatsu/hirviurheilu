@@ -24,6 +24,7 @@ group :development, :production do
 end
 
 group :production do
+  gem 'image_processing'
   gem 'newrelic_rpm'
   gem 'exception_notification'
   gem 'wkhtmltopdf-heroku', '2.12.6.1.pre.jammy'
