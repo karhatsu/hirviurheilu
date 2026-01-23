@@ -53,7 +53,7 @@ const useCompetitorSorting = (series) => {
 
   useEffect(() => {
     competitorsRef.current = series.competitors
-    setCompetitors(series.competitors)
+    setCompetitors(series.competitors) // eslint-disable-line react-hooks/set-state-in-effect
     sort(sortMethod)
   }, [series.competitors, sort, sortMethod])
 

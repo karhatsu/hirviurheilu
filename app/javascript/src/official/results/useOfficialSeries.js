@@ -10,7 +10,7 @@ const useOfficialSeries = () => {
   const [fetching, setFetching] = useState(true)
 
   useEffect(() => {
-    setFetching(true)
+    setFetching(true) // eslint-disable-line react-hooks/set-state-in-effect
     let path = `/official/races/${raceId}/series/${seriesId}`
     if (searchParams.get('qualification_round')) path += '?qualification_round=true'
     get(path, (err, response) => {

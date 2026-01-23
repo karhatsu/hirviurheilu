@@ -34,6 +34,7 @@ function useDebounce(callback, delay) {
     callbackRef.current = callback
   }, [callback])
 
+  // eslint-disable-next-line react-hooks/refs
   return useRef(debounce((...args) => callbackRef.current(...args), delay)).current
 }
 

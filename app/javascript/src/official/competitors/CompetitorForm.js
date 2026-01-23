@@ -188,11 +188,10 @@ const NoResultReasonOption = ({ data, onChange, option }) => {
 
 const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, onSeriesChange, onSave }) => {
   const { t } = useTranslation()
-  const initialClubName = useRef(findClubById(race.clubs, initialCompetitor.clubId)?.name || '')
-  const [clubName, setClubName] = useState(initialClubName.current)
+  const [clubName, setClubName] = useState(() => findClubById(race.clubs, initialCompetitor.clubId)?.name || '')
   const actionAfterSaveRef = useRef()
   const editing = !!initialCompetitor.id
-  const fieldsRef = useRef(resolveFields(race.sport, editing))
+  const [fields] = useState(() => resolveFields(race.sport, editing))
   const formRef = useRef()
 
   const buildBody = useCallback(
@@ -235,7 +234,7 @@ const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, 
   const { changeValue, data, errors, onChange, onChangeShot, onSubmit, saving } = useCompetitorSaving(
     race.id,
     initialCompetitor,
-    fieldsRef.current,
+    fields,
     buildBody,
     handleSave,
   )

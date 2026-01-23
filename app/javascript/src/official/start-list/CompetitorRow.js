@@ -1,5 +1,5 @@
 import useCompetitorSaving from '../competitors/useCompetitorSaving'
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import Select from '../../common/form/Select'
 import { findSeriesById } from '../../util/seriesUtil'
 import { competitorsOnlyToAgeGroups } from '../results/resultUtil'
@@ -21,8 +21,10 @@ const fields = [
 
 const CompetitorRow = ({ race, availableSeries, competitor: initialCompetitor, onSave }) => {
   const { t } = useTranslation()
-  const initialClubName = useRef(findClubById(race.clubs, initialCompetitor.clubId)?.name || '')
-  const [clubName, setClubName] = useState(initialClubName.current)
+  const [initialClubName, setInitialClubName] = useState(
+    () => findClubById(race.clubs, initialCompetitor.clubId)?.name || '',
+  )
+  const [clubName, setClubName] = useState(initialClubName)
 
   const isEditing = !!initialCompetitor.id
 
@@ -31,7 +33,7 @@ const CompetitorRow = ({ race, availableSeries, competitor: initialCompetitor, o
   const handleSave = useCallback(
     (competitor) => {
       if (isEditing) {
-        initialClubName.current = clubName
+        setInitialClubName(clubName)
       } else {
         setClubName('')
       }
@@ -71,7 +73,7 @@ const CompetitorRow = ({ race, availableSeries, competitor: initialCompetitor, o
   const promptAgeGroup = !competitorsOnlyToAgeGroups(series) || (isEditing && !data.ageGroupId)
 
   const canSubmit =
-    (changed || clubName !== initialClubName.current) &&
+    (changed || clubName !== initialClubName) &&
     clubName &&
     !saving &&
     !fields.find((f) => !['ageGroupId', 'clubId'].includes(f.key) && !data[f.key])

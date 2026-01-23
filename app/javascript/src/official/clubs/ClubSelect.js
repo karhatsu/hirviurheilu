@@ -1,9 +1,11 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { findClubById, resolveClubTitle } from '../../util/clubUtil'
 import useTranslation from '../../util/useTranslation'
 
+const generateId = () => Math.random().toString(36)
+
 const ClubSelect = ({ competitorId, clubs, clubName, clubLevel, onSelect }) => {
-  const id = useRef(Math.random().toString(36))
+  const id = useMemo(() => generateId(), [])
   const { t } = useTranslation()
   const [clubsVisible, setClubsVisible] = useState(false)
 
@@ -30,16 +32,16 @@ const ClubSelect = ({ competitorId, clubs, clubName, clubLevel, onSelect }) => {
 
   useEffect(() => {
     const clickListener = (event) => {
-      if (!document.getElementById(id.current).contains(event.target)) {
+      if (!document.getElementById(id).contains(event.target)) {
         setClubsVisible(false)
       }
     }
     window.addEventListener('click', clickListener)
     return () => window.removeEventListener('click', clickListener)
-  }, [])
+  }, [id])
 
   return (
-    <div className="club-select" id={id.current}>
+    <div className="club-select" id={id}>
       <input
         value={clubName}
         onFocus={() => setClubsVisible(true)}

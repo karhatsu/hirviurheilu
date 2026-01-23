@@ -9,7 +9,7 @@ const useCupTeamCompetition = () => {
   const [error, setError] = useState()
 
   useEffect(() => {
-    setFetching(true)
+    setFetching(true) // eslint-disable-line react-hooks/set-state-in-effect
     get(`/api/v2/public/cups/${cupId}/cup_team_competitions/${cupTeamCompetitionId}`, (err, data) => {
       if (err) return setError(err)
       setCupTeamCompetition(data)

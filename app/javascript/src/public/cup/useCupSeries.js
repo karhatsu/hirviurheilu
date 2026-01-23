@@ -9,7 +9,7 @@ const useCupSeries = () => {
   const [error, setError] = useState()
 
   useEffect(() => {
-    setFetching(true)
+    setFetching(true) // eslint-disable-line react-hooks/set-state-in-effect
     const path = rifleCupSeriesId ? 'rifle_cup_series' : 'cup_series'
     const seriesId = rifleCupSeriesId || cupSeriesId
     get(`/api/v2/public/cups/${cupId}/${path}/${seriesId}`, (err, data) => {

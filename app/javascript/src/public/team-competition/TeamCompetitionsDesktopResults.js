@@ -16,7 +16,6 @@ export default function TeamCompetitionsDesktopResults({ race, teamCompetition, 
 
   useEffect(() => scrollAutomatically(), [scrollAutomatically])
 
-  let prevCompetitorPosition = 0
   return (
     <div className="results--desktop">
       <table className="results-table">
@@ -39,8 +38,8 @@ export default function TeamCompetitionsDesktopResults({ race, teamCompetition, 
         <tbody>
           {teams.map((team, i) => {
             const { competitors, name, position, totalScore } = team
-            const orderNo = position === prevCompetitorPosition ? '' : `${position}.`
-            prevCompetitorPosition = position
+            const prevTeamPosition = teams[i - 1]?.position || 0
+            const orderNo = position === prevTeamPosition ? '' : `${position}.`
             return (
               <Fragment key={name}>
                 <tr id={`team_${i + 1}`}>

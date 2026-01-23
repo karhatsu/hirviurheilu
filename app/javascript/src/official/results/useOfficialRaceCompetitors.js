@@ -9,7 +9,6 @@ const useOfficialRaceCompetitors = () => {
   const [fetching, setFetching] = useState(true)
 
   useEffect(() => {
-    setFetching(true)
     get(`/official/races/${raceId}/competitors.json`, (err, response) => {
       if (err) setError(err)
       else setCompetitors(response.competitors)

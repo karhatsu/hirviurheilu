@@ -1,15 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useMemo } from 'react'
 
 const useRelaySorting = (relay, leg) => {
-  const [teams, setTeams] = useState([])
-  useEffect(() => {
-    if (relay) {
-      if (leg) {
-        const { teamIds } = relay.legResults[leg - 1]
-        setTeams(teamIds.map((teamId) => relay.teams.find((team) => team.id === teamId)))
-      } else {
-        setTeams(relay.teams)
-      }
+  const teams = useMemo(() => {
+    if (!relay) return []
+    if (leg) {
+      const { teamIds } = relay.legResults[leg - 1]
+      return teamIds.map((teamId) => relay.teams.find((team) => team.id === teamId))
+    } else {
+      return relay.teams
     }
   }, [relay, leg])
   return { teams }

@@ -20,7 +20,7 @@ const EditEventPage = () => {
   useTitle(event && [event.name, t('edit')])
 
   useEffect(() => {
-    if (event) setData({ name: event.name })
+    if (event) setData({ name: event.name }) // eslint-disable-line react-hooks/set-state-in-effect
   }, [event])
 
   const onChange = useCallback(

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import useTranslation from '../../util/useTranslation'
 import FormErrors from '../../common/form/FormErrors'
 import useCompetitorSaving from '../competitors/useCompetitorSaving'
@@ -31,7 +31,7 @@ const resolveFields = (sport) => {
 const LimitedCompetitorForm = ({ race, initialCompetitor, onSave }) => {
   const { t } = useTranslation()
   const { userRaceRight } = useAppData()
-  const fieldsRef = useRef(resolveFields(race.sport))
+  const [fields] = useState(() => resolveFields(race.sport))
 
   const [clubName, setClubName] = useState(initialCompetitor.club?.name || '')
 
@@ -48,7 +48,7 @@ const LimitedCompetitorForm = ({ race, initialCompetitor, onSave }) => {
   const { changeValue, data, errors, onChange, onSubmit, saving } = useCompetitorSaving(
     race.id,
     initialCompetitor,
-    fieldsRef.current,
+    fields,
     buildBody,
     handleSave,
     true,

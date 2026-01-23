@@ -1,7 +1,6 @@
 import UnofficialLabel from './UnofficialLabel'
 
 export default function DesktopResultsRows({ children, competitors, sortMethod }) {
-  let prevCompetitorPosition = 0
   return (
     <tbody>
       {competitors.map((competitor, i) => {
@@ -10,8 +9,8 @@ export default function DesktopResultsRows({ children, competitors, sortMethod }
         if (ageGroup) {
           name = `${name} (${ageGroup.name})`
         }
+        const prevCompetitorPosition = competitors[i - 1]?.position || 0
         const orderNo = sortMethod ? `${i + 1}.` : position === prevCompetitorPosition ? '' : `${position}.`
-        prevCompetitorPosition = position
         return (
           <tr key={id} className={i % 2 === 0 ? 'odd' : ''} id={`comp_${i + 1}`}>
             <td>{orderNo}</td>

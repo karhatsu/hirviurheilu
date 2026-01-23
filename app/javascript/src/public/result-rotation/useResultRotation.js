@@ -12,7 +12,7 @@ const minSeconds = 5
 
 export const ResultRotationProvider = ({ children }) => {
   const navigate = useNavigate()
-  const { seriesId, teamCompetitionId } = usePathParams()
+  const { raceId, seriesId, teamCompetitionId } = usePathParams()
   const [autoScroll, setAutoScroll] = useState(false)
   const [autoScrolling, setAutoScrolling] = useState(false)
   const [seconds, setSeconds] = useState(15)
@@ -64,24 +64,24 @@ export const ResultRotationProvider = ({ children }) => {
     const seriesIndex = seriesId ? seriesIds.indexOf(parseInt(seriesId)) : -1
     const tcIndex = teamCompetitionId ? teamCompetitionIds.indexOf(parseInt(teamCompetitionId)) : -1
     if (seriesIndex !== -1 && seriesIndex === seriesIds.length - 1 && teamCompetitionIds.length) {
-      return buildTeamCompetitionsPath(race.id, teamCompetitionIds[0])
+      return buildTeamCompetitionsPath(raceId, teamCompetitionIds[0])
     } else if (tcIndex !== -1 && tcIndex === teamCompetitionIds.length - 1 && seriesIds.length) {
-      return buildSeriesResultsPath(race.id, seriesIds[0])
+      return buildSeriesResultsPath(raceId, seriesIds[0])
     } else if (seriesIndex !== -1) {
       const nextIndex = (seriesIndex + 1) % seriesIds.length
-      return buildSeriesResultsPath(race.id, seriesIds[nextIndex])
+      return buildSeriesResultsPath(raceId, seriesIds[nextIndex])
     } else if (tcIndex !== -1) {
       const nextIndex = (tcIndex + 1) % teamCompetitionIds.length
-      return buildTeamCompetitionsPath(race.id, teamCompetitionIds[nextIndex])
+      return buildTeamCompetitionsPath(raceId, teamCompetitionIds[nextIndex])
     }
-  }, [race?.id, seriesIds, seriesId, teamCompetitionIds, teamCompetitionId])
+  }, [raceId, seriesIds, seriesId, teamCompetitionIds, teamCompetitionId])
 
   useEffect(() => {
     let timeout, interval
     if (started) {
       statusRef.current.nextPath = resolveNextPath()
       if (statusRef.current.nextPath) {
-        setRemainingSeconds(seconds)
+        setRemainingSeconds(seconds) // eslint-disable-line react-hooks/set-state-in-effect
         interval = setInterval(() => {
           setRemainingSeconds((secs) => Math.max(0, secs - 1))
         }, 1000)

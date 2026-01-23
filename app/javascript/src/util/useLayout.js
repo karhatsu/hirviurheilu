@@ -5,14 +5,13 @@ const LayoutContext = createContext({})
 const useLayout = () => useContext(LayoutContext)
 
 export const LayoutProvider = ({ children }) => {
-  const [mobile, setMobile] = useState(true)
+  const [mobile, setMobile] = useState(() => window.innerWidth < 768)
 
   const resizeListener = useCallback(() => {
     setMobile(window.innerWidth < 768)
   }, [])
 
   useEffect(() => {
-    resizeListener()
     window.addEventListener('resize', resizeListener)
     window.forceMobileLayout = setMobile
     return () => {
