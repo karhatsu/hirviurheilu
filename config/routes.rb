@@ -1,7 +1,5 @@
 Hirviurheilu::Application.routes.draw do
   scope "(/:locale)", :locale => /#{I18n.available_locales.join('|')}/ do
-    resource :home
-
     delete 'logout' => 'user_sessions#destroy', :as => :logout
     get 'login' => 'user_sessions#new', :as => :login
     resource :user_session
