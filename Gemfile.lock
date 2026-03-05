@@ -408,7 +408,7 @@ GEM
       activesupport
       ostruct
     wkhtmltopdf-binary-edge (0.12.6.0)
-    wkhtmltopdf-heroku (2.12.6.1.pre.jammy)
+    wkhtmltopdf-heroku (3.0.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.7.4)
@@ -458,7 +458,7 @@ DEPENDENCIES
   uglifier
   wicked_pdf
   wkhtmltopdf-binary-edge
-  wkhtmltopdf-heroku (= 2.12.6.1.pre.jammy)
+  wkhtmltopdf-heroku
 
 RUBY VERSION
   ruby 4.0.1
