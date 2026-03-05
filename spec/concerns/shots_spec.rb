@@ -452,6 +452,13 @@ describe Shots do
         expect(competitor.extra_score).to eql 19
       end
     end
+
+    context 'when inner 10 extra shots in ilmaluodikko' do
+      it '11 is calculated as 10' do
+        competitor.extra_shots = [11, 10]
+        expect(competitor.extra_score).to eql 20
+      end
+    end
   end
 
   describe 'nordic' do

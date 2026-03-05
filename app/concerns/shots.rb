@@ -47,7 +47,7 @@ module Shots
   end
 
   def extra_score
-    extra_shots&.inject(:+)
+    sum_of_array extra_shots, true if extra_shots
   end
 
   def shooting_score
