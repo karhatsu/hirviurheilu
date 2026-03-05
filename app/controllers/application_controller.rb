@@ -131,7 +131,7 @@ class ApplicationController < ActionController::Base
   end
 
   def pdf_footer
-    { :center => 'www.hirviurheilu.com', :spacing => 10, :line => true }
+    { center: 'www.hirviurheilu.com', right: '[page]', spacing: 10, line: true }
   end
 
   def pdf_margin
