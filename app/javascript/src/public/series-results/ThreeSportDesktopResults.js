@@ -71,7 +71,7 @@ export default function ThreeSportDesktopResults({ race, series }) {
                 <td>
                   <ShootingPoints competitor={competitor} />
                 </td>
-                {showShootingTime && <td>{timeFromSeconds(shootingTimeSeconds)}</td>}
+                {showShootingTime && <td>{shootingTimeSeconds ? timeFromSeconds(shootingTimeSeconds) : '-'}</td>}
                 <td className="center total-points">
                   <Points competitor={competitor} />
                   <NationalRecord race={race} series={series} competitor={competitor} />
