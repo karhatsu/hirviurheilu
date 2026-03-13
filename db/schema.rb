@@ -10,81 +10,81 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_31_175543) do
+ActiveRecord::Schema[8.1].define(version: 2025_07_31_175543) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
 
   create_table "age_groups", id: :serial, force: :cascade do |t|
-    t.integer "series_id", null: false
-    t.string "name", limit: 255, null: false
     t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
     t.integer "min_competitors", default: 0, null: false
+    t.string "name", limit: 255, null: false
+    t.integer "series_id", null: false
     t.boolean "shorter_trip", default: false, null: false
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "announcements", id: :serial, force: :cascade do |t|
-    t.date "published", null: false
-    t.string "title", limit: 255, null: false
-    t.text "content"
     t.boolean "active", default: false, null: false
+    t.text "content"
     t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
     t.boolean "front_page"
     t.text "markdown"
+    t.date "published", null: false
+    t.string "title", limit: 255, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "clubs", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255, null: false
     t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.integer "race_id", null: false
     t.string "long_name", limit: 255
+    t.string "name", limit: 255, null: false
+    t.integer "race_id", null: false
+    t.datetime "updated_at", precision: nil
     t.index ["race_id"], name: "index_clubs_on_race_id"
   end
 
   create_table "competitors", id: :serial, force: :cascade do |t|
-    t.integer "series_id", null: false
-    t.integer "club_id", null: false
-    t.string "first_name", limit: 255, null: false
-    t.string "last_name", limit: 255, null: false
-    t.integer "number"
-    t.time "start_time"
-    t.time "arrival_time"
-    t.integer "shooting_score_input"
-    t.integer "estimate1"
-    t.integer "estimate2"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.string "no_result_reason", limit: 255
     t.integer "age_group_id"
+    t.time "arrival_time"
+    t.string "caliber"
+    t.integer "club_id", null: false
     t.integer "correct_estimate1"
     t.integer "correct_estimate2"
-    t.integer "estimate3"
-    t.integer "estimate4"
     t.integer "correct_estimate3"
     t.integer "correct_estimate4"
-    t.boolean "unofficial", default: false, null: false
-    t.string "team_name", limit: 255
-    t.boolean "has_result", default: false, null: false
-    t.integer "shooting_overtime_min"
-    t.time "shooting_start_time"
-    t.time "shooting_finish_time"
-    t.bigint "qualification_round_heat_id"
-    t.integer "qualification_round_track_place"
-    t.jsonb "shots"
-    t.jsonb "extra_shots"
-    t.integer "qualification_round_shooting_score_input"
-    t.integer "final_round_shooting_score_input"
-    t.bigint "final_round_heat_id"
-    t.integer "final_round_track_place"
-    t.jsonb "nordic_results"
+    t.datetime "created_at", precision: nil
+    t.integer "estimate1"
+    t.integer "estimate2"
+    t.integer "estimate3"
+    t.integer "estimate4"
     t.jsonb "european_results"
+    t.jsonb "extra_shots"
+    t.bigint "final_round_heat_id"
+    t.integer "final_round_shooting_score_input"
+    t.integer "final_round_track_place"
+    t.string "first_name", limit: 255, null: false
+    t.boolean "has_result", default: false, null: false
+    t.string "last_name", limit: 255, null: false
+    t.string "no_result_reason", limit: 255
+    t.jsonb "nordic_results"
+    t.integer "number"
     t.boolean "only_rifle", default: false, null: false
+    t.bigint "qualification_round_heat_id"
+    t.integer "qualification_round_shooting_score_input"
+    t.integer "qualification_round_track_place"
+    t.integer "series_id", null: false
+    t.time "shooting_finish_time"
+    t.integer "shooting_overtime_min"
     t.integer "shooting_rules_penalty"
     t.integer "shooting_rules_penalty_qr"
-    t.string "caliber"
+    t.integer "shooting_score_input"
+    t.time "shooting_start_time"
+    t.jsonb "shots"
+    t.time "start_time"
+    t.string "team_name", limit: 255
+    t.boolean "unofficial", default: false, null: false
+    t.datetime "updated_at", precision: nil
     t.index ["age_group_id"], name: "index_competitors_on_age_group_id"
     t.index ["final_round_heat_id"], name: "index_competitors_on_final_round_heat_id"
     t.index ["qualification_round_heat_id"], name: "index_competitors_on_qualification_round_heat_id"
@@ -92,15 +92,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_31_175543) do
   end
 
   create_table "correct_estimates", id: :serial, force: :cascade do |t|
-    t.integer "race_id", null: false
-    t.integer "min_number", null: false
-    t.integer "max_number"
+    t.datetime "created_at", precision: nil
     t.integer "distance1", null: false
     t.integer "distance2", null: false
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
     t.integer "distance3"
     t.integer "distance4"
+    t.integer "max_number"
+    t.integer "min_number", null: false
+    t.integer "race_id", null: false
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "cup_officials", id: false, force: :cascade do |t|
@@ -109,28 +109,28 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_31_175543) do
   end
 
   create_table "cup_series", id: :serial, force: :cascade do |t|
+    t.datetime "created_at", precision: nil, null: false
     t.integer "cup_id"
     t.string "name", limit: 255, null: false
     t.string "series_names", limit: 255
-    t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "cup_team_competitions", force: :cascade do |t|
+    t.datetime "created_at", null: false
     t.bigint "cup_id"
     t.string "name", null: false
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cup_id"], name: "index_cup_team_competitions_on_cup_id"
   end
 
   create_table "cups", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255, null: false
-    t.integer "top_competitions", default: 2, null: false
     t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
     t.boolean "include_always_last_race", default: false, null: false
+    t.string "name", limit: 255, null: false
     t.text "public_message"
+    t.integer "top_competitions", default: 2, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "use_qualification_round_result", default: false, null: false
   end
 
@@ -140,220 +140,220 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_31_175543) do
   end
 
   create_table "districts", force: :cascade do |t|
+    t.datetime "created_at", precision: nil, null: false
     t.string "name", null: false
     t.string "short_name", null: false
-    t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "events", force: :cascade do |t|
-    t.string "name", null: false
     t.datetime "created_at", null: false
+    t.string "name", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "heats", force: :cascade do |t|
-    t.bigint "race_id"
-    t.integer "number", null: false
-    t.integer "track"
-    t.time "time", null: false
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "day", default: 1, null: false
-    t.string "type", null: false
-    t.time "time2"
-    t.time "time3"
-    t.time "time4"
     t.integer "day2", default: 1, null: false
     t.integer "day3", default: 1, null: false
     t.integer "day4", default: 1, null: false
     t.string "description"
+    t.integer "number", null: false
+    t.bigint "race_id"
+    t.time "time", null: false
+    t.time "time2"
+    t.time "time3"
+    t.time "time4"
+    t.integer "track"
+    t.string "type", null: false
+    t.datetime "updated_at", null: false
     t.index ["race_id"], name: "index_heats_on_race_id"
   end
 
   create_table "race_rights", id: :serial, force: :cascade do |t|
+    t.integer "club_id"
+    t.boolean "new_clubs", default: false, null: false
+    t.boolean "only_add_competitors", default: false, null: false
+    t.boolean "primary", default: false, null: false
     t.integer "race_id", null: false
     t.integer "user_id", null: false
-    t.boolean "only_add_competitors", default: false, null: false
-    t.integer "club_id"
-    t.boolean "primary", default: false, null: false
-    t.boolean "new_clubs", default: false, null: false
   end
 
   create_table "races", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255, null: false
-    t.string "location", limit: 255, null: false
-    t.date "start_date", null: false
-    t.date "end_date", null: false
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.integer "start_interval_seconds"
-    t.boolean "finished", default: false, null: false
-    t.integer "series_count", default: 0, null: false
-    t.string "home_page", limit: 255
-    t.integer "heat_size", default: 0, null: false
-    t.integer "heat_interval_seconds", default: 180, null: false
-    t.integer "club_level", default: 0, null: false
-    t.integer "start_order", default: 1, null: false
-    t.text "video_source"
-    t.text "video_description"
-    t.string "organizer", limit: 255
-    t.time "start_time", default: "2000-01-01 00:00:00", null: false
-    t.string "organizer_phone", limit: 255
-    t.string "billing_info"
-    t.text "public_message"
-    t.string "api_secret"
     t.string "address"
-    t.integer "district_id"
-    t.string "sport_key"
-    t.integer "shooting_place_count"
-    t.integer "track_count"
-    t.boolean "reveal_distances", default: false, null: false
+    t.string "api_secret"
+    t.string "billing_info"
     t.boolean "cancelled", default: false, null: false
-    t.boolean "hide_qualification_round_heats"
-    t.boolean "hide_final_round_heats"
-    t.integer "level", default: 0, null: false
-    t.string "pending_official_email"
-    t.boolean "nordic_sub_results_for_series"
-    t.boolean "show_european_shotgun_results", default: false, null: false
+    t.integer "club_level", default: 0, null: false
+    t.datetime "created_at", precision: nil
+    t.integer "district_id"
     t.boolean "double_competition", default: false, null: false
+    t.date "end_date", null: false
     t.bigint "event_id"
+    t.boolean "finished", default: false, null: false
+    t.integer "heat_interval_seconds", default: 180, null: false
+    t.integer "heat_size", default: 0, null: false
+    t.boolean "hide_final_round_heats"
+    t.boolean "hide_qualification_round_heats"
+    t.string "home_page", limit: 255
+    t.integer "level", default: 0, null: false
+    t.string "location", limit: 255, null: false
+    t.string "name", limit: 255, null: false
+    t.boolean "nordic_sub_results_for_series"
+    t.string "organizer", limit: 255
+    t.string "organizer_phone", limit: 255
+    t.string "pending_official_email"
+    t.text "public_message"
+    t.boolean "reveal_distances", default: false, null: false
+    t.integer "series_count", default: 0, null: false
+    t.integer "shooting_place_count"
+    t.boolean "show_european_shotgun_results", default: false, null: false
+    t.string "sport_key"
+    t.date "start_date", null: false
+    t.integer "start_interval_seconds"
+    t.integer "start_order", default: 1, null: false
+    t.time "start_time", default: "2000-01-01 00:00:00", null: false
+    t.integer "track_count"
+    t.datetime "updated_at", precision: nil
+    t.text "video_description"
+    t.text "video_source"
     t.index ["event_id"], name: "index_races_on_event_id"
   end
 
   create_table "relay_competitors", id: :serial, force: :cascade do |t|
-    t.integer "relay_team_id", null: false
+    t.integer "adjustment"
+    t.time "arrival_time"
+    t.datetime "created_at", precision: nil
+    t.integer "estimate"
+    t.integer "estimate_penalties_adjustment"
     t.string "first_name", limit: 255, null: false
     t.string "last_name", limit: 255, null: false
     t.integer "leg", null: false
-    t.time "start_time"
-    t.time "arrival_time"
     t.integer "misses"
-    t.integer "estimate"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.integer "adjustment"
-    t.integer "estimate_penalties_adjustment"
+    t.integer "relay_team_id", null: false
     t.integer "shooting_penalties_adjustment"
+    t.time "start_time"
+    t.datetime "updated_at", precision: nil
     t.index ["relay_team_id"], name: "index_relay_competitors_on_relay_team_id"
   end
 
   create_table "relay_correct_estimates", id: :serial, force: :cascade do |t|
-    t.integer "relay_id", null: false
-    t.integer "distance"
     t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
+    t.integer "distance"
     t.integer "leg", null: false
+    t.integer "relay_id", null: false
+    t.datetime "updated_at", precision: nil
     t.index ["relay_id"], name: "index_relay_correct_estimates_on_relay_id"
   end
 
   create_table "relay_teams", id: :serial, force: :cascade do |t|
-    t.integer "relay_id", null: false
-    t.string "name", limit: 255, null: false
-    t.integer "number", null: false
     t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
+    t.string "name", limit: 255, null: false
     t.string "no_result_reason", limit: 255
+    t.integer "number", null: false
+    t.integer "relay_id", null: false
+    t.datetime "updated_at", precision: nil
     t.index ["relay_id"], name: "index_relay_teams_on_relay_id"
   end
 
   create_table "relays", id: :serial, force: :cascade do |t|
-    t.integer "race_id", null: false
-    t.integer "start_day", null: false
-    t.time "start_time"
-    t.string "name", limit: 255, null: false
-    t.integer "legs_count", null: false
     t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
+    t.integer "estimate_penalty_distance"
+    t.integer "estimate_penalty_seconds"
     t.boolean "finished", default: false, null: false
     t.integer "leg_distance"
-    t.integer "estimate_penalty_distance"
+    t.integer "legs_count", null: false
+    t.string "name", limit: 255, null: false
+    t.integer "race_id", null: false
     t.integer "shooting_penalty_distance"
-    t.integer "estimate_penalty_seconds"
     t.integer "shooting_penalty_seconds"
+    t.integer "start_day", null: false
+    t.time "start_time"
+    t.datetime "updated_at", precision: nil
     t.index ["race_id"], name: "index_relays_on_race_id"
   end
 
   create_table "rights", id: false, force: :cascade do |t|
-    t.integer "user_id", null: false
     t.integer "role_id", null: false
+    t.integer "user_id", null: false
     t.index ["user_id"], name: "index_rights_on_user_id"
   end
 
   create_table "roles", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255, null: false
     t.datetime "created_at", precision: nil
+    t.string "name", limit: 255, null: false
     t.datetime "updated_at", precision: nil
   end
 
   create_table "series", id: :serial, force: :cascade do |t|
-    t.integer "race_id", null: false
-    t.string "name", limit: 255, null: false
+    t.integer "competitors_count", default: 0, null: false
     t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.time "start_time"
+    t.integer "estimates", default: 2, null: false
+    t.boolean "finished", default: false, null: false
     t.integer "first_number"
     t.boolean "has_start_list", default: false, null: false
-    t.integer "competitors_count", default: 0, null: false
-    t.integer "start_day", default: 1, null: false
-    t.integer "estimates", default: 2, null: false
+    t.string "name", limit: 255, null: false
     t.integer "national_record"
-    t.integer "time_points_type", default: 0, null: false
     t.integer "points_method", default: 0, null: false
-    t.boolean "shorter_trip", default: false, null: false
-    t.boolean "finished", default: false, null: false
+    t.integer "race_id", null: false
     t.integer "rifle_national_record"
+    t.boolean "shorter_trip", default: false, null: false
+    t.integer "start_day", default: 1, null: false
+    t.time "start_time"
+    t.integer "time_points_type", default: 0, null: false
+    t.datetime "updated_at", precision: nil
     t.index ["race_id"], name: "index_series_on_race_id"
   end
 
   create_table "team_competition_age_groups", id: false, force: :cascade do |t|
-    t.integer "team_competition_id", null: false
     t.integer "age_group_id", null: false
+    t.integer "team_competition_id", null: false
     t.index ["team_competition_id"], name: "index_team_competition_age_groups_on_team_competition_id"
   end
 
   create_table "team_competition_series", id: false, force: :cascade do |t|
-    t.integer "team_competition_id", null: false
     t.integer "series_id", null: false
+    t.integer "team_competition_id", null: false
     t.index ["team_competition_id"], name: "index_team_competition_series_on_team_competition_id"
   end
 
   create_table "team_competitions", id: :serial, force: :cascade do |t|
-    t.integer "race_id", null: false
-    t.string "name", limit: 255, null: false
-    t.integer "team_competitor_count", null: false
     t.datetime "created_at", precision: nil
+    t.jsonb "extra_shots"
+    t.boolean "multiple_teams", default: false, null: false
+    t.string "name", limit: 255, null: false
+    t.integer "national_record"
+    t.integer "race_id", null: false
+    t.boolean "show_partial_teams", default: false, null: false
+    t.integer "team_competitor_count", null: false
     t.datetime "updated_at", precision: nil
     t.boolean "use_team_name", default: false, null: false
-    t.boolean "multiple_teams", default: false, null: false
-    t.integer "national_record"
-    t.jsonb "extra_shots"
-    t.boolean "show_partial_teams", default: false, null: false
     t.index ["race_id"], name: "index_team_competitions_on_race_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
-    t.string "first_name", limit: 255, null: false
-    t.string "last_name", limit: 255, null: false
-    t.string "email", limit: 255, null: false
-    t.string "crypted_password", limit: 255, null: false
-    t.string "password_salt", limit: 255, null: false
-    t.string "persistence_token", limit: 255, null: false
-    t.string "single_access_token", limit: 255, null: false
-    t.string "perishable_token", limit: 255, null: false
-    t.integer "login_count", default: 0, null: false
-    t.integer "failed_login_count", default: 0, null: false
-    t.datetime "last_request_at", precision: nil
-    t.datetime "current_login_at", precision: nil
-    t.datetime "last_login_at", precision: nil
-    t.string "current_login_ip", limit: 255
-    t.string "last_login_ip", limit: 255
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.string "reset_hash", limit: 255
     t.string "activation_key", limit: 255
-    t.text "invoicing_info"
     t.string "club_name"
+    t.datetime "created_at", precision: nil
+    t.string "crypted_password", limit: 255, null: false
+    t.datetime "current_login_at", precision: nil
+    t.string "current_login_ip", limit: 255
+    t.string "email", limit: 255, null: false
+    t.integer "failed_login_count", default: 0, null: false
+    t.string "first_name", limit: 255, null: false
+    t.text "invoicing_info"
+    t.datetime "last_login_at", precision: nil
+    t.string "last_login_ip", limit: 255
+    t.string "last_name", limit: 255, null: false
+    t.datetime "last_request_at", precision: nil
+    t.integer "login_count", default: 0, null: false
+    t.string "password_salt", limit: 255, null: false
+    t.string "perishable_token", limit: 255, null: false
+    t.string "persistence_token", limit: 255, null: false
+    t.string "reset_hash", limit: 255
+    t.string "single_access_token", limit: 255, null: false
+    t.datetime "updated_at", precision: nil
     t.index ["email"], name: "index_users_on_email"
   end
 
