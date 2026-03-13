@@ -665,9 +665,13 @@ class Competitor < ApplicationRecord
         nordic_score || european_score
   end
 
+  def walking_series_shooting_time
+    race.walking_series_shooting_time || 7
+  end
+
   def set_shooting_overtime_min
     return unless shooting_start_time && shooting_finish_time
-    shooting_overtime_seconds = shooting_finish_time - shooting_start_time - 7 * 60
+    shooting_overtime_seconds = shooting_finish_time - shooting_start_time - walking_series_shooting_time * 60
     if shooting_overtime_seconds > 0
       self.shooting_overtime_min = (shooting_overtime_seconds / 60).to_i + 1
     else

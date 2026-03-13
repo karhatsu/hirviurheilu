@@ -128,6 +128,6 @@ class Official::RacesController < Official::OfficialController
       :days_count, :club_level, :organizer, :home_page, :organizer_phone, :address, :shooting_place_count, :track_count,
       :start_interval_seconds, :start_order, :heat_size, :heat_interval_seconds, :public_message,
       :cancelled, :hide_qualification_round_heats, :hide_final_round_heats, :level, :nordic_sub_results_for_series,
-      :show_european_shotgun_results, :double_competition ]
+      :show_european_shotgun_results, :double_competition, :walking_series_shooting_time ]
   end
 end

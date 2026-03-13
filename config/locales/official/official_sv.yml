@@ -43,6 +43,7 @@ sv:
         competitor_organisation: Tävlandes representationsnivå
         organizer_information: Arrangörsinformation
         seconds: sekunder
+        minutes: minuter
         start_times: Starttider
         competitors_start_order_series: Klass efter klass
         competitors_start_order_mixed: Klasser blandad

@@ -56,6 +56,7 @@ class Race < ApplicationRecord
   validates :club_level, inclusion: { in: [CLUB_LEVEL_SEURA, CLUB_LEVEL_PIIRI, CLUB_LEVEL_COUNTRY] }
   validates :start_order, :inclusion => { in: [START_ORDER_BY_SERIES, START_ORDER_MIXED], message: :have_to_choose }
   validates :track_count, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
+  validates :walking_series_shooting_time, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validates :shooting_place_count, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validates :level, inclusion: { in: [LEVEL_OTHER, LEVEL_DISTRICT, LEVEL_AREA, LEVEL_NATIONAL, LEVEL_INTERNATIONAL], message: :invalid }
   validates :pending_official_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true

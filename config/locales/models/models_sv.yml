@@ -165,6 +165,7 @@ sv:
     top_competitions: Tävlingsantal för totalpoäng
     unofficial: Informella tävlande
     use_team_name: Forma lag på grund av tävlandes lagnamn
+    walking_series_shooting_time: Skyttetid för gående
 
   activerecord:
     models:

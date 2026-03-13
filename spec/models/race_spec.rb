@@ -117,6 +117,7 @@ describe Race do
     end
 
     it_should_behave_like 'positive integer', :track_count, true
+    it_should_behave_like 'positive integer', :walking_series_shooting_time, true
   end
 
   describe "associations" do

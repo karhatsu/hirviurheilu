@@ -114,6 +114,11 @@
     %p Mikäli haluat, että kaikki kilpailijat lähtevät tasaisin väliajoin, jätä kentän arvoksi 0.
     %p Lähtöeriä käytetään yleensä suuremmissa kilpailuissa, jotta esimerkiksi ammuntapaikoille ei tulisi liikaa ruuhkaa.
 
+  = render layout: 'official/shared/dialog', locals: { id: 'walking_series_shooting_time_help_dialog', title: 'Ammunta-aika' } do
+    %p
+      Hirvenhiihtelyn ja hirvikävelyn ammunta-aika on normaalisti 7 minuuttia. Ajan ylityksestä tulee pistemenetyksiä.
+      Jos kilpailussa käytetään jotain toista aika-rajaa, voit määrittää sen tämän kentän avulla.
+
   = render layout: 'official/shared/dialog', locals: { id: 'start_order_help_dialog', title: 'Kilpailijoiden lähtöjärjestys' } do
     %p Kilpailijoiden lähtöjärjestys vaikuttaa siihen, kuinka lähtölistat luodaan.
     %h3 Pääsääntöisesti sarjoittain
@@ -175,6 +180,15 @@
       .col-xs-12.col-sm-9
         = f.number_field :heat_interval_seconds, maxlength: 3, min: 1
         = t 'official.races.form.seconds'
+
+    .form__field.form__field--sm.heat_size_row.row
+      .col-xs-12.col-sm-3
+        .form__help-label
+          = f.label :walking_series_shooting_time
+          %span.help{'data-dialog': 'walking_series_shooting_time_help_dialog'} ?
+      .col-xs-12.col-sm-9
+        = f.number_field :walking_series_shooting_time, maxlength: 2, min: 1, placeholder: 7
+        = t 'official.races.form.minutes'
 
   - if @race.sport.heat_list?
     %h2= t :heat_list

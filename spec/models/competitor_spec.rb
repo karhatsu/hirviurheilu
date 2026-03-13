@@ -736,6 +736,19 @@ describe Competitor do
           end
         end
 
+        describe 'and there is custom shooting time for the race' do
+          before do
+            race = create :race, walking_series_shooting_time: 8
+            series = create :series, race: race
+            @competitor.series = series
+          end
+
+          it 'calculates overtime minutes based on custom limit' do
+            test_overtime '00:10:00', '00:17:59', 0
+            test_overtime '00:10:00', '00:18:01', 1
+          end
+        end
+
         def test_overtime(start_time, finish_time, expected_overtime_min)
           @competitor.shooting_start_time = start_time
           @competitor.shooting_finish_time = finish_time

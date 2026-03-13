@@ -165,6 +165,7 @@ fi:
     type: Tyyppi
     unofficial: Epävirallinen kilpailija
     use_team_name: Muodosta joukkueet kilpailijoiden joukkuenimien perusteella
+    walking_series_shooting_time: Hiihtelyn/kävelyn ammunta-aika
 
   activerecord:
     models:

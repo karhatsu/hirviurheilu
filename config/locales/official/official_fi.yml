@@ -43,6 +43,7 @@ fi:
         competitor_organisation: Kilpailijoiden edustustaso
         organizer_information: Järjestäjän tiedot
         seconds: sekuntia
+        minutes: minuuttia
         start_times: Lähtöajat
         competitors_start_order_series: Pääsääntöisesti sarjoittain
         competitors_start_order_mixed: Sarjat sekaisin
