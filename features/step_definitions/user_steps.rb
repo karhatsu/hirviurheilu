@@ -135,6 +135,7 @@ Given /^I have logged in$/ do
   fill_in("Sähköposti", with: @user.email)
   fill_in("Salasana", with: @user.password)
   click_button("Kirjaudu")
+  expect(page).to have_current_path('/')
   expect(page).to have_css('.menu--main', text: 'Omat tiedot')
 end
 
