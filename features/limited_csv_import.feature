@@ -20,7 +20,8 @@ Feature: Limited CSV import
     Then I should see "Valitse tiedosto" in an error message
     When I attach the import test file "import_with_invalid_structure.csv" to "CSV-tiedosto"
     And I press "Lataa kilpailijat tietokantaan"
-    Then I should see "Rivi 2 on virheellinen" in an error message
+    Then I should not see "Valitse tiedosto"
+    But I should see "Rivi 2 on virheellinen" in an error message
     When I attach the import test file "import_valid.csv" to "CSV-tiedosto"
     And I press "Lataa kilpailijat tietokantaan"
     Then I should be on the limited official competitors page for "Limited race"
