@@ -220,48 +220,6 @@ sv:
         no_competitors_info: Du har inte tillagt tävlande. När du ökar tävlande, här kan du se riktiga avtånd för all tävlande.
         start_list_required_info: Tävlande måste ha starttider så att dem kan ha riktiga avstånd som ses i den här tabellen.
         undefined: "-"
-    team_competitions:
-      all_team_competitions: Alla lagtävlingar
-      index:
-        title: Lagtävlingar
-        competitors_per_team: "%{competitors} tävlande / lag"
-        add_team_competition: Lägg till lagtävling
-        remove_team_competition_confirm: Är du säker att du vill radera den här lagtävlingen?
-      new:
-        title: Ny lagtävling
-      create:
-        team_competition_created: Lagtävling skapat
-      edit:
-        title: Redigera lagtävling
-      update:
-        team_competition_updated: Lagtävlingen uppdaterad
-      form:
-        series_age_groups:
-          three_sports_race: Klasser och/eller åldersgrupper på den här lagtävlingen
-          shooting_race: Klasser och/eller gruppar på den här lagtävlingen
-        choose_info:
-          three_sports_race: Välj alla klasser och åldersgrupper som gäller för den här lagtävlingen.
-          shooting_race: Välj alla klasser och sgruppar som gäller för den här lagtävlingen.
-        choose_info_full_series:
-          three_sports_race: Om hela klassen behör till lagtävlingen, välj klassen utan åldersgrupper.
-          shooting_race: Om hela klassen behör till lagtävlingen, välj klassen utan sgruppar.
-        choose_info_age_groups:
-          three_sports_race: Om bara någon åldersgrupp eller -gruppar behör till lagtävlingen (inte hela klassen), välj åldersgruppen (inte klassen).
-          shooting_race: Om bara någon grupp eller -gruppar behör till lagtävlingen (inte hela klassen), välj gruppen (inte klassen).
-        age_groups_title:
-          three_sports_race: Åldersgrupper
-          shooting_race: Gruppar
-        extra_round_info:
-          nordic: Du kan spara älgs omskjutning till första fältet och traps omskjutning till den andra (t.ex. 98 och 24)
-          shotgun: Du kan spara två skyttars omskjutning (t.ex. 1,1,0)
-        extra_round_placeholder1:
-          nordic: "Älg resultat, t.ex 98"
-          shotgun: "Skytt 1, t.ex: 1,0"
-        extra_round_placeholder2:
-          nordic: "Jägartrap resultat, t.ex 24"
-          shotgun: "Skytt 2, t.ex: 1,1,1"
-      destroy:
-        team_competition_removed: Lagtävlingen raderad
     finish_races:
       new:
         title: Avsluta tävlingen

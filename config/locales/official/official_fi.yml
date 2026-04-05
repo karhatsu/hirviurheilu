@@ -220,48 +220,6 @@ fi:
         no_competitors_info: Et ole lisännyt kilpailuun vielä yhtään kilpailijaa. Kun lisäät kilpailijoita, tähän ilmestyy kilpailijakohtaiset oikeat etäisyydet.
         start_list_required_info: Tallennetut oikeat etäisyydet näkyvät alla niille kilpailijoille, joille on määritetty lähtöaika.
         undefined: Ei määritetty
-    team_competitions:
-      all_team_competitions: Kaikki joukkuekilpailut
-      index:
-        title: Joukkuekilpailut
-        competitors_per_team: "%{competitors} kilpailijaa / joukkue"
-        add_team_competition: Lisää joukkuekilpailu
-        remove_team_competition_confirm: Haluatko varmasti poistaa tämän joukkuekilpailun?
-      new:
-        title: Uusi joukkuekilpailu
-      create:
-        team_competition_created: Joukkuekilpailu luotu
-      edit:
-        title: Muokkaa joukkuekilpailun tietoja
-      update:
-        team_competition_updated: Joukkuekilpailun tiedot päivitetty
-      form:
-        series_age_groups:
-          three_sports_race: Sarjat ja/tai ikäryhmät tässä joukkuekilpailussa
-          shooting_race: Sarjat ja/tai aliryhmät tässä joukkuekilpailussa
-        choose_info:
-          three_sports_race: Valitse kaikki sarjat ja ikäryhmät, jotka kuuluvat tähän joukkuekilpailuun.
-          shooting_race: Valitse kaikki sarjat ja aliryhmät, jotka kuuluvat tähän joukkuekilpailuun.
-        choose_info_full_series:
-          three_sports_race: Jos kilpailuun kuuluu kokonainen sarja, valitse kyseinen sarja ilman ikäryhmiä.
-          shooting_race: Jos kilpailuun kuuluu kokonainen sarja, valitse kyseinen sarja ilman aliryhmiä.
-        choose_info_age_groups:
-          three_sports_race: Jos kilpailuun kuuluu vain tietty ikäryhmä (ei kokonaista sarjaa), valitse kyseinen ikäryhmä (ei sarjaa).
-          shooting_race: Jos kilpailuun kuuluu vain tietty aliryhmä (ei kokonaista sarjaa), valitse kyseinen aliryhmä (ei sarjaa).
-        age_groups_title:
-          three_sports_race: Ikäryhmät
-          shooting_race: Aliryhmät
-        extra_round_info:
-          nordic: Voit tallentaa hirven uusintatuloksen ensimmäiseen kenttään ja trapin toiseen (esim. 98 ja 24)
-          shotgun: Voit tallentaa kahden eri laukojan uusintalaukaukset pilkulla erotettuina (esim. 1,1,0)
-        extra_round_placeholder1:
-          nordic: "Hirven tulos, esim. 98"
-          shotgun: "Laukoja 1, esim: 1,0"
-        extra_round_placeholder2:
-          nordic: "Trapin tulos, esim. 24"
-          shotgun: "Laukoja 2, esim: 1,1,1"
-      destroy:
-        team_competition_removed: Joukkuekilpailu poistettu
     finish_races:
       new:
         title: Kilpailun päättäminen

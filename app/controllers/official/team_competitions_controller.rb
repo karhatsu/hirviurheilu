@@ -1,46 +1,45 @@
 class Official::TeamCompetitionsController < Official::OfficialController
   before_action :assign_race_by_race_id, :check_assigned_race, :set_team_competitions
-  before_action :assign_team_competition_by_id, :only => [:edit, :update, :destroy]
+  before_action :assign_team_competition_by_id, only: [:update, :destroy]
 
   def index
-  end
-
-  def new
-    @tc = @race.team_competitions.build
+    respond_to do |format|
+      format.html do
+        use_react true
+        render layout: true, html: ''
+      end
+      format.json do
+        @team_competitions = @race.team_competitions.includes(:series, :age_groups)
+      end
+    end
   end
 
   def create
     @tc = @race.team_competitions.build(team_competition_params)
-    if @tc.save
-      flash[:success] = t('official.team_competitions.create.team_competition_created')
-      redirect_to official_race_team_competitions_path(@race)
-    else
-      render :new
+    unless @tc.save
+      render status: 400, json: { errors: @tc.errors.full_messages }
     end
-  end
-
-  def edit
   end
 
   def update
     @tc.attributes = team_competition_params
-    set_shotgun_extra_shots
-    set_nordic_extra_scores
+    set_extra_shots
     if @tc.save
       @tc.series.delete_all if params[:team_competition][:series_ids].blank?
       @tc.age_groups.delete_all if params[:team_competition][:age_group_ids].blank?
       @tc.touch unless @tc.changed?
-      flash[:success] = t('official.team_competitions.update.team_competition_updated')
-      redirect_to official_race_team_competitions_path(@race)
     else
-      render :edit
+      render status: 400, json: { errors: @tc.errors.full_messages }
     end
   end
 
   def destroy
-    @tc.destroy
-    flash[:success] = t('official.team_competitions.destroy.team_competition_removed')
-    redirect_to official_race_team_competitions_path(@race)
+    @club = Club.find(params[:id])
+    if @tc.destroy
+      render status: 201, body: nil
+    else
+      render status: 400, json: { errors: @tc.errors.full_messages }
+    end
   end
 
   private
@@ -61,35 +60,24 @@ class Official::TeamCompetitionsController < Official::OfficialController
     )
   end
 
-  def set_shotgun_extra_shots
-    return if params[:extra_shots_club_id].blank?
-    club_ids = params[:extra_shots_club_id].map(&:to_i)
+  def set_extra_shots
+    return if params[:extra_shots].blank?
     @tc.extra_shots = []
-    club_ids.each_with_index do |club_id, i|
-      if club_id > 0
-        shots1 = convert_shots params[:extra_shots1][i]
-        shots2 = convert_shots params[:extra_shots2][i]
-        unless shots1.empty? && shots2.empty?
-          @tc.extra_shots << { "club_id" => club_id, "shots1" => shots1, "shots2" => shots2 }
-        end
-      end
-    end
-  end
-
-  def set_nordic_extra_scores
-    return if params[:extra_scores_club_id].blank?
-    club_ids = params[:extra_scores_club_id].map(&:to_i)
-    @tc.extra_shots = []
-    club_ids.each_with_index do |club_id, i|
-      if club_id > 0
-        score1 = params[:extra_score1][i].to_i
-        score2 = params[:extra_score2][i].to_i
-        @tc.extra_shots << { "club_id" => club_id, "score1" => score1, "score2" => score2 }
+    params[:extra_shots].each do |extra_shots|
+      shots1 = convert_shots extra_shots[:shots1]
+      shots2 = convert_shots extra_shots[:shots2]
+      score1 = extra_shots[:score1]
+      score2 = extra_shots[:score2]
+      if shots1.present? || shots2.present?
+        @tc.extra_shots << { "club_id" => extra_shots[:club_id].to_i, "shots1" => shots1, "shots2" => shots2 }
+      elsif score1.present? || score2.present?
+        @tc.extra_shots << { "club_id" => extra_shots[:club_id].to_i, "score1" => score1.to_i, "score2" => score2.to_i }
       end
     end
   end
 
   def convert_shots(shots_field)
+    return [] if shots_field.blank?
     shots_field.split(',').map(&:strip).map(&:to_i)
   end
 end

@@ -101,6 +101,7 @@ const reactPages = [
   'shootingByHeats',
   'shootingBySeries',
   'startList',
+  'teamCompetitions',
   'times',
 ]
 

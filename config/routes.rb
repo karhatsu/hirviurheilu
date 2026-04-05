@@ -135,7 +135,7 @@ Hirviurheilu::Application.routes.draw do
         get 'export/success' => 'exports#success'
         get 'export/error' => 'exports#error'
         resources :relays
-        resources :team_competitions
+        resources :team_competitions, only: [:index, :create, :update, :destroy]
         resources :csv_imports
         resource :start_list
         resource :csv_export
