@@ -122,6 +122,7 @@ const TeamCompetitionForm = ({ errors, initialData, onCancel, onSave, race, titl
                   type="checkbox"
                   checked={data.seriesIds.includes(series.id)}
                   onChange={onSeriesCheckboxChange(series.id)}
+                  disabled={series.ageGroups.find((ag) => data.ageGroupIds.includes(ag.id))}
                 />
                 {series.name}
               </label>
@@ -131,6 +132,7 @@ const TeamCompetitionForm = ({ errors, initialData, onCancel, onSave, race, titl
                     type="checkbox"
                     checked={data.ageGroupIds.includes(ageGroup.id)}
                     onChange={onAgeGroupCheckboxChange(ageGroup.id)}
+                    disabled={data.seriesIds.includes(series.id)}
                   />
                   {ageGroup.name}
                 </label>
