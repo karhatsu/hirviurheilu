@@ -21,7 +21,7 @@ import RaceEventRaces from './RaceEventRaces'
 const msToStart = (start) => (start ? new Date(start).getTime() - new Date().getTime() : Number.MAX_SAFE_INTEGER)
 
 const findFirstNotStarted = (seriesOrRelays) =>
-  seriesOrRelays
+  [...seriesOrRelays]
     .sort((a, b) => {
       return a.startTime?.localeCompare(b.startTime)
     })
