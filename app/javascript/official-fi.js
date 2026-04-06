@@ -197,6 +197,7 @@ window.officialTranslations = {
   saveAndToQuickSave: 'Tallenna ja siirry tulosten pikasyöttöön',
   saved: 'Tallennettu',
   selectAll: 'Valitse kaikki',
+  selectAllSeries: 'Valitse kaikki sarjat',
   selectClubOrAddNew: 'Valitse {{clubLabel}} tai lisää uusi',
   selectHeat: 'Valitse erä',
   shootingScoreInput: 'Ammunta yhteensä',

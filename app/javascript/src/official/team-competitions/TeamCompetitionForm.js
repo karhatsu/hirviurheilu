@@ -20,6 +20,12 @@ const TeamCompetitionForm = ({ errors, initialData, onCancel, onSave, race, titl
     [],
   )
 
+  const selectAllSeries = useCallback(() => {
+    setData((prev) => {
+      return { ...prev, seriesIds: race.series.map((series) => series.id), ageGroupIds: [] }
+    })
+  }, [race])
+
   const onSeriesCheckboxChange = useCallback(
     (seriesId) => () => {
       setData((prev) => {
@@ -114,6 +120,7 @@ const TeamCompetitionForm = ({ errors, initialData, onCancel, onSave, race, titl
         </Dialog>
         <h3>{t(`teamCompetitionSeries${raceTypeKeySuffix}`)}</h3>
         <Message type="info">{t(`teamCompetitionSeriesInfo${raceTypeKeySuffix}`)}</Message>
+        <Button onClick={selectAllSeries}>{t('selectAllSeries')}</Button>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginTop: 16 }}>
           {race.series.map((series) => (
             <div key={series.id} style={{ display: 'flex', gap: '6px 8px', flexWrap: 'wrap' }}>

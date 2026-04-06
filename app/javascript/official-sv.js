@@ -198,6 +198,7 @@ window.officialTranslations = {
   saveAndToQuickSave: 'Spara och gå till resultatsidan',
   saved: 'Sparat',
   selectAll: 'Välj alla',
+  selectAllSeries: 'Välj alla klasser',
   selectClubOrAddNew: 'Välj {{clubLabel}} eller lägg till en ny',
   selectHeat: 'Välj heat',
   shootingScoreInput: 'Skottstotal',
