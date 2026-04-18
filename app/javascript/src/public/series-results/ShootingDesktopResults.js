@@ -68,7 +68,12 @@ export default function ShootingDesktopResults({ race, series }) {
                 </td>
                 <td className="center total-points">
                   <TotalScore noResultReason={noResultReason} totalScore={totalScore} />
-                  <NationalRecord race={race} series={series} competitor={competitor} />
+                  <NationalRecord
+                    race={race}
+                    series={series}
+                    competitor={competitor}
+                    bestResult={competitors[0].totalScore}
+                  />
                 </td>
                 {showExtraShots && (
                   <td className={resultClassName}>

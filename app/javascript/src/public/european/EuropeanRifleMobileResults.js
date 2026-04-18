@@ -91,7 +91,14 @@ export default function EuropeanRifleMobileResults({ race, series, competitors }
             </div>
             <div className="card__main-value">
               <TotalScore noResultReason={noResultReason} totalScore={europeanRifleScore} />
-              {series && <EuropeanRifleNationalRecord race={race} series={series} competitor={competitor} />}
+              {series && (
+                <EuropeanRifleNationalRecord
+                  race={race}
+                  series={series}
+                  competitor={competitor}
+                  bestResult={competitors[0].europeanRifleScore}
+                />
+              )}
             </div>
           </>
         )

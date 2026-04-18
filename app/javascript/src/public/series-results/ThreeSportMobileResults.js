@@ -67,7 +67,12 @@ export default function ThreeSportMobileResults({ race, series }) {
             </div>
             <div className="card__main-value">
               <Points competitor={competitor} />
-              <NationalRecord race={race} series={series} competitor={competitor} />
+              <NationalRecord
+                race={race}
+                series={series}
+                competitor={competitor}
+                bestResult={competitors[0].totalScore}
+              />
             </div>
           </>
         )

@@ -67,7 +67,12 @@ export default function NordicMobileResults({ race, series }) {
             </div>
             <div className="card__main-value">
               <TotalScore noResultReason={noResultReason} totalScore={totalScore} />
-              <NationalRecord race={race} series={series} competitor={competitor} />
+              <NationalRecord
+                race={race}
+                series={series}
+                competitor={competitor}
+                bestResult={competitors[0].totalScore}
+              />
             </div>
           </>
         )

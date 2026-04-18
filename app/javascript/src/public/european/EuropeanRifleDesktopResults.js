@@ -100,7 +100,14 @@ export default function EuropeanRifleDesktopResults({ race, series, competitors 
                 </td>
                 <td className="center total-points">
                   <TotalScore noResultReason={noResultReason} totalScore={europeanRifleScore} />
-                  {series && <EuropeanRifleNationalRecord race={race} series={series} competitor={competitor} />}
+                  {series && (
+                    <EuropeanRifleNationalRecord
+                      race={race}
+                      series={series}
+                      competitor={competitor}
+                      bestResult={competitors[0].europeanRifleScore}
+                    />
+                  )}
                 </td>
                 {extraShots && (
                   <td>

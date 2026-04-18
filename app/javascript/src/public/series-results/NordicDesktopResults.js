@@ -78,7 +78,12 @@ export default function NordicDesktopResults({ race, series }) {
                 </td>
                 <td className="center total-points">
                   <TotalScore noResultReason={noResultReason} totalScore={totalScore} penalty={shootingRulesPenalty} />
-                  <NationalRecord race={race} series={series} competitor={competitor} />
+                  <NationalRecord
+                    race={race}
+                    series={series}
+                    competitor={competitor}
+                    bestResult={competitors[0].totalScore}
+                  />
                 </td>
                 {extraShots && <td>{nordicExtraScore}</td>}
               </>

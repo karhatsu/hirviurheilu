@@ -1,7 +1,7 @@
 import NationalRecord from '../series-results/NationalRecord'
 
-export default function EuropeanRifleNationalRecord({ race, series, competitor }) {
+export default function EuropeanRifleNationalRecord({ race, series, competitor, bestResult }) {
   const rifleSeries = { ...series, nationalRecord: series.rifleNationalRecord }
   const rifleCompetitor = { ...competitor, totalScore: competitor.europeanRifleScore }
-  return <NationalRecord race={race} series={rifleSeries} competitor={rifleCompetitor} />
+  return <NationalRecord race={race} series={rifleSeries} competitor={rifleCompetitor} bestResult={bestResult} />
 }
