@@ -468,7 +468,7 @@ DEPENDENCIES
   wkhtmltopdf-heroku
 
 RUBY VERSION
-  ruby 4.0.2
+  ruby 4.0.4
 
 BUNDLED WITH
-  4.0.9
+  4.0.11

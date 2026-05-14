@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '4.0.2'
+ruby '4.0.4'
 
 gem 'rails', '8.1.3'
 gem 'jquery-rails'
