@@ -34,6 +34,9 @@ const ShootingByHeatsPage = () => {
     return allCompetitors?.filter((competitor) => {
       const { qualificationRoundHeatId, finalRoundHeatId } = competitor
       return qualificationRoundHeatId === heat.id || finalRoundHeatId === heat.id
+    }).sort((a, b) => {
+      if (heat.finalRound) return a.finalRoundTrackPlace - b.finalRoundTrackPlace
+      return a.qualificationRoundTrackPlace - b.qualificationRoundTrackPlace
     })
   }, [allCompetitors, heat])
 
