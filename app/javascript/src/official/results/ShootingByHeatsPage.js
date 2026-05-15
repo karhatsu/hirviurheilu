@@ -83,6 +83,8 @@ const ShootingByHeatsPage = () => {
                   competitor={competitor}
                   sport={race.sport}
                   limit={heat.finalRound ? limits.final : limits.qr}
+                  withTrackPlace={true}
+                  finalRound={heat.finalRound}
                 />
               </div>
             ))}

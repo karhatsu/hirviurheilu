@@ -31,7 +31,7 @@ export const limits = {
   final: 2,
 }
 
-const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport, limit }) => {
+const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport, limit, withTrackPlace, finalRound }) => {
   const { t } = useTranslation()
   const { raceId } = useParams()
   const fields = useMemo(() => buildFields(sport), [sport])
@@ -75,7 +75,15 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport, limit 
 
   const idPrefix = `shots-shot-${competitor.id}`
   return (
-    <ResultRow competitor={competitor} errors={errors} result={score} saved={saved} saving={saving}>
+    <ResultRow
+      competitor={competitor}
+      errors={errors}
+      result={score}
+      saved={saved}
+      saving={saving}
+      withTrackPlace={withTrackPlace}
+      finalRound={finalRound}
+    >
       <form className="form form--inline" onSubmit={onSubmit}>
         {!limit && <div className="form__subtitle">{t('qualificationRound')}</div>}
         {(!limit || limit === limits.qr) && (

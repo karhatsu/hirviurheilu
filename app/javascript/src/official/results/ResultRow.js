@@ -2,14 +2,12 @@ import Spinner from '../../common/Spinner'
 import Message from '../../common/Message'
 import useTranslation from '../../util/useTranslation'
 
-const ResultRow = ({ children, competitor, errors, result, saved, saving, seriesName, withTrackPlace }) => {
+const ResultRow = ({ children, competitor, errors, result, saved, saving, seriesName, withTrackPlace, finalRound }) => {
   const { t } = useTranslation()
-  const { firstName, lastName, qualificationRoundTrackPlace, noResultReason, number } = competitor
+  const { finalRoundTrackPlace, firstName, lastName, qualificationRoundTrackPlace, noResultReason, number } = competitor
   const seriesNameText = seriesName ? ` (${seriesName})` : ''
-  const trackPlaceText =
-    withTrackPlace && qualificationRoundTrackPlace
-      ? `, ${t('trackPlace').toLocaleLowerCase()}: ${qualificationRoundTrackPlace}`
-      : ''
+  const trackPlace = finalRound ? finalRoundTrackPlace : qualificationRoundTrackPlace
+  const trackPlaceText = withTrackPlace && trackPlace ? `, ${t('trackPlace').toLocaleLowerCase()}: ${trackPlace}` : ''
   return (
     <div className="card">
       <div className="card__number">#{number}</div>
