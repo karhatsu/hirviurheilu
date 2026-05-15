@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-./run_all_tests.sh
+./run-all-tests.sh
 git push production main
 heroku run rake db:migrate --app hirviurheilu
 heroku restart --app hirviurheilu

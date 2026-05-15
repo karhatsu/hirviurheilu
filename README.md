@@ -24,4 +24,4 @@
 ### Tests
 
 * `RAILS_ENV=test bin/rails db:schema:load`
-* `./run_all_tests.sh`
+* `./run-all-tests.sh`
