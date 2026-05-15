@@ -126,6 +126,10 @@ Then /^(?:|I )should see "([^"]*)"$/ do |text|
   expect(page).to have_text(text)
 end
 
+Then /^(?:|I )should see "([^"]*)" or "([^"]*)"$/ do |text1, text2|
+  expect(page).to have_text(/#{Regexp.escape(text1)}|#{Regexp.escape(text2)}/)
+end
+
 Then /^(?:|I )should not see "([^"]*)"$/ do |text|
   expect(page).to have_no_text(text)
 end
