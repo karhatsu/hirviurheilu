@@ -7,16 +7,16 @@ const ResultRow = ({ children, competitor, errors, result, saved, saving, series
   const { finalRoundTrackPlace, firstName, lastName, qualificationRoundTrackPlace, noResultReason, number } = competitor
   const seriesNameText = seriesName ? ` (${seriesName})` : ''
   const trackPlace = finalRound ? finalRoundTrackPlace : qualificationRoundTrackPlace
-  const trackPlaceText = withTrackPlace && trackPlace ? `, ${t('trackPlace').toLocaleLowerCase()}: ${trackPlace}` : ''
+  const numberText = `#${number}`
   return (
     <div className="card">
-      <div className="card__number">#{number}</div>
+      <div className="card__number">{withTrackPlace ? trackPlace : numberText}</div>
       <div className="card__middle">
         <div className="card__name">
           <span>
             {lastName} {firstName}
             {seriesNameText}
-            {trackPlaceText}
+            {withTrackPlace ? ' ' + numberText : ''}
           </span>
           {saving && <Spinner />}
           {errors && (
