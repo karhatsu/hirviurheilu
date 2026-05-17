@@ -76,7 +76,12 @@ const CompetitorRow = ({ race, availableSeries, competitor: initialCompetitor, o
     (changed || clubName !== initialClubName) &&
     clubName &&
     !saving &&
-    !fields.find((f) => !['ageGroupId', 'clubId'].includes(f.key) && !data[f.key])
+    !fields.find((f) => {
+      if (f.key === 'ageGroupId' || f.key === 'clubId') return false
+      const value = data[f.key]
+      if (f.key === 'number') return !value && value !== 0
+      return !value
+    })
 
   return (
     <div className="form__horizontal-fields competitor_row">
