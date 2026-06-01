@@ -23,8 +23,9 @@
   .buttons
     = link_to t('.add_new_event'), new_official_event_path, class: 'button button--add'
   .row
-    - @events.each do |event|
-      .col-xs-12.col-sm-6.col-md-4
+    - events_limit = @events.length > 12 ? 'events' : nil
+    - @events.each_with_index do |event, index|
+      .col-xs-12.col-sm-6.col-md-4{class: events_limit, style: events_limit && index >= 6 ? 'display: none' : ''}
         %a.card{href: official_event_path(event)}
           .card__middle
             .card__name
@@ -34,6 +35,7 @@
                 .card__middle-row #{race_date_interval(race, false)}, #{race.name}
               - elsif i == 1
                 .card__middle-row= t '.races_total', count: event.races.size
+  = render partial: 'show_all', locals: { id: events_limit, competitions: @events, limit: 12 }
   %h2
     %i.material-icons-outlined.md-18 today
     = t 'home.show.upcoming_competitions'
