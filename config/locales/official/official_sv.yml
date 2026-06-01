@@ -10,6 +10,7 @@ sv:
         new_competition: Ny tävling
         events: Evenemang
         add_new_event: Lägg till ett evenemang
+        races_total: Totalt %{count} tävlingar
         add_new_race: Lägg till en tävling
         add_multiple_races: Lägg till många tävlingar
         add_new_cup: Lägg till en cup-tävling

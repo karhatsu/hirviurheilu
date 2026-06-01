@@ -141,26 +141,26 @@ describe User do
 
   describe '#events' do
     let(:user) { create(:user) }
-    let!(:event1) { create(:event, name: 'Own 1') }
-    let!(:event2) { create(:event, name: 'Own 2') }
-    let!(:event3) { create(:event, name: 'Not own') }
-    let(:race1) { create(:race, event: event1) }
-    let(:race2) { create(:race, event: event1) }
-    let(:race3) { create(:race, event: event2) }
-    let(:race4) { create(:race) }
-    let!(:race5) { create(:race, event: event3) }
+    let(:event1) { create(:event, name: 'Own 1') }
+    let(:event2) { create(:event, name: 'Own 2') }
+    let(:event3) { create(:event, name: 'Not own') }
+    let!(:race1) { create(:race, event: event1, start_date: 2.days.ago) }
+    let!(:race2) { create(:race, event: event1, start_date: Date.yesterday) }
+    let!(:race3) { create(:race, event: event2, start_date: Date.today) }
+    let!(:race4) { create(:race) }
+    let!(:race5) { create(:race, event: event3, start_date: Date.tomorrow) }
     let(:admin) { create(:user) }
 
     before do
       admin.add_admin_rights
     end
 
-    it 'returns the events that belong to the user' do
+    it 'returns the events that belong to the user ordered by descending race start dates' do
       user.races << race1
       user.races << race2
       user.races << race3
       user.races << race4
-      expect(user.events.map{|e| e.name}).to eql ['Own 1', 'Own 2']
+      expect(user.events.map{|e| e.name}).to eql [event2.name, event1.name]
     end
 
     it 'does not return event if user has only partial rights to it' do
@@ -169,8 +169,8 @@ describe User do
       expect(user.events).to eql []
     end
 
-    it 'returns all events for admin' do
-      expect(admin.events.count).to eql 3
+    it 'returns all events for admin and sorts by descending race start dates' do
+      expect(admin.events.map{|e| e.name}).to eql [event3.name, event2.name, event1.name]
     end
   end
 

@@ -55,8 +55,18 @@ class User < ApplicationRecord
   end
 
   def events
-    return Event.all if admin?
-    race_rights.select {|rr| !rr.only_add_competitors && rr.race&.event }.map {|rr| rr.race.event}.uniq
+    if admin?
+      Event.includes(:races)
+           .sort_by { |event| event.races.last&.start_date || Date.current }
+           .reverse
+    else
+      Event.joins(races: :race_rights)
+           .where(race_rights: { user_id: id, only_add_competitors: [false, nil] })
+           .distinct
+           .includes(:races)
+           .sort_by { |event| event.races.last&.start_date || Date.current }
+           .reverse
+    end
   end
 
   def find_event(id, includes = nil)

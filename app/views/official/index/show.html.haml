@@ -29,6 +29,11 @@
           .card__middle
             .card__name
               = event.name
+            - event.races.each_with_index do |race, i|
+              - if (event.races.size <= 2 && i < 2) || i < 1
+                .card__middle-row #{race_date_interval(race, false)}, #{race.name}
+              - elsif i == 1
+                .card__middle-row= t '.races_total', count: event.races.size
   %h2
     %i.material-icons-outlined.md-18 today
     = t 'home.show.upcoming_competitions'
