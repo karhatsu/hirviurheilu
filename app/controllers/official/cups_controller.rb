@@ -48,11 +48,11 @@ class Official::CupsController < Official::OfficialController
   private
 
   def assign_races_for_new
-    @races = current_user.races.where('start_date>=?', 1.year.ago)
+    @races = current_user.races.where('start_date>=?', 6.months.ago)
   end
 
   def assign_races_for_edit
-    @races = (current_user.races.where('start_date>=?', 1.year.ago) + @cup.races)
+    @races = (current_user.races.where('start_date>=?', 6.months.ago) + @cup.races)
                .uniq {|r| r.id}
                .sort {|a, b| b.start_date <=> a.start_date}
   end
