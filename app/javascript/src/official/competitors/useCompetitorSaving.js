@@ -41,6 +41,7 @@ const useCompetitorSaving = (raceId, initialCompetitor, fields, buildBody, onSav
   const [data, setData] = useState(() => initData(fields, initialCompetitor))
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setData(initData(fields, competitor))
   }, [fields, competitor])
 

@@ -81,7 +81,7 @@ export const ResultRotationProvider = ({ children }) => {
     if (started) {
       statusRef.current.nextPath = resolveNextPath()
       if (statusRef.current.nextPath) {
-        setRemainingSeconds(seconds) // eslint-disable-line react-hooks/set-state-in-effect
+        setRemainingSeconds(seconds)
         interval = setInterval(() => {
           setRemainingSeconds((secs) => Math.max(0, secs - 1))
         }, 1000)
