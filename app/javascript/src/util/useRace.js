@@ -16,7 +16,7 @@ export const RaceProvider = ({ children, official }) => {
   const fetchRaceRef = useRef(undefined)
 
   const racePath = useMemo(() => {
-    if (location.pathname.startsWith('/official/limited')) return `/official/limited/races/${raceId}.json`
+    if (location.pathname.indexOf('/official/limited') !== -1) return `/official/limited/races/${raceId}.json`
     if (official) return `/official/races/${raceId}.json`
     return `/api/v2/public/races/${raceId}?no_competitors=true`
   }, [location, official, raceId])
