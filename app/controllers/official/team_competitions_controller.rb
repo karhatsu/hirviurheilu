@@ -34,7 +34,6 @@ class Official::TeamCompetitionsController < Official::OfficialController
   end
 
   def destroy
-    @club = Club.find(params[:id])
     if @tc.destroy
       render status: 201, body: nil
     else
